@@ -3,12 +3,17 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const mongoose = require('mongoose');
 
 const router = require('./routes/index');
 const cabinetRouter = require('./routes/cabinet');
 const adminRouter = require('./routes/admin');
 
 const app = express();
+
+mongoose.connect('mongodb://localhost:27017/liceumDb', { useNewUrlParser: true })
+  .then(onResolved)
+  .catch(onRejected);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -39,5 +44,13 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   // res.render('error');
 });
+
+function onResolved() {
+	console.log('Connectd to DB');	
+};
+
+function onRejected(err) {
+	console.log('DB connection error: ', err);	
+}
 
 module.exports = app;

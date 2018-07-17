@@ -10,11 +10,14 @@
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
+    "mongoose": "^5.2.3",
     "morgan": "~1.9.0",
     "pug": "2.0.0-beta11"
   },
   "devDependencies": {
     "grunt": "^1.0.3",
-    "nodemon": "^1.18.2"
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-express-server": "^0.5.4"
   }
 }
