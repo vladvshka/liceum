@@ -12,9 +12,10 @@ module.exports = function (grunt) {
 			dist: {
 				files: [{
 					expand: true,
-					cwd: 'public/stylesheets',
-					src: ['*.scss'],
-					dest: 'public/stylesheets',
+					flatten: true,
+					cwd: 'frontend-src/',
+					src: ['**/*.scss'],
+					dest: 'public/css',
 					ext: '.css'
 				}]
 			}
@@ -28,7 +29,7 @@ module.exports = function (grunt) {
 				tasks: ['sass']
 			},
 			scripts: {
-				files: ['**/*.js'],
+				files: ['routes/**/*.js', '*.js'],
 				tasks: ['express:dev'],
 				options: {
 					livereload: true,

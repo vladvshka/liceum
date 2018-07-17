@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const settingsSchema = new Schema({
-    googleAnalyticsToken: String
-});
+function define(mongoose, fn) {
+    const settingsSchema = new Schema({
+        googleAnalyticsToken: String
+    });
 
-const Setting = mongoose.model('Setting', settingsSchema);
+    mongoose.model('Setting', settingsSchema);
+	fn();
+}
 
-module.exports = Setting;
+exports.define = define;
