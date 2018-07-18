@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 function openConnection() {
     mongoose.connect('mongodb://localhost:27017/lyceumDb', {
-        useNewUrlParser: true
-    })
-    .then(onResolved)
-    .catch(onRejected);
-    
+            useNewUrlParser: true
+        })
+        .then(onResolved)
+        .catch(onRejected);
+
     return mongoose.connection;
 }
 

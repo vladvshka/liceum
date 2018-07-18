@@ -4,5 +4,23 @@ html
     title= title
     link(rel='stylesheet', href='/css/index.css')
   body
-    h1= title
-    p Welcome to #{title}
+    header
+      h1= title
+      p Welcome to #{title}
+      navigation
+        .link
+          a(href="/admin") Admin
+        .link
+          a(href="/cabinet") Cabinet
+
+    main
+      if contentBlocks !== undefined && contentBlocks.length !== 0
+        each block in contentBlocks
+          .content-block
+            h4= `header: ${block.header}`
+            h5= `menuHeader: ${block.menuHeader}`
+            p= `body: ${block.body}`
+            p= `visible: ${block.visible}`
+            p= `order: ${block.order}`
+            p= `created: ${block.created}`
+            p= `updated: ${block.updated}`

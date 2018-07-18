@@ -1,4 +1,31 @@
 body {
-  background-color: whitesmoke; }
+  background-color: whitesmoke;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.content-block {
+  margin-right: 30px;
+  margin-bottom: 30px;
+  background-color: #f7d4aa;
+  border-radius: 20px;
+  box-shadow: 0 0 1em 0.25em rgba(0, 0, 0, 0.5);
+  padding: 15px;
+}
+
+navigation {
+  font-size: 1.5em;
+}
 
 /*# sourceMappingURL=index.css.map */

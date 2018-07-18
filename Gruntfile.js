@@ -29,7 +29,7 @@ module.exports = function (grunt) {
 				tasks: ['sass']
 			},
 			scripts: {
-				files: ['routes/**/*.js', '*.js'],
+				files: ['routes/**/*.js', 'controllers/*.js', '*.js'],
 				tasks: ['express:dev'],
 				options: {
 					livereload: true,

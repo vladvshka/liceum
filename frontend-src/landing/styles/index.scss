@@ -1,3 +1,32 @@
+$simple-shadow: rgba(0, 0, 0, 0.5);
+$content-block: rgb(247, 212, 170);
+
 body {
     background-color: whitesmoke;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.content-block {
+    margin-right: 30px;   
+    margin-bottom: 30px;
+    background-color: $content-block;
+    border-radius: 20px;
+    box-shadow: 0 0 1em 0.25em $simple-shadow;
+    padding: 15px;
+}
+
+navigation {
+    font-size: 1.5em;
 }

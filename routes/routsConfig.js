@@ -5,12 +5,12 @@ const indexRouter = require('./index');
 const contentBlocksRouter = require('./adminApi/contentBlocks');
 const adminApiRouter = [contentBlocksRouter];
 
-function routesConfig (app) {
+function routesConfig(app) {
     app.use('/', indexRouter);
     app.use('/cabinet', cabinetRouter);
     app.use('/admin', adminRouter);
 
-    adminApiRouter.forEach(function(route) {
+    adminApiRouter.forEach(function (route) {
         app.use('/admin/api', route);
     });
 

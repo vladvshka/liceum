@@ -14,23 +14,23 @@ const connection = openConnection();
 
 function getContentBlocks(req, res, next) {
     contentBlockModel.find({})
-        .then(function(docs){
+        .then(function (docs) {
             res.status(200).send(docs);
         })
-        .catch(function(err) {
+        .catch(function (err) {
             console.error(err);
             res.send('DB receiving entries error');
         });
 }
 
 function getContentBlock(req, res, next) {
-    const blockId = req.params.id.toString(); 
+    const blockId = req.params.id.toString();
 
     contentBlockModel.findById(blockId)
-        .then(function(doc){
+        .then(function (doc) {
             res.status(200).send(doc);
         })
-        .catch(function(err) {
+        .catch(function (err) {
             console.error(err);
             res.send('DB receiving entry by id error');
         });
@@ -38,6 +38,8 @@ function getContentBlock(req, res, next) {
 
 function postContentBlock(req, res, next) {
     const contentBlock = req.body;
+    console.log(contentBlock);
+    
     const newContentBlock = new contentBlockModel(contentBlock);
 
     newContentBlock.save()
@@ -57,7 +59,9 @@ function editContentBlock(req, res, next) {
 
     update.updated = Date.now();
 
-    contentBlockModel.findOneAndUpdate(blockId, update, { new: true })
+    contentBlockModel.findOneAndUpdate(blockId, update, {
+            new: true
+        })
         .then(function (doc) {
             res.status(200).send(`Updated object: ${doc}`);
         })
@@ -68,7 +72,7 @@ function editContentBlock(req, res, next) {
 }
 
 function deleteContentBlock(req, res, next) {
-    const blockId = req.params.id.toString(); 
+    const blockId = req.params.id.toString();
 
     contentBlockModel.findOneAndRemove(blockId)
         .then(function (offer) {

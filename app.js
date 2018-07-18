@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const cors = require('cors');
 
 const routesConfig = require('./routes/routsConfig.js');
 
@@ -19,6 +20,8 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static('public'));
+//for development only
+app.use(cors());
 
 app = routesConfig(app);
 
@@ -37,7 +40,5 @@ app.use(function (err, req, res, next) {
 	res.status(err.status || 500);
 	// res.render('error');
 });
-
-
 
 module.exports = app;
