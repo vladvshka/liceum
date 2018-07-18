@@ -1,64 +1,83 @@
 const express = require('express');
 const contentBlocksRouter = express.Router();
-const mongoose = require('mongoose');
+
 const contentBlockModel = require('../../models/contentBlock');
-
-mongoose.connect('mongodb://localhost:27017/lyceumDb', {
-        useNewUrlParser: true
-    })
-    .then(onResolved)
-    .catch(onRejected);
-
+const openConnection = require('../../controllers/dbConnection');
 
 contentBlocksRouter.get('/content-blocks', getContentBlocks);
 contentBlocksRouter.get('/content-blocks/:id', getContentBlock);
 contentBlocksRouter.post('/content-blocks', postContentBlock);
 contentBlocksRouter.put('/content-blocks/:id', editContentBlock);
+contentBlocksRouter.delete('/content-blocks/:id', deleteContentBlock);
 
-
-function onResolved() {
-    console.log('Connectd to DB');
-}
-
-function onRejected(err) {
-    console.log('DB connection error: ', err);
-}
+const connection = openConnection();
 
 function getContentBlocks(req, res, next) {
-    //get all contents fromn db
-
-    res.send('JSON');
+    contentBlockModel.find({})
+        .then(function(docs){
+            res.status(200).send(docs);
+        })
+        .catch(function(err) {
+            console.error(err);
+            res.send('DB receiving entries error');
+        });
 }
 
 function getContentBlock(req, res, next) {
-    //get all contents fromn db
+    const blockId = req.params.id.toString(); 
 
-    res.send('JSON');
+    contentBlockModel.findById(blockId)
+        .then(function(doc){
+            res.status(200).send(doc);
+        })
+        .catch(function(err) {
+            console.error(err);
+            res.send('DB receiving entry by id error');
+        });
 }
 
 function postContentBlock(req, res, next) {
-    const contentBlock = req.body.contentBlock;
+    const contentBlock = req.body;
     const newContentBlock = new contentBlockModel(contentBlock);
 
     newContentBlock.save()
         .then(function (doc) {
             console.log("Saved object: ", doc);
-            mongoose.disconnect(); // отключение от базы данных
-            res.send(newContentBlock);
+            res.status(200).send(newContentBlock);
         })
         .catch(function (err) {
             console.error(err);
-            mongoose.disconnect();
             res.send('DB saving error');
         });
-
-    
 }
 
 function editContentBlock(req, res, next) {
-    //get all contents fromn db
+    const blockId = req.params.id.toString();
+    const update = req.body;
 
-    res.send('JSON');
+    update.updated = Date.now();
+
+    contentBlockModel.findOneAndUpdate(blockId, update, { new: true })
+        .then(function (doc) {
+            res.status(200).send(`Updated object: ${doc}`);
+        })
+        .catch(function (err) {
+            console.error(err);
+            res.send('DB updating error');
+        });
+}
+
+function deleteContentBlock(req, res, next) {
+    const blockId = req.params.id.toString(); 
+
+    contentBlockModel.findOneAndRemove(blockId)
+        .then(function (offer) {
+            res.status(200).send(`Deleted object: ${offer}`);
+        })
+        .catch(function (err) {
+            console.error(err);
+            res.send('DB deleting error');
+        });
 }
 
 module.exports = contentBlocksRouter;
