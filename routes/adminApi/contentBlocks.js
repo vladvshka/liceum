@@ -38,8 +38,6 @@ function getContentBlock(req, res, next) {
 
 function postContentBlock(req, res, next) {
     const contentBlock = req.body;
-    console.log(contentBlock);
-    
     const newContentBlock = new contentBlockModel(contentBlock);
 
     newContentBlock.save()
@@ -56,12 +54,13 @@ function postContentBlock(req, res, next) {
 function editContentBlock(req, res, next) {
     const blockId = req.params.id.toString();
     const update = req.body;
+    const options = {
+        new: true
+    };
 
     update.updated = Date.now();
 
-    contentBlockModel.findOneAndUpdate(blockId, update, {
-            new: true
-        })
+    contentBlockModel.findOneAndUpdate(blockId, update, options)
         .then(function (doc) {
             res.status(200).send(`Updated object: ${doc}`);
         })
