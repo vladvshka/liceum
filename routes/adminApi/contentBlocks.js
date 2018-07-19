@@ -15,24 +15,25 @@ const connection = openConnection();
 function getContentBlocks(req, res, next) {
     contentBlockModel.find({})
         .then(function (docs) {
-            res.status(200).send(docs);
+            res.status(200).json(docs);
         })
         .catch(function (err) {
             console.error(err);
-            res.send('DB receiving entries error');
+            res.status(500).send('DB receiving entries error');
         });
 }
 
 function getContentBlock(req, res, next) {
-    const blockId = req.params.id.toString();
+    const blockId = req.params.id;
+    //console.log(blockId);   
 
-    contentBlockModel.findById(blockId)
+    contentBlockModel.findById({ _id: blockId })
         .then(function (doc) {
-            res.status(200).send(doc);
+            res.status(200).json(doc);
         })
         .catch(function (err) {
             console.error(err);
-            res.send('DB receiving entry by id error');
+            res.status(500).send('DB receiving entry by id error');
         });
 }
 
@@ -42,17 +43,17 @@ function postContentBlock(req, res, next) {
 
     newContentBlock.save()
         .then(function (doc) {
-            console.log("Saved object: ", doc);
-            res.status(200).send(newContentBlock);
+            res.status(200).json(doc);
         })
         .catch(function (err) {
             console.error(err);
-            res.send('DB saving error');
+            res.status(500).send('DB saving error');
         });
 }
 
 function editContentBlock(req, res, next) {
-    const blockId = req.params.id.toString();
+    const blockId = req.params.id;
+    //console.log(blockId);
     const update = req.body;
     const options = {
         new: true
@@ -60,26 +61,28 @@ function editContentBlock(req, res, next) {
 
     update.updated = Date.now();
 
-    contentBlockModel.findOneAndUpdate(blockId, update, options)
+    contentBlockModel.findOneAndUpdate({ _id: blockId }, update, options)
         .then(function (doc) {
-            res.status(200).send(`Updated object: ${doc}`);
+            res.status(200).json(doc);
         })
         .catch(function (err) {
             console.error(err);
-            res.send('DB updating error');
+            res.status(500).send('DB updating error');
         });
 }
 
 function deleteContentBlock(req, res, next) {
-    const blockId = req.params.id.toString();
+    const blockId = req.params.id;
+    //console.log(blockId);
 
-    contentBlockModel.findOneAndRemove(blockId)
+    contentBlockModel.findOneAndRemove({ _id: blockId })
         .then(function (offer) {
-            res.status(200).send(`Deleted object: ${offer}`);
+            console.log(offer);
+            res.status(200).json(offer);
         })
         .catch(function (err) {
             console.error(err);
-            res.send('DB deleting error');
+            res.status(500).send('DB deleting error');
         });
 }
 
