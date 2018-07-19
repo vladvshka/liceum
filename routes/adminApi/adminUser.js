@@ -1,16 +1,16 @@
 const express = require('express');
-const contentBlocksRouter = express.Router();
+const adminUserRouter = express.Router();
 
-const contentBlockModel = require('../../models/contentBlock');
+const adminUserModel = require('../../models/adminUser');
 
-contentBlocksRouter.get('/content-blocks', getContentBlocks);
-contentBlocksRouter.get('/content-blocks/:id', getContentBlock);
-contentBlocksRouter.post('/content-blocks', postContentBlock);
-contentBlocksRouter.put('/content-blocks/:id', editContentBlock);
-contentBlocksRouter.delete('/content-blocks/:id', deleteContentBlock);
+adminUserRouter.get('/admin-user', getAdminUsers);
+adminUserRouter.get('/admin-user/:id', getAdminUser);
+adminUserRouter.post('/admin-user', postAdminUser);
+adminUserRouter.put('/admin-user/:id', editAdminUser);
+adminUserRouter.delete('/admin-user/:id', deleteAdminUser);
 
-function getContentBlocks(req, res, next) {
-    contentBlockModel.find({})
+function getAdminUsers(req, res, next) {
+    adminUserModel.find({})
         .then(function (docs) {
             res.status(200).json(docs);
         })
@@ -20,11 +20,11 @@ function getContentBlocks(req, res, next) {
         });
 }
 
-function getContentBlock(req, res, next) {
+function getAdminUser(req, res, next) {
     const id = req.params.id;
-    //console.log(id);   
+    //console.log(blockId);   
 
-    contentBlockModel.findById({ _id: id })
+    adminUserModel.findById({ _id: id })
         .then(function (doc) {
             res.status(200).json(doc);
         })
@@ -34,11 +34,11 @@ function getContentBlock(req, res, next) {
         });
 }
 
-function postContentBlock(req, res, next) {
-    const contentBlock = req.body;
-    const newContentBlock = new contentBlockModel(contentBlock);
+function postAdminUser(req, res, next) {
+    const adminUser = req.body;
+    const newAdminUser = new adminUserModel(adminUser);
 
-    newContentBlock.save()
+    newAdminUser.save()
         .then(function (doc) {
             res.status(200);
         })
@@ -48,17 +48,15 @@ function postContentBlock(req, res, next) {
         });
 }
 
-function editContentBlock(req, res, next) {
+function editAdminUser(req, res, next) {
     const id = req.params.id;
-    //console.log(id);
+    //console.log(blockId);
     const update = req.body;
     const options = {
         new: true
     };
 
-    update.updated = Date.now();
-
-    contentBlockModel.findOneAndUpdate({ _id: id }, update, options)
+    adminUserModel.findOneAndUpdate({ _id: id }, update, options)
         .then(function (doc) {
             res.status(200);
         })
@@ -68,11 +66,11 @@ function editContentBlock(req, res, next) {
         });
 }
 
-function deleteContentBlock(req, res, next) {
+function deleteAdminUser(req, res, next) {
     const id = req.params.id;
-    //console.log(id);
+    //console.log(blockId);
 
-    contentBlockModel.findOneAndRemove({ _id: id })
+    adminUserModel.findOneAndRemove({ _id: id })
         .then(function (offer) {
             //console.log(offer);
             if (offer) {
@@ -87,4 +85,4 @@ function deleteContentBlock(req, res, next) {
         });
 }
 
-module.exports = contentBlocksRouter;
+module.exports = adminUserRouter;

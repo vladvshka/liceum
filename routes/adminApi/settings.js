@@ -1,16 +1,16 @@
 const express = require('express');
-const contentBlocksRouter = express.Router();
+const settingsRouter = express.Router();
 
-const contentBlockModel = require('../../models/contentBlock');
+const settingsModel = require('../../models/settings');
 
-contentBlocksRouter.get('/content-blocks', getContentBlocks);
-contentBlocksRouter.get('/content-blocks/:id', getContentBlock);
-contentBlocksRouter.post('/content-blocks', postContentBlock);
-contentBlocksRouter.put('/content-blocks/:id', editContentBlock);
-contentBlocksRouter.delete('/content-blocks/:id', deleteContentBlock);
+settingsRouter.get('/settings', getAllSettings);
+settingsRouter.get('/settings/:id', getUserSettings);
+settingsRouter.post('/settings', postSettings);
+settingsRouter.put('/settings/:id', editSettings);
+settingsRouter.delete('/settings/:id', deleteSettings);
 
-function getContentBlocks(req, res, next) {
-    contentBlockModel.find({})
+function getAllSettings(req, res, next) {
+    settingsModel.find({})
         .then(function (docs) {
             res.status(200).json(docs);
         })
@@ -20,11 +20,11 @@ function getContentBlocks(req, res, next) {
         });
 }
 
-function getContentBlock(req, res, next) {
+function getUserSettings(req, res, next) {
     const id = req.params.id;
-    //console.log(id);   
+    //console.log(blockId);   
 
-    contentBlockModel.findById({ _id: id })
+    settingsModel.findById({ _id: id })
         .then(function (doc) {
             res.status(200).json(doc);
         })
@@ -34,11 +34,11 @@ function getContentBlock(req, res, next) {
         });
 }
 
-function postContentBlock(req, res, next) {
-    const contentBlock = req.body;
-    const newContentBlock = new contentBlockModel(contentBlock);
+function postSettings(req, res, next) {
+    const settings = req.body;
+    const newSettings = new settingsModel(settings);
 
-    newContentBlock.save()
+    newSettings.save()
         .then(function (doc) {
             res.status(200);
         })
@@ -48,17 +48,15 @@ function postContentBlock(req, res, next) {
         });
 }
 
-function editContentBlock(req, res, next) {
+function editSettings(req, res, next) {
     const id = req.params.id;
-    //console.log(id);
+    //console.log(blockId);
     const update = req.body;
     const options = {
         new: true
     };
 
-    update.updated = Date.now();
-
-    contentBlockModel.findOneAndUpdate({ _id: id }, update, options)
+    settingsModel.findOneAndUpdate({ _id: id }, update, options)
         .then(function (doc) {
             res.status(200);
         })
@@ -68,11 +66,11 @@ function editContentBlock(req, res, next) {
         });
 }
 
-function deleteContentBlock(req, res, next) {
+function deleteSettings(req, res, next) {
     const id = req.params.id;
-    //console.log(id);
+    //console.log(blockId);
 
-    contentBlockModel.findOneAndRemove({ _id: id })
+    settingsModel.findOneAndRemove({ _id: id })
         .then(function (offer) {
             //console.log(offer);
             if (offer) {
@@ -87,4 +85,4 @@ function deleteContentBlock(req, res, next) {
         });
 }
 
-module.exports = contentBlocksRouter;
+module.exports = settingsRouter;

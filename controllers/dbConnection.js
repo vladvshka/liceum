@@ -11,7 +11,7 @@ function openConnection() {
 }
 
 function onResolved() {
-    console.log('Connectd to DB');
+    console.log('Connected to DB');
 }
 
 function onRejected(err) {

@@ -2,9 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 const contentBlockModel = require('../models/contentBlock');
-const openConnection = require('../controllers/dbConnection');
-
-const connection = openConnection();
 
 router.get('/', getRoot);
 

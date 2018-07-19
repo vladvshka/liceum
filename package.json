@@ -19,6 +19,7 @@
     "grunt": "^1.0.3",
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-watch": "^1.1.0",
+    "grunt-exec": "^3.0.0",
     "grunt-express-server": "^0.5.4"
   }
 }

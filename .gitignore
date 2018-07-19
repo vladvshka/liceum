@@ -1,4 +1,6 @@
 node_modules
+public/admin
+public/css
 .idea
 .vscode
 .sass-cache
