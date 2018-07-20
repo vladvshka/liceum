@@ -6,7 +6,7 @@ module.exports = {
     entry: './src/app/app.js',
     mode: 'development',
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, '../../public/admin'),
         filename: 'app.bundle.js'
     },
     devServer: {
