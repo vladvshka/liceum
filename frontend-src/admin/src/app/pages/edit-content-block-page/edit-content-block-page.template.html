@@ -1,45 +1,40 @@
+
 <div class="jumbotron">
     <h1 class="display-4">Edit Content Block</h1>
 </div>
 
 <div class="container mb-4">
-    <div class="row" ng-if="$ctrl.saveSuccess">
-        <div class="col">
-            <div class="alert alert-success" role="alert">
-                Block successfully edited!
-            </div>
-        </div>
-    </div>
+    <response-service-message></response-service-message>
     <div class="row">
         <div class="col">
             <form ng-submit="$ctrl.onSave()" name="editBlockForm">
                 <div class="form-group">
                     <label for="header">Header</label>
-                    <input type="text" class="form-control" id="header" ng-model="$ctrl.item.header" autocomplete="off" required>
+                    <input type="text" class="form-control" id="header" ng-model="$ctrl.editedItem.header" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="menu-header">Menu Header</label>
-                    <input type="text" class="form-control" id="menu-header" ng-model="$ctrl.item.menuHeader" autocomplete="off" required>
+                    <input type="text" class="form-control" id="menu-header" ng-model="$ctrl.editedItem.menuHeader" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="menu-header">Body</label>
                     <div class="container-fluid p-0">
                         <div class="row">
                             <div class="col-7">
-                                <ng-quill-editor ng-model="$ctrl.item.body" required></ng-quill-editor>
+                                <ng-quill-editor ng-model="$ctrl.editedItem.body" required></ng-quill-editor>
                             </div>
                             <div class="col-5">
-                                <pre>{{$ctrl.item.body}}</pre>
+                                <pre>{{$ctrl.editedItem.body}}</pre>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="menu-header">Order</label>
-                    <input type="number" class="form-control" id="menu-header" ng-model="$ctrl.item.order" autocomplete="off">
+                    <input type="number" class="form-control" id="menu-header" ng-model="$ctrl.editedItem.order" autocomplete="off">
                 </div>
                 <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="visibility" ng-model="$ctrl.item.visible">
+                    <input type="checkbox" class="form-check-input" id="visibility" ng-model="$ctrl.editedItem.visible">
                     <label class="form-check-label" for="visibility">Visible</label>
                 </div>
                 <div class="container">

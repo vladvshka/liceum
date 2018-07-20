@@ -16,32 +16,18 @@ AddContentBlockPageController.$inject = ['dataService'];
 function AddContentBlockPageController(dataService) {
     const vm = this;
 
-    // empty object for ng-model binding
-    vm.item = {};
-    /*
-     * initializing a boolean in the object because by default
-     * ng-model in input type=checkbox doesn't do that
-     */
-    vm.item.visible = true;
+    // initialize object for ng-model binding
+    vm.item = {
+        header: '',
+        menuHeader: '',
+        body: '',
+        visible: true,
+        order: null
+    };
     
-    vm.addSuccess = false;
-    vm.addFailure = false;
-
     vm.onAdd = onAdd;
 
     function onAdd() {
-        dataService
-            .addItem(ITEM_API_NAME, vm.item)
-            .then(response => {
-                console.log(response);
-                console.log(response.status);
-                if (response.status === 200) {
-                    vm.addSuccess = true;
-                    vm.addFailure = false;
-                } else if (response.status === 500) {
-                    vm.addSuccess = false;
-                    vm.addFailure = true;
-                }
-            });
+        dataService.addItem(ITEM_API_NAME, vm.item);
     }
 }

@@ -28,7 +28,6 @@ export default function config($stateProvider, $urlRouterProvider) {
 
     function getContentBlock (dataService, $transition$) {
         const sectionId = $transition$.params().sectionId;
-        console.log(dataService.getItemById('content-blocks', sectionId));
         return dataService.getItemById('content-blocks', sectionId);
     }
 

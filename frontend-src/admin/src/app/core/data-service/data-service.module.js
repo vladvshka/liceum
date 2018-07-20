@@ -1,13 +1,14 @@
 export default angular
-    .module('core.dataService', [])
+    .module('core.dataService', ['core.responseService'])
     .factory('dataService', dataService);
 
 const BASE_URL = 'http://localhost:3000';
 const API_SECTION = 'admin';
+let BASE_API_NAME = '';
 
-dataService.$inject = ['$http'];
+dataService.$inject = ['$http', 'responseService'];
 
-function dataService ($http) {
+function dataService ($http, responseService) {
     const methods = {
         getItems,
         getItemById, 
@@ -20,56 +21,80 @@ function dataService ($http) {
 
     ////////////
 
-    function getItems(itemAPIName) {
+    function getItems(baseAPIName) {
+        BASE_API_NAME = baseAPIName;
+
         return $http({
             method: 'GET',
-            url: `${BASE_URL}/${API_SECTION}/api/${itemAPIName}`
+            url: `${BASE_URL}/${API_SECTION}/api/${BASE_API_NAME}`
         })
-            .then(response => response.data)
-            .catch(response => response);
+            .then(handleSuccess, handleError);
     };
 
-    function getItemById(itemAPIName, id) {
+    function getItemById(baseAPIName, id) {
+        BASE_API_NAME = baseAPIName;
+        
         return $http({
             method: 'GET',
-            url: `${BASE_URL}/${API_SECTION}/api/${itemAPIName}/${id}`
+            url: `${BASE_URL}/${API_SECTION}/api/${BASE_API_NAME}/${id}`
         })
-            .then(response => response.data)
-            .catch(response => response);
+            .then(handleSuccess, handleError);
     };
 
-    function addItem(itemAPIName, data) {
+    function addItem(baseAPIName, data) {
+        BASE_API_NAME = baseAPIName;
+        
         return $http({
             method: 'POST',
-            url: `${BASE_URL}/${API_SECTION}/api/${itemAPIName}`,
+            url: `${BASE_URL}/${API_SECTION}/api/${BASE_API_NAME}`,
             headers: {
                 'Content-Type': 'application/json'
             },
             data
         })
-            .then(response => response)
-            .catch(response => response);
+            .then(handleSuccess, handleError);
     };
 
-    function editItem(itemAPIName, id, data) {
+    function editItem(baseAPIName, id, data) {
+        BASE_API_NAME = baseAPIName;
+        
         return $http({
             method: 'PUT',
-            url: `${BASE_URL}/${API_SECTION}/api/${itemAPIName}/${id}`,
+            url: `${BASE_URL}/${API_SECTION}/api/${BASE_API_NAME}/${id}`,
             headers: {
                 'Content-Type': 'application/json'
             },
             data
         })
-            .then(response => response)
-            .catch(response => response);
+            .then(handleSuccess, handleError);
     };
 
-    function deleteItem(itemAPIName, id) {
+    function deleteItem(baseAPIName, id) {
+        BASE_API_NAME = baseAPIName;
+        
         return $http({
             method: 'DELETE',
-            url: `${BASE_URL}/${API_SECTION}/api/${itemAPIName}/${id}`
+            url: `${BASE_URL}/${API_SECTION}/api/${BASE_API_NAME}/${id}`
         })
-            .then(response => response)
-            .catch(response => response);
+            .then(handleSuccess, handleError);
     };
+
+    /*
+    * If response method was 'GET' we return data
+    * for subsequent handling inside components
+    * which called the corresponding dataService method
+    * else we delegate further actions to responseService
+    */
+    function handleSuccess(response) {
+        if (response.config.method === 'GET') {
+            return response.data;            
+        } else {
+            responseService.onSuccess(response, BASE_API_NAME);
+        }
+    }
+
+    function handleError(response) {
+        responseService.onError(response);
+    }
+
 };

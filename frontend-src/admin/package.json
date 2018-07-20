@@ -1,11 +1,13 @@
 {
   "name": "admin-cabinet-angularjs-webpack-workflow",
-  "version": "1.1.0",
+  "version": "1.0.1",
   "description": "Admin Cabinet for BSU Lyceum",
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "dev": "webpack-dev-server"
   },
+  "private": true,
+  "license": "MIT",
   "author": "Yury Imbro",
   "dependencies": {
     "angular": "^1.7.0",

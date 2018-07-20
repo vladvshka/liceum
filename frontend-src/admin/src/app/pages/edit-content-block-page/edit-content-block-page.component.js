@@ -14,44 +14,39 @@ EditContentBlockPageController.$inject = ['dataService'];
 
 function EditContentBlockPageController(dataService) {
     const vm = this;
+    vm.editedItem = {};
 
-    vm.saveSuccess = false;
-
+    vm.$onChanges = onChanges;
     vm.onSave = onSave;
     vm.onDelete = onDelete;
     vm.isFormSubmissionDisabled = isFormSubmissionDisabled;
 
-    console.log(vm);
-    console.log(vm.item);
-
     function onSave() {
-        console.log('on save fired');
-        const { body, header, menuHeader, visible, order, _id } = vm.item;
-        const itemData = {
-            body,
-            header,
-            menuHeader,
-            visible,
-            order
-        };
-
-        dataService
-            .editItem(ITEM_API_NAME, _id, itemData)
-            .then(response => {
-                console.log(response);
-                if (response.status === 200) {
-                    vm.saveSuccess = true;
-                }
-            });
+        dataService.editItem(ITEM_API_NAME, vm.item._id, vm.editedItem)
     }
 
     function onDelete() {
         const id = vm.item._id;
-        console.log(`i'm calling a del function with ${id}`);
-        console.log(dataService.deleteItem(ITEM_API_NAME, id));
+        dataService.deleteItem(ITEM_API_NAME, id);
     }
 
     function isFormSubmissionDisabled() {
-        return false;
+        const itemKeys = Object.keys(vm.editedItem);
+        return itemKeys.every(key => vm.editedItem[key] === vm.item[key]);
     }
+
+    function onChanges (changes) {
+        const pv = changes.item.previousValue;
+        const cv = changes.item.currentValue;
+        if (Object.keys(pv).length === 0) {
+            const { body, header, menuHeader, visible, order } = cv;
+            vm.editedItem = {
+                body,
+                header,
+                menuHeader,
+                visible,
+                order
+            };
+        }
+    };
 }

@@ -40,7 +40,7 @@ function postContentBlock(req, res, next) {
 
     newContentBlock.save()
         .then(function (doc) {
-            res.status(200);
+            res.sendStatus(200);
         })
         .catch(function (err) {
             console.error(err);
@@ -60,7 +60,7 @@ function editContentBlock(req, res, next) {
 
     contentBlockModel.findOneAndUpdate({ _id: id }, update, options)
         .then(function (doc) {
-            res.status(200);
+            res.sendStatus(200);
         })
         .catch(function (err) {
             console.error(err);
@@ -76,7 +76,7 @@ function deleteContentBlock(req, res, next) {
         .then(function (offer) {
             //console.log(offer);
             if (offer) {
-                res.status(204);
+                res.sendStatus(204);
             } else {
                 res.status(404).send("Resource doesn't exist");
             }

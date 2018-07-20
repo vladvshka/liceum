@@ -3,16 +3,7 @@
 </div>
 
 <div class="container mb-4">
-    <div class="row">
-        <div class="col">
-            <div class="alert alert-success" role="alert" ng-if="$ctrl.addSuccess">
-                New item added!
-            </div>
-            <div class="alert alert-danger" role="alert" ng-if="$ctrl.addFailure">
-                Error adding new item. Try again later.
-            </div>
-        </div>
-    </div>
+    <response-service-message></response-service-message>
     <div class="row">
         <div class="col">
             <form ng-submit="$ctrl.onAdd()" name="addNewBlockForm">
