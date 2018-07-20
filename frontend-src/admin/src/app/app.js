@@ -1,12 +1,14 @@
 import angular from 'angular';
-import uiRouter from 'angular-ui-router';
-import { dataGrid, pagination } from './plugins/angular-data-grid';
+import 'angular-ui-router';
+import './plugins/angular-data-grid/dataGrid';
+import './plugins/angular-data-grid/pagination';
 
-import quill from 'quill';
-import ngQuill from 'ng-quill';
+import 'quill';
+import 'ng-quill';
+import { ngQuillConfigConstant, ngQuillConfig } from './config/ng-quill.config';
 
-import dataService from './core/data-service/data-service.module';
-import config from './app.config';
+import './core/data-service/data-service.module';
+import config from './config/app.config';
 
 import LoginPageComponent from '../app/pages/login-page/login-page.component';
 import MainPageComponent from '../app/pages/main-page/main-page.component';
@@ -18,7 +20,7 @@ import EditContentBlockPageComponent from '../app/pages/edit-content-block-page/
 import AppNavbarComponent from '../app/components/app-navbar/app-navbar.component';
 import LoginFormComponent from '../app/components/login-form/login-form.component';
 
-import bootstrap from 'bootstrap';
+import 'bootstrap';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../style/app.css';
@@ -32,6 +34,8 @@ angular
     'core.dataService',
     'ngQuill'
   ])
+  .constant('NG_QUILL_CONFIG', ngQuillConfigConstant)
+  .config(ngQuillConfig)
   .config(config)
   .component('loginPage', LoginPageComponent)
   .component('mainPage', MainPageComponent)
@@ -40,6 +44,3 @@ angular
   .component('editContentBlockPage', EditContentBlockPageComponent)
   .component('appNavbar', AppNavbarComponent)
   .component('loginForm', LoginFormComponent);
-
-
-

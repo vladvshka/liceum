@@ -1,1 +1,8 @@
-[ng-quill-editor] { display: block; }
+[ng-quill-editor] {
+    display: block;
+}
+
+
+pre {
+    white-space: pre-wrap;
+}

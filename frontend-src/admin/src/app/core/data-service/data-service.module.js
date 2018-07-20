@@ -2,72 +2,74 @@ export default angular
     .module('core.dataService', [])
     .factory('dataService', dataService);
 
-dataService.$inject = ['$http', '$q'];
+const BASE_URL = 'http://localhost:3000';
+const API_SECTION = 'admin';
 
-function dataService($http, $q) {
+dataService.$inject = ['$http'];
 
+function dataService ($http) {
     const methods = {
-        getContentBlocks,
-        getContentBlockById,
-        editContentBlock,
-        deleteContentBlock,
-        addContentBlock
+        getItems,
+        getItemById, 
+        addItem,
+        editItem,
+        deleteItem
     };
 
     return methods;
 
     ////////////
 
-    function getContentBlocks() {
+    function getItems(itemAPIName) {
         return $http({
             method: 'GET',
-            url: 'http://localhost:3000/admin/api/content-blocks'
+            url: `${BASE_URL}/${API_SECTION}/api/${itemAPIName}`
         })
             .then(response => response.data)
-            .catch(response => console.log(response));
+            .catch(response => response);
     };
 
-    function getContentBlockById(id) {
+    function getItemById(itemAPIName, id) {
         return $http({
             method: 'GET',
-            url: `http://localhost:3000/admin/api/content-blocks/${id}`
+            url: `${BASE_URL}/${API_SECTION}/api/${itemAPIName}/${id}`
         })
             .then(response => response.data)
-            .catch(response => console.log(response));
+            .catch(response => response);
     };
 
-    function editContentBlock(id, data) {
-        return $http({
-            method: 'PUT',
-            url: `http://localhost:3000/admin/api/content-blocks/${id}`,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            data
-        })
-            .then(response => response)
-            .catch(response => console.log(response));
-    };
-
-    function deleteContentBlock(id) {
-        return $http({
-            method: 'DELETE',
-            url: `http://localhost:3000/admin/api/content-blocks/${id}`
-        })
-            .then(response => response)
-            .catch(response => console.log(response));
-    };
-
-    function addContentBlock(data) {
+    function addItem(itemAPIName, data) {
         return $http({
             method: 'POST',
-            url: 'http://localhost:3000/admin/api/content-blocks',
+            url: `${BASE_URL}/${API_SECTION}/api/${itemAPIName}`,
             headers: {
                 'Content-Type': 'application/json'
             },
             data
         })
             .then(response => response)
-            .catch(response => console.log(response));
+            .catch(response => response);
+    };
+
+    function editItem(itemAPIName, id, data) {
+        return $http({
+            method: 'PUT',
+            url: `${BASE_URL}/${API_SECTION}/api/${itemAPIName}/${id}`,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data
+        })
+            .then(response => response)
+            .catch(response => response);
+    };
+
+    function deleteItem(itemAPIName, id) {
+        return $http({
+            method: 'DELETE',
+            url: `${BASE_URL}/${API_SECTION}/api/${itemAPIName}/${id}`
+        })
+            .then(response => response)
+            .catch(response => response);
     };
 };

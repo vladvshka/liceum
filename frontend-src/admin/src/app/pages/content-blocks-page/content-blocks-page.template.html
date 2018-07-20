@@ -2,13 +2,13 @@
     <h1 class="display-4">Manage Content Blocks</h1>
 </div>
 
-<div class="container-fluid">
-    <div class="row mb-3">
+<div class="container-fluid ">
+    <div class="row">
         <div class="col">
-            <a ui-sref="addContentBlock" class="btn btn-success">Add New Content Block</a>
+            <a ui-sref="add-content-block" class="btn btn-info">Add New Content Block</a>
         </div>
     </div>
-    <div class="row">
+    <div class="row mt-4">
         <div grid-data grid-options="$ctrl.gridOptions" grid-actions="gridActions" class="col">
             <table class="table table-striped table-hover table-sm">
                 <thead>
@@ -37,11 +37,11 @@
                     <tr grid-item>
                         <td ng-bind="item.menuHeader"></td>
                         <td ng-bind="item.header"></td>
-                        <td ng-bind="item.body"></td>
+                        <td ng-bind-html="$ctrl.parseBody(item.body)"></td>
                         <td ng-bind="item.visible"></td>
                         <td ng-bind="item.order"></td>
                         <td>
-                            <a ui-sref="editContentBlock({sectionId: item._id})" class="badge badge-info">Edit</a>
+                            <a ui-sref="edit-content-block({sectionId: item._id})" class="badge badge-info">Edit</a>
                         </td>
                     </tr>
                 </tbody>

@@ -2,42 +2,51 @@
     <h1 class="display-4">Add Content Block Below</h1>
 </div>
 
-<div class="container-fluid mb-4">
-    <div class="row" ng-if="$ctrl.addSuccess">
+<div class="container mb-4">
+    <div class="row">
         <div class="col">
-            <div class="alert alert-success" role="alert">
-                New block added!
+            <div class="alert alert-success" role="alert" ng-if="$ctrl.addSuccess">
+                New item added!
+            </div>
+            <div class="alert alert-danger" role="alert" ng-if="$ctrl.addFailure">
+                Error adding new item. Try again later.
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <form ng-submit="$ctrl.onAdd()">
+            <form ng-submit="$ctrl.onAdd()" name="addNewBlockForm">
                 <div class="form-group">
                     <label for="header">Header</label>
-                    <input type="text" class="form-control" id="header" aria-describedby="emailHelp" ng-model="$ctrl.block.header" required>
+                    <input type="text" class="form-control" id="header" ng-model="$ctrl.item.header" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="menu-header">Menu Header</label>
-                    <input type="text" class="form-control" id="menu-header" ng-model="$ctrl.block.menuHeader" required>
+                    <input type="text" class="form-control" id="menu-header" ng-model="$ctrl.item.menuHeader" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="menu-header">Body</label>
-                    <div class="container-fluid p-4">
-                        <ng-quill-editor ng-model="$ctrl.block.body" required></ng-quill-editor>
+                    <div class="container-fluid p-0">
+                        <div class="row">
+                            <div class="col-7">
+                                <ng-quill-editor ng-model="$ctrl.item.body" required></ng-quill-editor>
+                            </div>
+                            <div class="col-5">
+                                <pre>{{$ctrl.item.body}}</pre>
+                            </div>
+                        </div>
                     </div>
-                    <pre>{{$ctrl.block.body}}</pre>
                 </div>
                 <div class="form-group">
                     <label for="menu-header">Order</label>
-                    <input type="text" class="form-control" id="menu-header" ng-model="$ctrl.block.order">
+                    <input type="number" class="form-control" id="menu-header" ng-model="$ctrl.item.order" autocomplete="off">
                 </div>
                 <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="visibility" ng-model="$ctrl.block.visible">
+                    <input type="checkbox" class="form-check-input" id="visibility" ng-model="$ctrl.item.visible">
                     <label class="form-check-label" for="visibility">Visible</label>
                 </div>
-                <button type="submit" class="btn btn-primary">Add New Block</button>
-                <a ui-sref="contentBlocks" class="btn btn-warning">Cancel</a>
+                <button type="submit" class="btn btn-primary" ng-disabled="addNewBlockForm.$invalid">Add Block</button>
+                <a ui-sref="content-blocks" class="btn btn-warning">Cancel</a>
             </form>
         </div>
     </div>
