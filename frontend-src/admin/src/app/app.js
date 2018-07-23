@@ -1,5 +1,6 @@
 import angular from 'angular';
 import 'angular-ui-router';
+import 'angular-ui-bootstrap';
 import './plugins/angular-data-grid/dataGrid';
 import './plugins/angular-data-grid/pagination';
 
@@ -28,11 +29,13 @@ import 'bootstrap';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../style/app.css';
+import '../style/pagination.css';
 import '../style/quill.snow.css';
 
 angular
   .module('app', [
     'ui.router',
+    'ui.bootstrap',
     'dataGrid',
     'pagination',
     'ngQuill',
