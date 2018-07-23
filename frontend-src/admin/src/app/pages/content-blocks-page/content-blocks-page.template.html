@@ -4,13 +4,57 @@
 
 <div class="container-fluid ">
     <response-service-message></response-service-message>
-    <div class="row">
+    <div class="row mb-4">
         <div class="col">
             <a ui-sref="add-content-block" class="btn btn-info">Add New Content Block</a>
         </div>
     </div>
-    <div class="row mt-4">
-        <div grid-data grid-options="$ctrl.gridOptions" grid-actions="gridActions" class="col">
+    <div class="row">
+        <div grid-data grid-options="$ctrl.gridOptions" grid-actions="gridActions" server-pagination="true" class="col">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-5 col-md-4">
+                        <div class="form-group">
+                            <label for="headerFilter">Search by Header:</label>
+                            <input id="headerFilter" type="text" class="form-control" placeholder="Enter Header..." ng-change="gridActions.filter()"
+                                ng-model="header" filter-by="header" filter-type="text">
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-4">
+                        <div class="form-group">
+                            <label for="visibilitySelect">Visibility:</label>
+                            <select name="visibilitySelect" id="visibilitySelect" class="form-control" ng-change="gridActions.filter()" ng-model="visible"
+                                filter-by="visible" filter-type="select">
+                                <option value="">All</option>
+                                <option value="true">Visible</option>
+                                <option value="false">Not visible</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-4">
+                        <div class="form-group">
+                            <label for="itemPerPageSelect">Items Per Page:</label>
+                            <select name="itemPerPageSelect" id="itemPerPageSelect" class="form-control" ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                <option value="2">2</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group d-flex justify-content-end">
+                            <grid-pagination max-size="5" boundary-links="true" total-items="paginationOptions.totalItems" ng-model="paginationOptions.currentPage"
+                                ng-change="reloadGrid()" items-per-page="paginationOptions.itemsPerPage">
+                            </grid-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>{{paginationOptions}}</div>
+
             <table class="table table-striped table-hover table-sm">
                 <thead>
                     <tr>
@@ -35,10 +79,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr grid-item>
+                    <tr ng-repeat="item in filtered | startFrom:(paginationOptions.currentPage-1)*paginationOptions.itemsPerPage | limitTo:paginationOptions.itemsPerPage track by $index">
                         <td ng-bind="item.menuHeader"></td>
                         <td ng-bind="item.header"></td>
-                        <td ng-bind-html="$ctrl.parseBody(item.body)"></td>
+                        <td ng-bind-html="parseBody(item.body)"></td>
                         <td ng-bind="item.visible"></td>
                         <td ng-bind="item.order"></td>
                         <td>
@@ -47,11 +91,6 @@
                     </tr>
                 </tbody>
             </table>
-
-            <pagination max-size="5" boundary-links="true" ng-if="$ctrl.paginationOptions.totalItems  > $ctrl.paginationOptions.itemsPerPage"
-                total-items="$ctrl.paginationOptions.totalItems" ng-model="$ctrl.paginationOptions.currentPage" ng-change="reloadGrid()"
-                items-per-page="$ctrl.paginationOptions.itemsPerPage">
-            </pagination>
         </div>
     </div>
 </div>

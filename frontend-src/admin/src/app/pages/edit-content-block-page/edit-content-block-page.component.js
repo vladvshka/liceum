@@ -22,7 +22,7 @@ function EditContentBlockPageController(dataService) {
     vm.isFormSubmissionDisabled = isFormSubmissionDisabled;
 
     function onSave() {
-        dataService.editItem(ITEM_API_NAME, vm.item._id, vm.editedItem)
+        dataService.editItem(ITEM_API_NAME, vm.item._id, vm.editedItem);
     }
 
     function onDelete() {
