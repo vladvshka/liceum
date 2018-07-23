@@ -5,10 +5,14 @@ export default {
     controller: ('ContentBlocksPageController', ContentBlocksPageController)
 };
 
-ContentBlocksPageController.$inject = ['dataService'];
+const ITEM_API_NAME = 'content-blocks';
 
-function ContentBlocksPageController(dataService) {
+ContentBlocksPageController.$inject = ['dataService', '$sce'];
+
+function ContentBlocksPageController(dataService, $sce) {
     const vm = this;
+
+    vm.parseBody = parseBody;
     
     vm.gridOptions = {
         data: []
@@ -22,7 +26,13 @@ function ContentBlocksPageController(dataService) {
     main();
 
     function main() {
-        dataService.getContentBlocks().then(data => vm.gridOptions.data = data);
+        dataService
+            .getItems(ITEM_API_NAME)
+            .then(data => vm.gridOptions.data = data);
+    }
+
+    function parseBody(body) {
+        return $sce.trustAsHtml(body);
     }
 
 }

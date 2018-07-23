@@ -6,29 +6,29 @@ export default function config($stateProvider, $urlRouterProvider) {
     }
 
     const contentBlocksPageState = {
-        name: 'contentBlocks',
-        url: '/contentBlocks',
+        name: 'content-blocks',
+        url: '/content-blocks',
         component: 'contentBlocksPage'
     }
 
     const addContentBlockPageState = {
-        name: 'addContentBlock',
-        url: '/addContentBlock',
+        name: 'add-content-block',
+        url: '/content-blocks/add',
         component: 'addContentBlockPage'
     }
 
     const editContentBlockPageState = {
-        name: 'editContentBlock',
-        url: '/contentBlocks/{sectionId}',
+        name: 'edit-content-block',
+        url: '/content-blocks/{sectionId}',
+        component: 'editContentBlockPage',
         resolve: {
-            block: getContentBlock
-        },
-        component: 'editContentBlockPage'
+            item: getContentBlock
+        }
     }
 
     function getContentBlock (dataService, $transition$) {
         const sectionId = $transition$.params().sectionId;
-        return dataService.getContentBlockById(sectionId);
+        return dataService.getItemById('content-blocks', sectionId);
     }
 
     $stateProvider.state(mainPageState);
@@ -37,6 +37,3 @@ export default function config($stateProvider, $urlRouterProvider) {
     $stateProvider.state(editContentBlockPageState);
     $urlRouterProvider.otherwise('/main');
 }
-
-
-

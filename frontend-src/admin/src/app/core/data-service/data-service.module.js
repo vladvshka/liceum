@@ -1,73 +1,100 @@
 export default angular
-    .module('core.dataService', [])
+    .module('core.dataService', ['core.responseService'])
     .factory('dataService', dataService);
 
-dataService.$inject = ['$http', '$q'];
+const BASE_URL = 'http://localhost:3000';
+const API_SECTION = 'admin';
+let BASE_API_NAME = '';
 
-function dataService($http, $q) {
+dataService.$inject = ['$http', 'responseService'];
 
+function dataService ($http, responseService) {
     const methods = {
-        getContentBlocks,
-        getContentBlockById,
-        editContentBlock,
-        deleteContentBlock,
-        addContentBlock
+        getItems,
+        getItemById, 
+        addItem,
+        editItem,
+        deleteItem
     };
 
     return methods;
 
     ////////////
 
-    function getContentBlocks() {
+    function getItems(baseAPIName) {
+        BASE_API_NAME = baseAPIName;
+
         return $http({
             method: 'GET',
-            url: 'http://localhost:3000/admin/api/content-blocks'
+            url: `${BASE_URL}/${API_SECTION}/api/${BASE_API_NAME}`
         })
-            .then(response => response.data)
-            .catch(response => console.log(response));
+            .then(handleSuccess, handleError);
     };
 
-    function getContentBlockById(id) {
+    function getItemById(baseAPIName, id) {
+        BASE_API_NAME = baseAPIName;
+        
         return $http({
             method: 'GET',
-            url: `http://localhost:3000/admin/api/content-blocks/${id}`
+            url: `${BASE_URL}/${API_SECTION}/api/${BASE_API_NAME}/${id}`
         })
-            .then(response => response.data)
-            .catch(response => console.log(response));
+            .then(handleSuccess, handleError);
     };
 
-    function editContentBlock(id, data) {
-        return $http({
-            method: 'PUT',
-            url: `http://localhost:3000/admin/api/content-blocks/${id}`,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            data
-        })
-            .then(response => response)
-            .catch(response => console.log(response));
-    };
-
-    function deleteContentBlock(id) {
-        return $http({
-            method: 'DELETE',
-            url: `http://localhost:3000/admin/api/content-blocks/${id}`
-        })
-            .then(response => response)
-            .catch(response => console.log(response));
-    };
-
-    function addContentBlock(data) {
+    function addItem(baseAPIName, data) {
+        BASE_API_NAME = baseAPIName;
+        
         return $http({
             method: 'POST',
-            url: 'http://localhost:3000/admin/api/content-blocks',
+            url: `${BASE_URL}/${API_SECTION}/api/${BASE_API_NAME}`,
             headers: {
                 'Content-Type': 'application/json'
             },
             data
         })
-            .then(response => response)
-            .catch(response => console.log(response));
+            .then(handleSuccess, handleError);
     };
+
+    function editItem(baseAPIName, id, data) {
+        BASE_API_NAME = baseAPIName;
+        
+        return $http({
+            method: 'PUT',
+            url: `${BASE_URL}/${API_SECTION}/api/${BASE_API_NAME}/${id}`,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data
+        })
+            .then(handleSuccess, handleError);
+    };
+
+    function deleteItem(baseAPIName, id) {
+        BASE_API_NAME = baseAPIName;
+        
+        return $http({
+            method: 'DELETE',
+            url: `${BASE_URL}/${API_SECTION}/api/${BASE_API_NAME}/${id}`
+        })
+            .then(handleSuccess, handleError);
+    };
+
+    /*
+    * If response method was 'GET' we return data
+    * for subsequent handling inside components
+    * which called the corresponding dataService method
+    * else we delegate further actions to responseService
+    */
+    function handleSuccess(response) {
+        if (response.config.method === 'GET') {
+            return response.data;            
+        } else {
+            responseService.onSuccess(response, BASE_API_NAME);
+        }
+    }
+
+    function handleError(response) {
+        responseService.onError(response);
+    }
+
 };
