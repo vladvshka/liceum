@@ -29,31 +29,34 @@ function getContentBlocks(req, res, next) {
 		visible: req.query.visible
 	};
 
-	const findQuery = contentBlockModel.find(); //save query
+	const findQuery = contentBlockModel.find();
+	const countQuery = contentBlockModel.countDocuments();
 
-	filteredSearch(queryParams, filterFields, res, findQuery);
+	filteredSearch(queryParams, filterFields, res, findQuery, countQuery);
 }
 
-function filteredSearch(queryParams, filterFields, res, findQuery) {
+function filteredSearch(queryParams, filterFields, res, findQuery, countQuery) {
 	for (filter in filterFields) {
 
 		if (filterFields[filter]) {
 			const findFilter = {};
-			findFilter[filter] = filterFields[filter];
 
+			if (filter === 'header') {
+				findFilter[filter] = new RegExp(filterFields[filter], 'i');
+			} else {
+				findFilter[filter] = filterFields[filter];
+			}
 			findQuery.find(findFilter);
 		}
 	}
-
-	const countQuery = findQuery;
 
 	findQuery
 		.sort(queryParams.sortDirection + queryParams.sortField)
 		.skip(queryParams.itemsPerPage * (queryParams.page - 1))
 		.limit(queryParams.itemsPerPage);
-	//.populate('profile');
+	//.populate('profile');	
 
-	Promise.all([findQuery.exec(), countQuery.countDocuments().exec()])
+	Promise.all([findQuery.exec(), countQuery.exec()])
 		.then(function ([first, second]) {
 			const data = {
 				items: first,
