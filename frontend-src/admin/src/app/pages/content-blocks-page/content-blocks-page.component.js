@@ -7,32 +7,32 @@ export default {
 
 const ITEM_API_NAME = 'content-blocks';
 
-ContentBlocksPageController.$inject = ['dataService', '$sce'];
+ContentBlocksPageController.$inject = ['$scope', 'dataService', '$sce'];
 
-function ContentBlocksPageController(dataService, $sce) {
+function ContentBlocksPageController($scope, dataService, $sce) {
     const vm = this;
 
     vm.parseBody = parseBody;
-    
+
     vm.gridOptions = {
-        data: []
-    }
-
-    vm.paginationOptions = {
-        totalItems: vm.gridOptions.data.length,
-        itemsPerPage: 2
-    }
-
-    main();
-
-    function main() {
-        dataService
-            .getItems(ITEM_API_NAME)
-            .then(data => vm.gridOptions.data = data);
-    }
+        data: [],
+        urlSync: true,
+        getData: getServerData
+    };
 
     function parseBody(body) {
         return $sce.trustAsHtml(body);
     }
 
+    function getServerData(params, callback) {
+        console.log('***calling getServerData fn; params below***');
+        console.log(params);
+        console.log('***end params***');
+
+        dataService
+            .getItems(ITEM_API_NAME)
+            .then(data => {
+                callback(data, data.length);
+            });
+    }
 }
