@@ -1,5 +1,10 @@
 body {
-  background-color: whitesmoke;
+  font: 300 16px "Trebuchet MS", sans-serif;
+  background-image: url(https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 header {
@@ -9,23 +14,23 @@ header {
   margin-bottom: 30px;
 }
 
+navigation {
+  font-size: 1.5em;
+}
+
 main {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
 
-.content-block {
+section {
   margin-right: 30px;
   margin-bottom: 30px;
   background-color: #f7d4aa;
   border-radius: 20px;
   box-shadow: 0 0 1em 0.25em rgba(0, 0, 0, 0.5);
   padding: 15px;
-}
-
-navigation {
-  font-size: 1.5em;
 }
 
 /*# sourceMappingURL=index.css.map */

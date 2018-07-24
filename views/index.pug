@@ -16,7 +16,7 @@ html
     main
       if contentBlocks !== undefined && contentBlocks.length !== 0
         each block in contentBlocks
-          .content-block
+          section
             h4= `header: ${block.header}`
             h5= `menuHeader: ${block.menuHeader}`
             p= `body: ${block.body}`
