@@ -43,17 +43,20 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col">
+                    <div class="col-lg-5 col-md-4">
+                        <div class="alert alert-secondary" role="alert">
+                            <strong>{{paginationOptions.totalItems}}</strong> items total
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-8">
                         <div class="form-group d-flex justify-content-end">
                             <grid-pagination max-size="5" boundary-links="true" total-items="paginationOptions.totalItems" ng-model="paginationOptions.currentPage"
-                                ng-change="reloadGrid()" items-per-page="paginationOptions.itemsPerPage">
+                                ng-change="reloadGrid()" items-per-page="paginationOptions.itemsPerPage" class="m-0">
                             </grid-pagination>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div>{{paginationOptions}}</div>
 
             <table class="table table-striped table-hover table-sm">
                 <thead>
@@ -68,7 +71,7 @@
                             Body
                         </th>
                         <th sortable="visible" class="sortable">
-                            Visibile?
+                            Visible?
                         </th>
                         <th sortable="order" class="sortable">
                             Order
@@ -79,10 +82,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="item in filtered | startFrom:(paginationOptions.currentPage-1)*paginationOptions.itemsPerPage | limitTo:paginationOptions.itemsPerPage track by $index">
+                    <tr ng-repeat="item in filtered">
                         <td ng-bind="item.menuHeader"></td>
                         <td ng-bind="item.header"></td>
-                        <td ng-bind-html="parseBody(item.body)"></td>
+                        <td ng-bind-html="$ctrl.parseBody(item.body)"></td>
                         <td ng-bind="item.visible"></td>
                         <td ng-bind="item.order"></td>
                         <td>

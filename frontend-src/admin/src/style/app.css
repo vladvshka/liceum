@@ -6,3 +6,23 @@
 pre {
     white-space: pre-wrap;
 }
+
+.sortable {
+    cursor: pointer;
+}
+
+.sortable:after {
+    display: inline-block;
+    width: 10px;
+    content: '\2B65';
+}
+
+.sortable.sort-ascent:after {
+    content: '\1F823';
+    vertical-align: bottom;
+}
+
+.sortable.sort-descent:after {
+    content: "\1F821";
+    vertical-align: top;
+}
