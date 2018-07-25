@@ -1,11 +1,13 @@
 const express = require('express');
-const router = express.Router();
-const path = require("path");
+const cabinetRouter = express.Router();
+const path = require('path');
 
-router.get('/', function (req, res, next) {
+cabinetRouter.get('/', getCabinet);
+
+function getCabinet(req, res, next) {
     const token = req.cookies;
+    //console.log('gggg');
+    res.sendFile(path.join(__dirname, '../public/cabinet/index.html'));
+}
 
-    res.sendFile(path.join(__dirname, '../public/cabinetLogin/index.html'));
-});
-
-module.exports = router;
+module.exports = cabinetRouter;
