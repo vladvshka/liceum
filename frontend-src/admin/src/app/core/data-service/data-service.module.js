@@ -11,7 +11,8 @@ dataService.$inject = ['$http', 'responseService'];
 function dataService ($http, responseService) {
     const methods = {
         getItems,
-        getItemById, 
+        getItemById,
+        getFilteredItems,
         addItem,
         editItem,
         deleteItem
@@ -34,9 +35,19 @@ function dataService ($http, responseService) {
     function getItemById(baseAPIName, id) {
         BASE_API_NAME = baseAPIName;
         
-        return $http({
+                return $http({
             method: 'GET',
             url: `${BASE_URL}/${API_SECTION}/api/${BASE_API_NAME}/${id}`
+        })
+            .then(handleSuccess, handleError);
+    };
+
+    function getFilteredItems(baseAPIName, params) {
+        BASE_API_NAME = baseAPIName;
+
+        return $http({
+            method: 'GET',
+            url: `${BASE_URL}/${API_SECTION}/api/${BASE_API_NAME}${params}`
         })
             .then(handleSuccess, handleError);
     };

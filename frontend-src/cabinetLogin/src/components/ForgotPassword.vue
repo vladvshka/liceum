@@ -1,31 +1,20 @@
 <template>
-<div>
-    <v-card>
+<v-card>
         <v-card-title primary-title>
-            <h3 v-if="sendEmail" class="headline mb-0">Забыли пароль?</h3>
-            <h3 v-else class="headline mb-0">Письмо отправлено на адрес: {{ emailConfirm }}</h3>
+            <h3 class="headline mb-0">Забыли пароль?</h3>
         </v-card-title>
-        <div v-if="sendEmail">
-            <v-card-text>
-                <v-form>
-                    <v-text-field prepend-icon="person" name="emailConfirm" label="Ваш e-mail адрес" type="text" v-model="emailConfirm" hint="Мы пришлем вам ссылку для смены пароля." :rules="[rules.required, rules.email]"></v-text-field>
-                </v-form>
-            </v-card-text>
-            <v-card-actions>
-                <v-btn flat color="primary" href="#/">
-                    Уже есть аккаунт?
-                </v-btn>
-                <v-spacer></v-spacer>
-                <v-btn :disabled="isEmailInvalid" @click="sendEmail = !sendEmail" color="primary">Сбросить пароль</v-btn>
-            </v-card-actions>
-        </div>
-        <v-card-actions v-else>
-            <v-btn flat color="primary" href="#/">
-                Назад
+        <v-card-text>
+            <v-form>
+                <v-text-field prepend-icon="person" name="emailConfirm" label="Ваш e-mail адрес" type="text" v-model="emailConfirm" hint="Мы пришлем вам ссылку для смены пароля." :rules="[rules.required, rules.email]"></v-text-field>
+            </v-form>
+        </v-card-text>
+        <v-card-actions>
+            <v-btn block flat color="primary" href="#/">
+                Уже есть аккаунт?
             </v-btn>
+            <v-btn block :disabled="isEmailInvalid" @click="emailConfirmStatus = !emailConfirmStatus" :loading="emailConfirmStatus" color="success">Сбросить пароль</v-btn>
         </v-card-actions>
-    </v-card>
-</div>
+</v-card>
 </template>
 
 <script>
@@ -34,7 +23,7 @@ export default {
 		return {
 			isEmailInvalid: true,
 			emailConfirm: "",
-			sendEmail: true,
+			emailConfirmStatus: false,
 			rules: {
 				required: value => !!value || "Заполните поле!",
 				email: value => {
