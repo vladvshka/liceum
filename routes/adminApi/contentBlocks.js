@@ -30,12 +30,13 @@ function getContentBlocks(req, res, next) {
 	};
 
 	const findQuery = contentBlockModel.find();
-	const countQuery = contentBlockModel.countDocuments();
+	const countQuery = contentBlockModel.find();
 
 	filteredSearch(queryParams, filterFields, res, findQuery, countQuery);
 }
 
 function filteredSearch(queryParams, filterFields, res, findQuery, countQuery) {
+
 	for (filter in filterFields) {
 
 		if (filterFields[filter]) {
@@ -47,6 +48,7 @@ function filteredSearch(queryParams, filterFields, res, findQuery, countQuery) {
 				findFilter[filter] = filterFields[filter];
 			}
 			findQuery.find(findFilter);
+			countQuery.find(findFilter).countDocuments();
 		}
 	}
 

@@ -1,5 +1,6 @@
 node_modules
 public/admin
+public/cabinetLogin
 public/css
 .idea
 .vscode

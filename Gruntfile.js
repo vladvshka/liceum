@@ -3,7 +3,7 @@ module.exports = function (grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		exec: {
 			install: {
-				cmd: 'npm install && cd ./frontend-src/admin && npm install && npm run build'
+				cmd: 'npm install && cd ./frontend-src/admin && npm install && npm run build && cd ../cabinetLogin && npm install && npm run build'
 			}
 		},
 		express: {
