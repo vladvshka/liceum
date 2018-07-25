@@ -35,18 +35,18 @@ function EditContentBlockPageController(dataService) {
         return itemKeys.every(key => vm.editedItem[key] === vm.item[key]);
     }
 
-    function onChanges (changes) {
+    function onChanges(changes) {
         const pv = changes.item.previousValue;
         const cv = changes.item.currentValue;
+        /*
+        * onChanges should only fire once because of 1 binded property
+        * which is sent here via Angular UI Router route resolve,
+        * but just to be sure we check for uninitialized previous value
+        */
         if (Object.keys(pv).length === 0) {
-            const { body, header, menuHeader, visible, order } = cv;
-            vm.editedItem = {
-                body,
-                header,
-                menuHeader,
-                visible,
-                order
-            };
+            vm.editedItem = { ...cv };
+            // DB-related default fields which should not be sent back to the server
+            ['created', 'updated', '__v', '_id'].forEach(prop => delete vm.editedItem[prop]);
         }
     };
 }
