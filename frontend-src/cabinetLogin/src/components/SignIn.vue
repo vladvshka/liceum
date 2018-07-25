@@ -15,7 +15,7 @@
             </v-form>
         </v-card-text>
         <v-card-actions>
-            <v-btn flat color="primary">
+            <v-btn href="#/forgotPassword" flat color="primary">
                 Забыли пароль?
             </v-btn>
             <v-spacer></v-spacer>
