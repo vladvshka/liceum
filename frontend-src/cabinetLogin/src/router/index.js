@@ -4,7 +4,7 @@ import Router from 'vue-router'
 import SignInView from '@/components/SignIn'
 import SignUpView from '@/components/SignUp'
 import ForgotPasswordView from "@/components/ForgotPassword"
-import EmailConfirmView from "@/components/EmailConfirm"
+import EmailConfirm from "@/components/EmailConfirm"
 
 Vue.use(Router)
 
@@ -15,19 +15,24 @@ export default new Router({
       component: SignInView
     },
     {
-      path: '/signup',
+      path: '/sign-up',
       name: 'SignUp',
       component: SignUpView
     },
     {
-      path: "/forgotPassword",
+      path: "/forgot-password",
       name: "ForgotPassword",
       component: ForgotPasswordView
     },
     {
-      path: "/emailConfirm",
-      name: "EmailConfirm",
-      component: EmailConfirmView
+      path: "/email-sign-up-confirm",
+      name: "EmailSignUpConfirm",
+      component: EmailConfirm
+    },
+    {
+      path: "/email-forgot-password-confirm",
+      name: "EmailForgotPasswordConfirm",
+      component: EmailConfirm
     }
   ]
 })

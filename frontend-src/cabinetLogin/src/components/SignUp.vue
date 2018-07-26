@@ -1,5 +1,6 @@
 <template>
 <v-card>
+		<loading-indicator :loading="confirmEmailStatus"></loading-indicator>
 		<v-card-media src="http://lyceum.by/img/logo.png" contain height="100px"></v-card-media>
 		<v-card-title primary-title>
 			<h3 class="headline">Создание нового аккаунта</h3>
@@ -16,7 +17,7 @@
 			<v-btn block flat color="primary" href="#/">
 				Уже есть аккаунт?
 			</v-btn>
-			<v-btn block color="success" :disabled="toggleButton" @click="signUp" :loading="confirmEmailStatus">
+			<v-btn block color="success" :disabled="toggleButton" @click="signUp">
 				Зарегистрироваться
 			</v-btn>
 		</v-card-actions>
