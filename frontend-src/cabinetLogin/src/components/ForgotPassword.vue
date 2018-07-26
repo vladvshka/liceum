@@ -1,5 +1,6 @@
 <template>
 <v-card>
+		<loading-indicator :loading="emailConfirmStatus"></loading-indicator>
         <v-card-title primary-title>
             <h3 class="headline mb-0">Забыли пароль?</h3>
         </v-card-title>
@@ -12,7 +13,7 @@
             <v-btn block flat color="primary" href="#/">
                 Уже есть аккаунт?
             </v-btn>
-            <v-btn block :disabled="isEmailInvalid" @click="emailConfirmStatus = !emailConfirmStatus" :loading="emailConfirmStatus" color="success">Сбросить пароль</v-btn>
+            <v-btn block :disabled="isEmailInvalid" @click="emailConfirmStatus = !emailConfirmStatus" color="success">Сбросить пароль</v-btn>
         </v-card-actions>
 </v-card>
 </template>
