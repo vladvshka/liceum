@@ -11,6 +11,7 @@ ContentBlocksPageController.$inject = ['$scope', 'dataService', '$sce'];
 
 function ContentBlocksPageController($scope, dataService, $sce) {
     const vm = this;
+    console.log('Controller creation');
 
     vm.parseBody = parseBody;
 
@@ -25,14 +26,10 @@ function ContentBlocksPageController($scope, dataService, $sce) {
     }
 
     function getServerData(params, callback) {
-        console.log('***calling getServerData fn; params below***');
-        console.log(params);
-        console.log('***end params***');
-
+        //debugger;
+        console.log('get server data called');
         dataService
-            .getItems(ITEM_API_NAME)
-            .then(data => {
-                callback(data, data.length);
-            });
+            .getFilteredItems(ITEM_API_NAME, params)
+            .then(data => callback(data.items, data.count));
     }
 }
