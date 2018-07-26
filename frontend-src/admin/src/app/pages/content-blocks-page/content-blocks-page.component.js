@@ -26,7 +26,7 @@ function ContentBlocksPageController($scope, dataService, $sce) {
     }
 
     function getServerData(params, callback) {
-        debugger;
+        //debugger;
         console.log('get server data called');
         dataService
             .getFilteredItems(ITEM_API_NAME, params)
