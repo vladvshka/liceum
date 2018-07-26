@@ -11,10 +11,10 @@
         </v-form>
     </v-card-text>
     <v-card-actions>
-        <v-btn block href="#/forgotPassword" flat color="primary">
+        <v-btn block href="#/forgot-password" flat color="primary">
             Забыли пароль?
         </v-btn>
-        <v-btn block color="primary" href="#/signup">Регистрация</v-btn>
+        <v-btn block color="primary" href="#/sign-up">Регистрация</v-btn>
         <v-btn block color="success" @click="signInUser">Войти</v-btn>
     </v-card-actions>
 </v-card>
