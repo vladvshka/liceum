@@ -75,7 +75,7 @@ export default {
 		signUp: function() {
 			this.confirmEmailStatus = !this.confirmEmailStatus;
 			var sendObj = {
-				login: this.email,
+				email: this.email,
 				password: this.password
 			};
 			console.log(sendObj);

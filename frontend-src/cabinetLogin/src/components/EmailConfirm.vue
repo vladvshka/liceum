@@ -45,8 +45,11 @@ export default {
 	},
 	beforeRouteEnter(to, from, next) {
 		api.checkCookie().then(response => {
-			this.email = response.data;
-			next();
+			// console.log(response);
+			// console.log(response.data);
+			next(vm => {
+				vm.email = response.data;
+			});
 		});
 	}
 };

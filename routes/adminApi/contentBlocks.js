@@ -115,12 +115,7 @@ function editContentBlock(req, res, next) {
 	update.updated = Date.now();
 
 	contentBlockModel
-		.findOneAndUpdate({
-				_id: id
-			},
-			update,
-			options
-		)
+		.findByIdAndUpdate(id, update, options)
 		.then(function (doc) {
 			res.sendStatus(200);
 		})
@@ -134,9 +129,7 @@ function deleteContentBlock(req, res, next) {
 	const id = req.params.id;
 
 	contentBlockModel
-		.findOneAndRemove({
-			_id: id
-		})
+		.findByIdAndRemove(id)
 		.then(function (offer) {
 			if (offer) {
 				res.sendStatus(204);
