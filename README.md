@@ -5,11 +5,13 @@ Run:
 npm install -g sass
 2) install MongoDB:
 https://www.mongodb.com/download-center?jmp=nav#community
-3) install GUI like:
+3) install DB-GUI like:
 https://robomongo.org/
-4) install project:
+4) install main packages:
+npm install
+5) install project from this moment:
 grunt install
-5) run project:
+6) run project:
 grunt dev
 
 

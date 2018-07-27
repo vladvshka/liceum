@@ -107,7 +107,6 @@ function postContentBlock(req, res, next) {
 
 function editContentBlock(req, res, next) {
 	const id = req.params.id;
-	//console.log(id);
 	const update = req.body;
 	const options = {
 		new: true
@@ -133,14 +132,12 @@ function editContentBlock(req, res, next) {
 
 function deleteContentBlock(req, res, next) {
 	const id = req.params.id;
-	//console.log(id);
 
 	contentBlockModel
 		.findOneAndRemove({
 			_id: id
 		})
 		.then(function (offer) {
-			//console.log(offer);
 			if (offer) {
 				res.sendStatus(204);
 			} else {
