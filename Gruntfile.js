@@ -34,7 +34,7 @@ module.exports = function (grunt) {
 				tasks: ['sass']
 			},
 			scripts: {
-				files: ['routes/**/*.js', 'controllers/*.js', '*.js'],
+				files: ['routes/**/*.js', 'controllers/*.js', '*.js', 'models/*.js'],
 				tasks: ['express:dev'],
 				options: {
 					livereload: true,

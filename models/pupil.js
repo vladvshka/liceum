@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const config = require('../config');
+const makeHash = require('object-hash');
 const Schema = mongoose.Schema;
 
 const pupilSchema = new Schema({
@@ -6,24 +9,51 @@ const pupilSchema = new Schema({
 		type: String,
 		required: true
 	},
-	hashedPassword: {
+	password: {
 		type: String,
 		required: true
 	},
-	salt: {
+	status: {
 		type: String,
-		required: true
+		default: "virgin"
+	},
+	confirmationUrl: {
+		type: String
 	},
 	created: {
 		type: Date,
 		default: Date.now
-	},
-	status: String,
-	resetPasswordToken: String,
-	resetPasswordExpires: Date,
-	confirmMailToken: String,
-	examStatus: String
+	}
 });
+
+pupilSchema.pre('save', function (next) {
+	const pupil = this;
+	const password = pupil.password;
+	pupil.confirmationUrl = makeHash({
+		password: pupil.password,
+		email: pupil.email
+	});
+
+	bcrypt.hash(password, config.saltRounds, function (err, hash) {
+		if (err) {
+			console.error(err);
+		} else {
+			pupil.password = hash;
+
+			next();
+		}
+	});
+});
+
+pupilSchema.methods.comparePasswords = function (candidatePassword, cb) {
+	bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
+		if (err) {
+			cb(err);
+		} else {
+			cb(null, isMatch);
+		}
+	});
+}
 
 const pupilModel = mongoose.model('Pupil', pupilSchema);
 
@@ -36,7 +66,7 @@ function define(mongoose, fn) {
             type: String,
             required: true
         },
-        hashedPassword: {
+        password: {
             type: String,
             required: true
         },

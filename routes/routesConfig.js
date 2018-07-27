@@ -1,6 +1,7 @@
 const adminRouter = require('./admin');
 const cabinetRouter = require('./cabinet');
 const indexRouter = require('./index');
+const loginApiRouter = require('./loginApi/login');
 
 const contentBlocksRouter = require('./adminApi/contentBlocks');
 const settingsRouter = require('./adminApi/settings');
@@ -12,14 +13,11 @@ function routesConfig(app) {
     app.use('/', indexRouter);
     app.use('/cabinet', cabinetRouter);
     app.use('/admin', adminRouter);
+    app.use('/login/api', loginApiRouter);
 
     adminApiRouter.forEach(function (route) {
         app.use('/admin/api', route);
     });
-
-    // cabinetApiRouter.forEach(function (route) {
-    //     app.use('/cabinet/api', route);
-    // });
 }
 
 module.exports = routesConfig;
