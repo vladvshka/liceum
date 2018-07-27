@@ -17,41 +17,45 @@ const pupilSchema = new Schema({
 		type: String,
 		default: "virgin"
 	},
+	confirmationUrl: {
+		type: String
+	},
 	created: {
 		type: Date,
 		default: Date.now
-	},
-	url: {
-		type: String
 	}
 });
 
-pupilSchema.methods.comparePasswords = function (candidatePassword, cb) {
-	bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
-		if (err) {
-			return cb(err);
-		} else {
-			cb(null, isMatch);
-		}
-	});
-}
-
-pupilSchema.pre('save', preSave);
-const pupilModel = mongoose.model('Pupil', pupilSchema);
-
-function preSave() {
+pupilSchema.pre('save', function (next) {
 	const pupil = this;
 	const password = pupil.password;
-	pupil.url = makeHash(pupil);
+	pupil.confirmationUrl = makeHash({
+		password: pupil.password,
+		email: pupil.email
+	});
 
 	bcrypt.hash(password, config.saltRounds, function (err, hash) {
 		if (err) {
 			console.error(err);
 		} else {
 			pupil.password = hash;
+
+			next();
+		}
+	});
+});
+
+pupilSchema.methods.comparePasswords = function (candidatePassword, cb) {
+	bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
+		if (err) {
+			cb(err);
+		} else {
+			cb(null, isMatch);
 		}
 	});
 }
+
+const pupilModel = mongoose.model('Pupil', pupilSchema);
 
 module.exports = pupilModel;
 

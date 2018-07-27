@@ -3,7 +3,7 @@ const cabinetRouter = express.Router();
 const path = require("path");
 
 cabinetRouter.get('/', function (req, res, next) {
-    res.sendFile(path.join(__dirname, '../public/cabinet/index.html'));
+    res.sendFile(path.join(__dirname, '../../public/cabinet/index.html'));
 
 });
 
