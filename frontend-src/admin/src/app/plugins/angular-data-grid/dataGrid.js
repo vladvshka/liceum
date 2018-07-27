@@ -12,7 +12,7 @@
                 return [];
             }
         })
-        .controller('gridController', ['$scope', '$rootScope', '$element', '$filter', '$location', 'filtersFactory', function ($scope, $rootScope, $element, $filter, $location, filtersFactory) {
+        .controller('gridController', ['$scope', '$rootScope', '$element', '$filter', '$location', 'filtersFactory', '$timeout', function ($scope, $rootScope, $element, $filter, $location, filtersFactory, $timeout) {
             // values by default
             $scope._gridOptions = $scope.$eval($element.attr('grid-options'));
             $scope._gridActions = $scope.$eval($element.attr('grid-actions'));
@@ -36,6 +36,12 @@
             $scope.sortOptions = $scope._gridOptions.sort ? angular.copy($scope._gridOptions.sort) : {};
             $scope.customFilters = $scope._gridOptions.customFilters ? angular.copy($scope._gridOptions.customFilters) : {};
             $scope.urlSync = $scope._gridOptions.urlSync;
+
+            /*
+            * ************* WARNING !!! *************
+            * Dirty hack to start grid up when there is no $stateChangeSuccess event on page load
+            */
+            $timeout(() => onChangeStateOrLocation(), 0);
 
             $scope.$watchCollection('_gridOptions.data', function (newValue) {
                 if (newValue && newValue.length > -1) {
@@ -71,11 +77,11 @@
             };
 
             $scope.$on('$locationChangeSuccess', function () {
-                onChangeStateOrLocation()
+                onChangeStateOrLocation();
             });
 
             $scope.$on("$stateChangeSuccess", function (event, toState) {
-                onChangeStateOrLocation()
+                onChangeStateOrLocation();
             });
 
             $scope.reloadGrid = function (isDefaultSort) {
@@ -90,6 +96,8 @@
             $scope._gridActions.refresh = $scope.reloadGrid;
             $scope._gridActions.filter = $scope.filter;
             $scope._gridActions.sort = $scope.sort;
+
+            $scope._gridActions.reload = onChangeStateOrLocation;
 
             function onChangeStateOrLocation(){
                 if ($scope.urlSync || $scope.serverPagination) {

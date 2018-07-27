@@ -8,7 +8,7 @@ let BASE_API_NAME = '';
 
 dataService.$inject = ['$http', 'responseService'];
 
-function dataService ($http, responseService) {
+function dataService($http, responseService) {
     const methods = {
         getItems,
         getItemById,
@@ -34,8 +34,8 @@ function dataService ($http, responseService) {
 
     function getItemById(baseAPIName, id) {
         BASE_API_NAME = baseAPIName;
-        
-                return $http({
+
+        return $http({
             method: 'GET',
             url: `${BASE_URL}/${API_SECTION}/api/${BASE_API_NAME}/${id}`
         })
@@ -54,7 +54,7 @@ function dataService ($http, responseService) {
 
     function addItem(baseAPIName, data) {
         BASE_API_NAME = baseAPIName;
-        
+
         return $http({
             method: 'POST',
             url: `${BASE_URL}/${API_SECTION}/api/${BASE_API_NAME}`,
@@ -68,7 +68,7 @@ function dataService ($http, responseService) {
 
     function editItem(baseAPIName, id, data) {
         BASE_API_NAME = baseAPIName;
-        
+
         return $http({
             method: 'PUT',
             url: `${BASE_URL}/${API_SECTION}/api/${BASE_API_NAME}/${id}`,
@@ -82,7 +82,7 @@ function dataService ($http, responseService) {
 
     function deleteItem(baseAPIName, id) {
         BASE_API_NAME = baseAPIName;
-        
+
         return $http({
             method: 'DELETE',
             url: `${BASE_URL}/${API_SECTION}/api/${BASE_API_NAME}/${id}`
@@ -98,9 +98,9 @@ function dataService ($http, responseService) {
     */
     function handleSuccess(response) {
         if (response.config.method === 'GET') {
-            return response.data;            
+            return response.data;
         } else {
-            responseService.onSuccess(response, BASE_API_NAME);
+            responseService.onSuccess(response, `${BASE_API_NAME}-list`);
         }
     }
 
