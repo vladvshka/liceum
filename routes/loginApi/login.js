@@ -12,6 +12,14 @@ loginApiRouter.get("/email-confirm", repeatEmail);
 loginApiRouter.get("/check-cookie", checkCookie);
 loginApiRouter.get("/email-verified", checkCookie);
 
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'youremail@gmail.com',
+        pass: 'yourpassword'
+    }
+});
+
 function signUp(req, res, next) {
     const pupil = req.body;
     const email = pupil.email;
@@ -151,7 +159,7 @@ function forgotPassword(req, res, next) {
             update
         )
         .then(function (doc) {
-            //send email
+            //send email with decrypted password
             res.status(200).json(email);
         })
         .catch(function (err) {
