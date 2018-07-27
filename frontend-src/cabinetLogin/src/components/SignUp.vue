@@ -1,32 +1,32 @@
 <template>
 <v-card>
-		<loading-indicator :loading="confirmEmailStatus"></loading-indicator>
-		<v-card-media src="http://lyceum.by/img/logo.png" contain height="100px"></v-card-media>
-		<v-card-title primary-title>
-			<h3 class="headline">Создание нового аккаунта</h3>
-		</v-card-title>
-		<v-card-text>
-			<v-form>
-				<v-text-field prepend-icon="person" name="login" label="Логин (e-mail)" v-model="email" :rules="[rules.required, rules.email]">
-				</v-text-field>
-				<v-text-field prepend-icon="lock" name="password" label="Пароль" type="password" v-model="password" :rules="[rules.required, rules.validatePassword]"></v-text-field>
-				<v-text-field prepend-icon="lock" name="password" label="Подтвердите пароль" type="password" v-model="confirmPassword" :rules="[rules.required, rules.validatePassword]"></v-text-field>
-			</v-form>
-		</v-card-text>
-		<v-card-actions>
-			<v-btn block flat color="primary" href="#/">
-				Уже есть аккаунт?
-			</v-btn>
-			<v-btn block color="success" :disabled="toggleButton" @click="signUp">
-				Зарегистрироваться
-			</v-btn>
-		</v-card-actions>
+    <loading-indicator :loading="confirmEmailStatus"></loading-indicator>
+    <v-card-media src="http://lyceum.by/img/logo.png" contain height="100px"></v-card-media>
+    <v-card-title primary-title>
+        <h3 class="headline">Создание нового аккаунта</h3>
+    </v-card-title>
+    <v-card-text>
+        <v-form>
+            <v-text-field prepend-icon="person" name="login" label="Логин (e-mail)" v-model="email" :rules="[rules.required, rules.email]">
+            </v-text-field>
+            <v-text-field prepend-icon="lock" name="password" label="Пароль" type="password" v-model="password" :rules="[rules.required, rules.validatePassword]"></v-text-field>
+            <v-text-field prepend-icon="lock" name="password" label="Подтвердите пароль" type="password" v-model="confirmPassword" :rules="[rules.required, rules.validatePassword]"></v-text-field>
+        </v-form>
+    </v-card-text>
+    <v-card-actions>
+        <v-btn block flat color="primary" href="#/">
+            Уже есть аккаунт?
+        </v-btn>
+        <v-btn block color="success" :disabled="toggleButton" @click="signUp">
+            Зарегистрироваться
+        </v-btn>
+    </v-card-actions>
 </v-card>
 </template>
 
 <script>
 /* eslint no-console: 0 */
-// import api from "../services/apiService.js";
+import api from "../services/apiService.js";
 export default {
 	data: function() {
 		return {
@@ -74,12 +74,23 @@ export default {
 	methods: {
 		signUp: function() {
 			this.confirmEmailStatus = !this.confirmEmailStatus;
-			// var sendObj = {
-			// 	login: this.email,
-			// 	password: this.password
-			// };
-			// console.log(sendObj);
-			// api.signUpUser(sendObj).then(this.onSuccess);
+			var sendObj = {
+				login: this.email,
+				password: this.password
+			};
+			console.log(sendObj);
+
+			api
+				.signUpUser(sendObj)
+				.then(this.onSuccess)
+				.catch(this.onError);
+		},
+		onSuccess() {
+			this.$router.push("/email-sign-up-confirm");
+			console.log("Данные отправлены");
+		},
+		onError(err) {
+			console.log(err);
 		}
 	}
 };

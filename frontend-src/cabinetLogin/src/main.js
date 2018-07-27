@@ -1,19 +1,20 @@
 import '@babel/polyfill'
 import Vue from 'vue'
 import axios from "axios";
+import VueAxios from "vue-axios";
 import "./plugins/vuetify";
 import VueCookie from "vue-cookie";
 
-import router from './router';
 //COMPONENTS
 import App from './App.vue'
 import LoadingIndicator from '@/components/LoadingIndicator'
 
 //SERVICES
 import apiService from "./services/apiService";
+import router from './router';
 
 //DEPENDENCIES
-Vue.use(axios);
+Vue.use(VueAxios, axios);
 Vue.use(apiService);
 Vue.use(VueCookie);
 
