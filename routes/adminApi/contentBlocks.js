@@ -48,7 +48,7 @@ function filteredSearch(queryParams, filterFields, res, findQuery, countQuery) {
 				findFilter[filter] = filterFields[filter];
 			}
 			findQuery.find(findFilter);
-			countQuery.find(findFilter).countDocuments();
+			countQuery.find(findFilter);
 		}
 	}
 
@@ -58,7 +58,7 @@ function filteredSearch(queryParams, filterFields, res, findQuery, countQuery) {
 		.limit(queryParams.itemsPerPage);
 	//.populate('profile');	
 
-	Promise.all([findQuery.exec(), countQuery.exec()])
+	Promise.all([findQuery.exec(), countQuery.countDocuments().exec()])
 		.then(function ([first, second]) {
 			const data = {
 				items: first,

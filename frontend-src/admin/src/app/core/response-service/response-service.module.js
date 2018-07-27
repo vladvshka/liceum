@@ -2,9 +2,6 @@ export default angular
     .module('core.responseService', [])
     .factory('responseService', responseService);
 
-const BASE_URL = 'http://localhost:3000';
-const API_SECTION = 'admin';
-
 let MSG = {
     // 'success' or 'error'
     type: null,
@@ -13,7 +10,7 @@ let MSG = {
 
 responseService.$inject = ['$state'];
 
-function responseService ($state) {
+function responseService($state) {
     const methods = {
         onSuccess,
         onError,
@@ -30,16 +27,7 @@ function responseService ($state) {
     * operations are successful
     */
     function onSuccess(response, redirectTo) {
-        console.log('onSuccess method of responseService is called');
-        console.log(response);
-
-        /* const regex = /\/(.*)\//;
-        const stateUrl = $state.current.url;
-        const match = stateUrl.match(regex);
-        const baseState = match[1]; */
-
         const body = `Your request with ${response.config.method} method to URL ${response.config.url} was successful! :)`;
-
         MSG = {
             type: 'success',
             body
@@ -49,9 +37,6 @@ function responseService ($state) {
     }
 
     function onError(response) {
-        console.log('onError method of responseService is called');
-        console.log(response);
-
         const body = `Something went wrong for your request with ${response.config.method} method to URL ${response.config.url} :(`;
 
         $state.reload();
@@ -74,5 +59,4 @@ function responseService ($state) {
             body: null
         };
     }
-    
 };
