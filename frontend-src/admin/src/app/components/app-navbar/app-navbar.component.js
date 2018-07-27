@@ -5,5 +5,4 @@ export default {
     controller: ('AppNavbarController', AppNavbarController)
 };
 
-function AppNavbarController() {
-}
+function AppNavbarController() {}

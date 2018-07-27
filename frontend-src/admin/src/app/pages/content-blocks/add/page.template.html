@@ -6,7 +6,7 @@
     <response-service-message></response-service-message>
     <div class="row">
         <div class="col">
-            <form ng-submit="$ctrl.onAdd()" name="addNewBlockForm">
+            <form ng-submit="$ctrl.onAdd()" name="addNewBlockForm" ng-init="$ctrl.item.visible = true">
                 <div class="form-group">
                     <label for="header">Header</label>
                     <input type="text" class="form-control" id="header" ng-model="$ctrl.item.header" autocomplete="off" required>
@@ -37,7 +37,7 @@
                     <label class="form-check-label" for="visibility">Visible</label>
                 </div>
                 <button type="submit" class="btn btn-primary" ng-disabled="addNewBlockForm.$invalid">Add Block</button>
-                <a ui-sref="content-blocks" class="btn btn-warning">Cancel</a>
+                <a ui-sref="content-blocks-list" class="btn btn-warning">Cancel</a>
             </form>
         </div>
     </div>

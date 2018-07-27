@@ -4,15 +4,20 @@
         aria-expanded="false">
         <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarContent">
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" ui-sref="main" ui-sref-active="active">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" ui-sref="content-blocks" ui-sref-active="active">Content Blocks</a>
+                <!-- *** You have to manually use href's instead of ui-sref to make Angular Data Grid load necessary data right away *** -->
+                <!-- *** But it breaks router's ui-sref active class addition; example below *** -->
+                <!-- <a class="nav-link" href="#!/content-blocks/list?page=1&itemsPerPage=2" ui-sref-active="active">Content Blocks</a> -->
+                <a class="nav-link" ui-sref="content-blocks-list" ui-sref-active="active">Content Blocks</a>
             </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link" ui-sref="disciplines-list" ui-sref-active="active">Предметы</a>
+            </li> -->
         </ul>
         <button class="btn btn-outline-primary ml-auto" type="button" ng-click="$ctrl.onLogOut()">Log Out</button>
     </div>

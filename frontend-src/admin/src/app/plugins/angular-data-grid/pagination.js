@@ -7,7 +7,7 @@
             return {
                 create: function (ctrl, $scope, $attrs) {
                     ctrl.setNumPages = $attrs.numPages ? $parse($attrs.numPages).assign : angular.noop;
-                    ctrl.ngModelCtrl = {$setViewValue: angular.noop}; // nullModelCtrl
+                    ctrl.ngModelCtrl = { $setViewValue: angular.noop }; // nullModelCtrl
 
                     ctrl.init = function (ngModelCtrl, config) {
                         ctrl.ngModelCtrl = ngModelCtrl;
@@ -238,7 +238,23 @@
 
         .run(['$templateCache', function ($templateCache) {
             $templateCache.put('src/template/pagination/pagination.html',
-                "<ul class='pagination'><li ng-if='::boundaryLinks' ng-class='{disabled: noPrevious()||ngDisabled}' class='pagination-first'><a href ng-click='selectPage(1, $event)'>{{::getText('first')}}</a></li> <li ng-if='::directionLinks' ng-class='{disabled: noPrevious()||ngDisabled}' class='pagination-prev'><a href ng-click='selectPage(page - 1, $event)'>{{::getText('previous')}}</a></li> <li ng-repeat='page in pages track by $index' ng-class='{active: page.active,disabled: ngDisabled&&!page.active}' class='pagination-page'><a href ng-click='selectPage(page.number, $event)'>{{page.text}}</a></li> <li ng-if='::directionLinks' ng-class='{disabled: noNext()||ngDisabled}' class='pagination-next'><a href ng-click='selectPage(page + 1, $event)'>{{::getText('next')}}</a></li> <li ng-if='::boundaryLinks' ng-class='{disabled: noNext()||ngDisabled}' class='pagination-last'><a href ng-click='selectPage(totalPages, $event)'>{{::getText('last')}}</a></li> </ul>"
+                `<ul class='pagination'>
+                    <li ng-if='::boundaryLinks' ng-class='{disabled: noPrevious()||ngDisabled}' class='page-item'>
+                        <a href ng-click='selectPage(1, $event)' class='page-link'>{{::getText('first')}}</a>
+                    </li>
+                    <li ng-if='::directionLinks' ng-class='{disabled: noPrevious()||ngDisabled}' class='page-item'>
+                        <a href ng-click='selectPage(page - 1, $event)' class='page-link'>{{::getText('previous')}}</a>
+                    </li>
+                    <li ng-repeat='page in pages track by $index' ng-class='{active: page.active,disabled: ngDisabled&&!page.active}' class='page-item'>
+                        <a href ng-click='selectPage(page.number, $event)' class='page-link'>{{page.text}}</a>
+                    </li>
+                    <li ng-if='::directionLinks' ng-class='{disabled: noNext()||ngDisabled}' class='page-item'>
+                        <a href ng-click='selectPage(page + 1, $event)' class='page-link'>{{::getText('next')}}</a>
+                    </li>
+                    <li ng-if='::boundaryLinks' ng-class='{disabled: noNext()||ngDisabled}' class='page-item'>
+                        <a href ng-click='selectPage(totalPages, $event)' class='page-link'>{{::getText('last')}}</a>
+                    </li>
+                </ul>`
             );
         }]);
 

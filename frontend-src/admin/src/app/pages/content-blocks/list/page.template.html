@@ -6,7 +6,7 @@
     <response-service-message></response-service-message>
     <div class="row mb-4">
         <div class="col">
-            <a ui-sref="add-content-block" class="btn btn-info">Add New Content Block</a>
+            <a ui-sref="content-blocks-add" class="btn btn-info">Add New Content Block</a>
         </div>
     </div>
     <div class="row">
@@ -89,7 +89,7 @@
                         <td ng-bind="item.visible"></td>
                         <td ng-bind="item.order"></td>
                         <td>
-                            <a ui-sref="edit-content-block({sectionId: item._id})" class="badge badge-info">Edit</a>
+                            <a ui-sref="content-blocks-edit({itemId: item._id})" class="badge badge-info">Edit</a>
                         </td>
                     </tr>
                 </tbody>
