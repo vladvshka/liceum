@@ -1,0 +1,26 @@
+include ../partials/addStringField.jade
+include ../partials/addNumberField.jade
+include ../partials/addBooleanField.jade
+
+.jumbotron
+  h1.display-4 #{fe.names.edit} {{ $ctrl.editedItem.name}}
+.container.mb-4
+  response-service-message
+  .row
+    .col
+      form(ng-submit='$ctrl.onSave()', name='editBlockForm')
+        each field in fe.pages.add.fields
+                if (field.type === 'String')
+                    + addSelectField(field, true)
+                if (field.type === 'Number')
+                    + addNumberField(field, true)
+                if (field.type === 'Boolean')
+                    + addBooleanField(field, true)
+
+
+        .row.justify-content-between
+          .btn-group(role='group')
+            button.btn.btn-primary(type='submit', ng-disabled='$ctrl.isFormSubmissionDisabled()') Save
+            a.btn.btn-warning(ui-sref='#{name}-list') Cancel
+          
+          button.btn.btn-danger(type='button', ng-click='$ctrl.onDelete()') Delete

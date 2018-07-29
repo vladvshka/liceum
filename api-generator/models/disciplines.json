@@ -1,0 +1,121 @@
+{
+    "name": "disciplines",
+    "schema": {
+        "name": {
+            "type": "#String#",
+            "required": true
+        },
+        "active": {
+            "type": "#Boolean#",
+            "required": true
+        },
+        "code": {
+            "type": "#Number#",
+            "required": true,
+            "default": 2
+        },
+        "variantsCount": {
+            "type": "#Number#",
+            "required": true,
+            "default": 2
+        },
+        "updated": {
+            "type": "#Date#"
+        },
+        "created": {
+            "type": "#Date#",
+            "default": "#Date.now#"
+        } 
+    },
+    "fe": {
+        "names": {
+            "list": "Предметы",
+            "edit": "Предмет - ",
+            "add": "Добавить предмет",
+            "addBtn": "Добавить предмет"
+        },
+        "pages": {
+            "list": {
+                "fields": [
+                    {
+                        "name": "name",
+                        "title": "Название",
+                        "type": "String"
+                    }, 
+                    {
+                        "name": "code",
+                        "title": "Код",
+                        "type": "Number"
+                    },
+                    {
+                        "name": "variantsCount",
+                        "title": "Код",
+                        "type": "Number"
+                    },
+                    {
+                        "name": "active",
+                        "title": "Активный",
+                        "type": "Boolean"
+                    },
+                    {
+                        "name": "created",
+                        "title": "Создан",
+                        "type": "Date"
+                    }
+                ],
+                "filters": [
+                    {
+                        "name": "name",
+                        "title": "Поиск по названию",
+                        "placeholder": "Начните набиратьтекст...",
+                        "type": "text"
+                    },
+                    {
+                        "name": "active",
+                        "title": "Активный",
+                        "type": "select",
+                        "options": [
+                            {
+                                "name": "Активные",
+                                "value": true
+                            },
+                            {
+                                "name": "Не активные",
+                                "value": false
+                            }
+                        ]
+                    }
+                ]
+            },
+            "add": {
+                "fields": [
+                    {
+                        "name": "name",
+                        "title": "Название",
+                        "type": "String",
+                        "required": true
+                    }, 
+                    {
+                        "name": "code",
+                        "title": "Код",
+                        "type": "Number",
+                        "required": true
+                    },
+                    {
+                        "name": "variantsCount",
+                        "title": "Количесвто вариантов",
+                        "type": "Number",
+                        "required": true
+                    },
+                    {
+                        "name": "active",
+                        "title": "Активный",
+                        "type": "Boolean",
+                        "required": true
+                    }
+                ]
+            }
+        }
+    }
+    
+}

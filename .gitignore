@@ -2,6 +2,7 @@ node_modules
 public/admin
 public/cabinetLogin
 public/css
+package-lock.json
 .idea
 .vscode
 .sass-cache

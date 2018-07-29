@@ -1,0 +1,10 @@
+select.form-control(
+    id="#{filter.name}Filter",
+    name='#{filter.name}Select', 
+    ng-change='gridActions.filter()', 
+    ng-model='#{filter.name}', 
+    filter-by='#{filter.name}', 
+    filter-type='select')
+        option(value='') Все
+        each option in filter.options
+            option(value='#{option.value}') #{option.name}

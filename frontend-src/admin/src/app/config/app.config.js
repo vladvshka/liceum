@@ -1,9 +1,10 @@
 export default function config($stateProvider, $urlRouterProvider) {
+    /** API-generator state names start */
     const dataItemsNames = [
         'content-blocks',
-        'disciplines'
     ];
-
+    /** API-generator state names end */
+    
     const mainPageState = {
         name: 'main',
         url: '/main',

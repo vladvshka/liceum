@@ -1,13 +1,20 @@
+const fs = require("fs");
+const path = require("path");
+
 const adminRouter = require('./admin');
 const cabinetRouter = require('./cabinet');
 const indexRouter = require('./index');
 const loginApiRouter = require('./loginApi/login');
 const loginRouter = require('./login');
-const contentBlocksRouter = require('./adminApi/contentBlocks');
-const settingsRouter = require('./adminApi/settings');
-const adminUserRouter = require('./adminApi/adminUser');
-//req alll files from folder in 1 array at a time??
-const adminApiRouter = [contentBlocksRouter, settingsRouter, adminUserRouter];
+
+const adminApiRouter = [];
+
+var adminApiRouterPath = path.join(__dirname, "adminApi");
+
+fs.readdirSync(adminApiRouterPath).forEach(function(file) {
+    let router = require("./adminApi/" + file);
+    adminApiRouter.push(router);
+});
 
 function routesConfig(app) {
     app.use('/', indexRouter);

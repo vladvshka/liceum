@@ -28,9 +28,9 @@ import ResponseServiceMessageComponent from './core/response-service-message/res
 import LoginPageComponent from '../app/pages/login-page/login-page.component';
 import MainPageComponent from '../app/pages/main-page/main-page.component';
 
-/** Import common page components **/
-import * as ContentBlocks from '../app/pages/content-blocks/';
-// import * as Disciplines from '../app/pages/disciplines/';
+/** API-generator import start **/
+import * as ContentBlocks from '../app/pages/content-blocks/components';
+/** API-generator import end **/
 
 /**  Import CSS **/
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -65,8 +65,7 @@ APP
   .component('loginPage', LoginPageComponent)
   .component('mainPage', MainPageComponent);
 
-Object.keys(ContentBlocks)
-  .map(name => APP.component(`contentBlocks${name}Page`, ContentBlocks[name]));
 
-  /* Object.keys(Disciplines)
-    .map(name => APP.component(`disciplines${comonentName}Page`, Disciplines[name]));  */
+/** API-generator component register start **/
+Object.keys(ContentBlocks).map(name => APP.component(`contentBlocks${name}Page`, ContentBlocks[name]));
+/** API-generator component register end **/

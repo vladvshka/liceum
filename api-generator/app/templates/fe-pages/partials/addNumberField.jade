@@ -1,0 +1,9 @@
+mixin addNumberField(field, editFlag)
+    - var item = editFlag ? 'editedItem' : 'item'
+    .form-group
+        label(for='#{field.name}') #{field.title}
+        input.form-control(
+            id="#{field.name}",
+            type='number', 
+            ng-model='$ctrl.#{item}.#{field.name}', 
+            autocomplete='off')
