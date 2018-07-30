@@ -1,0 +1,7 @@
+mixin addBooleanField(field, editFlag)
+    - var item = editFlag ? 'editedItem' : 'item'
+    .form-group.form-check(ng-init='$ctrl.#{item}.#{field.name} = true')
+        input.form-check-input(
+            id="#{field.name}",
+            type='checkbox', ng-model='$ctrl.#{item}.#{field.name}')
+        label.form-check-label(for='#{field.name}') Активный

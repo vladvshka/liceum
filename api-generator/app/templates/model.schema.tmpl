@@ -1,0 +1,13 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const schema = new Schema(<%schema%>);
+
+schema.pre('save', beforeSave);
+const model = mongoose.model('<%name%>', schema);
+
+async function beforeSave() {
+	this.updated = await Date.now();
+}
+
+module.exports = model;

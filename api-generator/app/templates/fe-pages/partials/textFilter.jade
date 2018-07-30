@@ -1,0 +1,8 @@
+input.form-control(
+    id="#{filter.name}Filter", 
+    type='text', 
+    placeholder='#{filter.placeholder}', 
+    ng-change='gridActions.filter()', 
+    ng-model='#{filter.name}', 
+    filter-by='#{filter.name}', 
+    filter-type='text')

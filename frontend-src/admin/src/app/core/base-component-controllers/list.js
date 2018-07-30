@@ -1,9 +1,10 @@
-export default function generateController() {
+export default function generateController(ITEM_API_NAME) {
     controller.$inject = ['dataService', '$sce'];
     return controller;
 
     function controller(dataService, $sce) {
         const vm = this;
+        vm.ITEM_API_NAME = ITEM_API_NAME;
 
         vm.parseBody = parseBody;
 

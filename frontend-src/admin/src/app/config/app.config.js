@@ -1,16 +1,25 @@
 export default function config($stateProvider, $urlRouterProvider) {
+    /** API-generator state names start */
     const dataItemsNames = [
+        'disciplines',
         'content-blocks',
-        'disciplines'
     ];
-
+    /** API-generator state names end */
+    
     const mainPageState = {
         name: 'main',
         url: '/main',
         component: 'mainPage'
     }
 
+    const rtSchedulrPageState = {
+        name: 'rt-schedule',
+        url: '/rt-schedule',
+        component: 'rtSchedule'
+    }
+
     $stateProvider.state(mainPageState);
+    $stateProvider.state(rtSchedulrPageState);
 
     dataItemsNames.forEach(function (itemName) {
         $stateProvider.state(generateState(itemName, 'list'));

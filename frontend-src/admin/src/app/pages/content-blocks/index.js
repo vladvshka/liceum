@@ -1,3 +1,6 @@
-export { default as List } from './list/page.component';
-export { default as Add } from './add/page.component';
-export { default as Edit } from './edit/page.component';
+const ITEM_API_NAME = "content-blocks";
+
+export default {
+    ITEM_API_NAME,
+    foo: 5
+};

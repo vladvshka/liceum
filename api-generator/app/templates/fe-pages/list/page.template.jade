@@ -1,0 +1,54 @@
+.jumbotron
+  h1.display-4 #{fe.names.list}
+.container-fluid
+  response-service-message
+  .row.mb-4
+    .col
+      a.btn.btn-info(ui-sref='#{name}-add') #{fe.names.addBtn}
+  .row
+    .col(grid-data='', grid-options='$ctrl.gridOptions', grid-actions='gridActions', server-pagination='true')
+      .row
+        each filter in fe.pages.list.filters
+            .col
+                .form-group
+                    label(for='#{filter.name}Filter') #{filter.title}:
+                    if (filter.type === 'text')
+                        include ../partials/textFilter.jade
+                    if (filter.type === 'select')    
+                        include ../partials/selectFilter.jade
+      .row
+        .col
+          .form-group
+            label &nbsp;
+            br
+            strong {{paginationOptions.totalItems}}
+            |  всего
+        .col
+            .row.d-flex.justify-content-end
+                .col
+                    .form-group
+                        label(for='itemPerPageSelect') Items Per Page:
+                        select#itemPerPageSelect.form-control(name='itemPerPageSelect', ng-model='paginationOptions.itemsPerPage', ng-change='reloadGrid()')
+                            option(value='2') 2
+                            option(value='5') 5
+                            option(value='10') 10
+                .col            
+                    .form-group
+                        label &nbsp;
+                        grid-pagination.m-0(max-size='5', boundary-links='true', total-items='paginationOptions.totalItems', ng-model='paginationOptions.currentPage', ng-change='reloadGrid()', items-per-page='paginationOptions.itemsPerPage')
+            
+      table.table.table-striped.table-hover.table-sm
+        thead
+          tr
+            each field in fe.pages.list.fields
+                th.sortable(sortable='#{field.name}') #{field.title}
+            th
+        tbody
+          tr(ng-repeat='item in filtered')
+            each field in fe.pages.list.fields
+                if (field.type === "Date")
+                    td(ng-bind="item.#{field.name} | date:'dd-MM-yy HH:mm:ss'")
+                else
+                    td(ng-bind='item.#{field.name}')
+            td
+              a.btn.btn-sm.btn-info(ui-sref='#{name}-edit({itemId: item._id})') Редактировать
