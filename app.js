@@ -6,7 +6,9 @@ const logger = require('morgan');
 const cors = require('cors');
 
 const routesConfig = require('./routes/routesConfig.js');
+const openConnection = require('./controllers/dbConnection'); 
 const config = require("./config");
+const connection = openConnection(); 
 const app = express();
 
 // view engine setup
