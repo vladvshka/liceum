@@ -1,0 +1,36 @@
+
+<div class="jumbotron">
+  <h1 class="display-4">Добавить этап</h1>
+</div>
+<div class="container mb-4">
+  <response-service-message></response-service-message>
+  <div class="row">
+    <div class="col">
+      <form ng-submit="$ctrl.onAdd()" name="addNewBlockForm">
+        <div class="form-group">
+          <label for="name">Название</label>
+          <input id="name" type="text" ng-model="$ctrl.item.name" autocomplete="off" required="required" class="form-control"/>
+        </div>
+        <div class="form-group row">
+          <div class="col-4">
+            <label for="startDate">Дата начала</label>
+            <input placeholder="Select a date..." id="startDate" ng-model="$ctrl.startDateMoment" moment-picker="$ctrl.item.startDate" ng-model-options="{ updateOn: 'blur' }" autocomplete="off" required="required" class="form-control"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-4">
+            <label for="endDate">Дата окончания</label>
+            <input placeholder="Select a date..." id="endDate" ng-model="$ctrl.endDateMoment" moment-picker="$ctrl.item.endDate" ng-model-options="{ updateOn: 'blur' }" autocomplete="off" required="required" class="form-control"/>
+          </div>
+        </div>
+        <div class="form-group row">       
+          <div class="col-2">
+            <label for="color">Цвет</label>
+            <input id="color" type="color" ng-model="$ctrl.item.color" autocomplete="off" class="form-control"/>
+          </div>
+        </div>
+        <button type="submit" ng-disabled="addNewBlockForm.$invalid" class="btn btn-primary">Сохранить</button><a ui-sref="rt-periods-list" class="btn btn-warning">Отмена</a>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+mixin addDateField(field, editFlag)
+    - var item = editFlag ? 'editedItem' : 'item'
+    .form-group.row
+        .col-4
+            label(for='#{field.name}') #{field.title}
+            input.form-control(
+                placeholder="Select a date...",
+                id="#{field.name}", 
+                ng-model='$ctrl.#{field.name}Moment',
+                moment-picker='$ctrl.#{item}.#{field.name}',
+                ng-model-options="{ updateOn: 'blur' }",
+                autocomplete='off',
+                required=field.required
+                )
