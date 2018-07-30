@@ -12,4 +12,10 @@ function controller(moment) {
 
     vm.calendarView = 'month';
     vm.viewDate = Date.now();
+
+    moment.updateLocale('en_gb', {
+        week: {
+            dow: 1 // Monday is the first day of the week
+        }
+    });
 }

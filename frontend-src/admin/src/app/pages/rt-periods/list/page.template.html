@@ -1,0 +1,69 @@
+
+<div class="jumbotron">
+  <h1 class="display-4">Этапы РТ</h1>
+</div>
+<div class="container-fluid">
+  <response-service-message></response-service-message>
+  <div class="row mb-4">
+    <div class="col"><a ui-sref="rt-periods-add" class="btn btn-info">Добавить этап</a></div>
+  </div>
+  <div class="row">
+    <div grid-data="" grid-options="$ctrl.gridOptions" grid-actions="gridActions" server-pagination="true" class="col">
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="nameFilter">Поиск по названию:</label>
+            <input id="nameFilter" type="text" placeholder="Начните набирать текст..." ng-change="gridActions.filter()" ng-model="name" filter-by="name" filter-type="text" class="form-control"/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label>&nbsp;</label><br/><strong>{{paginationOptions.totalItems}}</strong> всего
+          </div>
+        </div>
+        <div class="col">
+          <div class="row d-flex justify-content-end">
+            <div class="col">
+              <div class="form-group">
+                <label for="itemPerPageSelect">Items Per Page:</label>
+                <select id="itemPerPageSelect" name="itemPerPageSelect" ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()" class="form-control">
+                  <option value="2">2</option>
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+            </div>
+            <div class="col">           
+              <div class="form-group">
+                <label>&nbsp;</label>
+                <grid-pagination max-size="5" boundary-links="true" total-items="paginationOptions.totalItems" ng-model="paginationOptions.currentPage" ng-change="reloadGrid()" items-per-page="paginationOptions.itemsPerPage" class="m-0"></grid-pagination>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <table class="table table-striped table-hover table-sm">
+        <thead>
+          <tr>
+            <th sortable="name" class="sortable">Название</th>
+            <th sortable="startDate" class="sortable">Дата начала</th>
+            <th sortable="endDate" class="sortable">Дата окончания</th>
+            <th sortable="color" class="sortable">Цвет</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in filtered">
+            <td ng-bind="item.name"></td>
+            <td ng-bind="item.startDate | date:'dd-MM-yy HH:mm:ss'"></td>
+            <td ng-bind="item.endDate | date:'dd-MM-yy HH:mm:ss'"></td>
+            <td ng-bind="item.color"></td>
+            <td><a ui-sref="rt-periods-edit({itemId: item._id})" class="btn btn-sm btn-info">Редактировать</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

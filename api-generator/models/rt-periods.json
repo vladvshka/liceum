@@ -5,19 +5,16 @@
             "type": "#String#",
             "required": true
         },
-        "active": {
-            "type": "#Boolean#",
+        "startDate": {
+            "type": "#Date#",
             "required": true
         },
-        "code": {
-            "type": "#Number#",
-            "required": true,
-            "default": 2
+        "endDate": {
+            "type": "#Date#",
+            "required": true
         },
-        "variantsCount": {
-            "type": "#Number#",
-            "required": true,
-            "default": 2
+        "color": {
+            "type": "#String#"
         },
         "updated": {
             "type": "#Date#"
@@ -29,10 +26,10 @@
     },
     "fe": {
         "names": {
-            "list": "Предметы",
-            "edit": "Предмет - ",
-            "add": "Добавить предмет",
-            "addBtn": "Добавить предмет"
+            "list": "Этапы РТ",
+            "edit": "Этап РТ",
+            "add": "Добавить этап",
+            "addBtn": "Добавить этап"
         },
         "pages": {
             "list": {
@@ -43,47 +40,27 @@
                         "type": "String"
                     }, 
                     {
-                        "name": "code",
-                        "title": "Код",
-                        "type": "Number"
-                    },
-                    {
-                        "name": "variantsCount",
-                        "title": "Код",
-                        "type": "Number"
-                    },
-                    {
-                        "name": "active",
-                        "title": "Активный",
-                        "type": "Boolean"
-                    },
-                    {
-                        "name": "created",
-                        "title": "Создан",
+                        "name": "startDate",
+                        "title": "Дата начала",
                         "type": "Date"
+                    },
+                    {
+                        "name": "endDate",
+                        "title": "Дата окончания",
+                        "type": "Date"
+                    },
+                    {
+                        "name": "color",
+                        "title": "Цвет",
+                        "type": "String"
                     }
                 ],
                 "filters": [
                     {
                         "name": "name",
                         "title": "Поиск по названию",
-                        "placeholder": "Начните набиратьтекст...",
+                        "placeholder": "Начните набирать текст...",
                         "type": "text"
-                    },
-                    {
-                        "name": "active",
-                        "title": "Активный",
-                        "type": "select",
-                        "options": [
-                            {
-                                "name": "Активные",
-                                "value": true
-                            },
-                            {
-                                "name": "Не активные",
-                                "value": false
-                            }
-                        ]
                     }
                 ]
             },
@@ -96,26 +73,25 @@
                         "required": true
                     }, 
                     {
-                        "name": "code",
-                        "title": "Код",
-                        "type": "Number",
+                        "name": "startDate",
+                        "title": "Дата начала",
+                        "type": "Date",
                         "required": true
                     },
                     {
-                        "name": "variantsCount",
-                        "title": "Количесвто вариантов",
-                        "type": "Number",
+                        "name": "endDate",
+                        "title": "Дата окончания",
+                        "type": "Date",
                         "required": true
                     },
                     {
-                        "name": "active",
-                        "title": "Активный",
-                        "type": "Boolean",
-                        "required": true
+                        "name": "color",
+                        "title": "Цвет",
+                        "type": "Color",
+                        "required": false
                     }
                 ]
             }
         }
-    }
-    
+    }    
 }

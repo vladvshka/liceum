@@ -46,8 +46,10 @@
         tbody
           tr(ng-repeat='item in filtered')
             each field in fe.pages.list.fields
-                if (field.type === "Date")
+                if (field.type === 'Date')
                     td(ng-bind="item.#{field.name} | date:'dd-MM-yy HH:mm:ss'")
+                else if (field.type === 'HTML')
+                    td(ng-bind-html="$ctrl.parseBody(item.#{field.name})")
                 else
                     td(ng-bind='item.#{field.name}')
             td

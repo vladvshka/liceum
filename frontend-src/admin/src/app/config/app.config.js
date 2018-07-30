@@ -1,6 +1,8 @@
 export default function config($stateProvider, $urlRouterProvider) {
     /** API-generator state names start */
     const dataItemsNames = [
+        'rt-periods',
+        'cb',
         'disciplines',
         'content-blocks',
     ];
