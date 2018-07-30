@@ -1,18 +1,22 @@
 const config = {
     saltRounds: 10,
 
-    mailOptions: {
-        from: 'georgiy.rubchinskij.99@mail.ru',
-        paasword: 'luxiorylife1',
-        emailConfirmSubject: 'BSU lyceum: email verification',
-        forgotPasswordSubject: 'BSU lyceum: forgotten password',
-        host: 'smtp.mail.ru',
-        port: 465,
+    cookieSecret: "BSUlyceumCookie",
+
+    createTransportOptions: {
         auth: {
-            user: 'login@yandex.ru',
-            pass: 'password'
+            user: 'georgiy.rubchinskij.99@mail.ru',
+            pass: 'luxiorylife1'
         },
-        secure: true
+        host: 'smtp.ethereal.email',
+        port: 587,
+        secure: false, // true for 465, false for other ports
+    },
+
+    mailOptions: {
+        from: '"BSU lyceum" <lyceum@example.com>', // sender address
+        subjectForgottenPwd: 'Забыли пароль',
+        subjectConfirmEmail: 'Подтверждение почты'
     }
 }
 

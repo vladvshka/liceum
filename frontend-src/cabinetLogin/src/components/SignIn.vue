@@ -21,7 +21,7 @@
 </template>
 
 <script>
-// import api from "../services/apiService.js";
+import api from "../services/apiService.js";
 export default {
 	name: "SignIn",
 	data: function() {
@@ -31,12 +31,21 @@ export default {
 		};
 	},
 	methods: {
-		signInUser: function() {
-			// var sendObj = {
-			// 	login: this.login,
-			// 	password: this.password
-			// };
-			// api.signInUser(sendObj).then(this.onSuccess);
+		signInUser() {
+			var sendObj = {
+				email: this.login,
+				password: this.password
+			};
+			api
+				.signInUser(sendObj)
+				.then(this.onSuccess)
+				.catch(this.onError);
+		},
+		onSuccess() {
+			console.log("success");
+		},
+		onError(err) {
+			console.log(`err: ${err}`);
 		}
 	}
 };
