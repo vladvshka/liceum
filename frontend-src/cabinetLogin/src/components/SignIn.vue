@@ -1,5 +1,6 @@
 <template>
 <v-card>
+	<loading-indicator :loading="isSignInBtnClick"></loading-indicator>
     <v-card-media src="http://lyceum.by/img/logo.png" contain height="100px"></v-card-media>
     <v-card-title primary-title>
         <h3 class="headline">Войдите в свой аккаунт</h3>
@@ -27,11 +28,13 @@ export default {
 	data: function() {
 		return {
 			login: "",
-			password: ""
+			password: "",
+			isSignInBtnClick: false
 		};
 	},
 	methods: {
 		signInUser() {
+			this.isSignInBtnClick = true;
 			var sendObj = {
 				email: this.login,
 				password: this.password
@@ -42,6 +45,10 @@ export default {
 				.catch(this.onError);
 		},
 		onSuccess() {
+			//test
+			setTimeout(() => {
+				this.isSignInBtnClick = false;
+			}, 3000);
 			console.log("success");
 		},
 		onError(err) {
