@@ -1,0 +1,13 @@
+mixin addHTMLField(field, editFlag)
+    - var item = editFlag ? 'editedItem' : 'item'
+    .form-group.row
+        .col-12
+            label(for='#{field.name}') #{field.title}
+            .row
+                .col-7
+                    ng-quill-editor( 
+                        ng-model='$ctrl.#{item}.#{field.name}', 
+                        required=field.required
+                    )
+                .col-5
+                    pre {{ $ctrl.#{item}.#{field.name} }}

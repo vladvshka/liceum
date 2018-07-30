@@ -1,9 +1,12 @@
 include ../partials/addStringField.jade
+include ../partials/addHTMLField.jade
 include ../partials/addNumberField.jade
 include ../partials/addBooleanField.jade
+include ../partials/addDateField.jade
+include ../partials/addColorField.jade
 
 .jumbotron
-  h1.display-4 #{fe.names.edit} {{ $ctrl.editedItem.name}}
+  h1.display-4 #{fe.names.edit} - {{ $ctrl.item._id }}
 .container.mb-4
   response-service-message
   .row
@@ -12,11 +15,16 @@ include ../partials/addBooleanField.jade
         each field in fe.pages.add.fields
                 if (field.type === 'String')
                     + addStringField(field, true)
+                if (field.type === 'HTML')
+                    + addHTMLField(field, true)
                 if (field.type === 'Number')
                     + addNumberField(field, true)
                 if (field.type === 'Boolean')
                     + addBooleanField(field, true)
-
+                if (field.type === 'Date')
+                    + addDateField(field, true)
+                if (field.type === 'Color')
+                    + addColorField(field, true)
 
         .row.justify-content-between
           .btn-group(role='group')

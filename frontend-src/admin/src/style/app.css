@@ -7,6 +7,10 @@ pre {
     white-space: pre-wrap;
 }
 
+input[type='color'] {
+    height: 50px;
+}
+
 .sortable {
     cursor: pointer;
 }

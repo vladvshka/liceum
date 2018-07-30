@@ -1,0 +1,43 @@
+
+<div class="jumbotron">
+  <h1 class="display-4">Добавить блок контента</h1>
+</div>
+<div class="container mb-4">
+  <response-service-message></response-service-message>
+  <div class="row">
+    <div class="col">
+      <form ng-submit="$ctrl.onAdd()" name="addNewBlockForm">
+        <div class="form-group">
+          <label for="header">Заголовок</label>
+          <input id="header" type="text" ng-model="$ctrl.item.header" autocomplete="off" required="required" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label for="menuHeader">Заголовок в меню</label>
+          <input id="menuHeader" type="text" ng-model="$ctrl.item.menuHeader" autocomplete="off" required="required" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label for="body">Текст</label>
+          <div class="container-fluid p-0">
+            <div class="row">
+              <div class="col-7">
+                <ng-quill-editor ng-model="$ctrl.item.body" required="required"></ng-quill-editor>
+              </div>
+              <div class="col-5">
+                <pre>{{ $ctrl.item.body }}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="order">Порядок</label>
+          <input id="order" type="number" ng-model="$ctrl.item.order" autocomplete="off" class="form-control"/>
+        </div>
+        <div ng-init="$ctrl.item.visible = true" class="form-group form-check">
+          <input id="visible" type="checkbox" ng-model="$ctrl.item.visible" class="form-check-input"/>
+          <label for="visible" class="form-check-label">Активный</label>
+        </div>
+        <button type="submit" ng-disabled="addNewBlockForm.$invalid" class="btn btn-primary">Сохранить</button><a ui-sref="cb-list" class="btn btn-warning">Отмена</a>
+      </form>
+    </div>
+  </div>
+</div>

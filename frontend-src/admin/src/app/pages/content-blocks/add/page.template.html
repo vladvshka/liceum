@@ -29,12 +29,12 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="menu-header">Order</label>
-                    <input type="number" class="form-control" id="menu-header" ng-model="$ctrl.item.order" autocomplete="off">
+                    <label for="order">Order</label>
+                    <input type="number" class="form-control" id="order" ng-model="$ctrl.item.order" autocomplete="off">
                 </div>
                 <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="visibility" ng-model="$ctrl.item.visible">
                     <label class="form-check-label" for="visibility">Visible</label>
+                    <input type="checkbox" class="form-check-input" id="visibility" ng-model="$ctrl.item.visible">
                 </div>
                 <button type="submit" class="btn btn-primary" ng-disabled="addNewBlockForm.$invalid">Add Block</button>
                 <a ui-sref="content-blocks-list" class="btn btn-warning">Cancel</a>
