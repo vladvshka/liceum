@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const DATA_NAME = 'cb';
+const DATA_NAME = 'content-blocks';
 const model = require("../../models/" + DATA_NAME);
 router.get(`/${DATA_NAME}`, getItems); router.get(`/${DATA_NAME}/:id`, getItem); router.post(`/${DATA_NAME}`, postItem); router.put(`/${DATA_NAME}/:id`, editItem); router.delete(`/${DATA_NAME}/:id`, deleteItem);
 function getItems(req, res, next) {
@@ -32,12 +32,30 @@ function getItems(req, res, next) {
 function filteredSearch(queryParams, filterFields, res, findQuery, countQuery) {
   filterFields.forEach(filter => {
     const findFilter = {};
-    if (["header"].indexOf(filter.name) > -1) {
-      findFilter[filter.name] = new RegExp(filter.value, 'i');
-    } else {
-      findFilter[filter.name] = filter.value;
+    let filterName = filter.name;
+    let filterValue = filter.value;
+    let dateFilterType;
+    const isDateFilter = filterName.indexOf('dateFrom_') > -1 || filterName.indexOf('dateTo_') > -1;
+    if (isDateFilter) {
+      dateFilterType = filterName.split('_')[0];
+      filterName = filterName.split('_')[1];
+      if (dateFilterType === 'dateFrom') {
+        filterValue = {
+          '$gte': new Date(filter.value)
+        };
+      }
+      if (dateFilterType === 'dateTo') {
+        filterValue = {
+          '$lt': new Date(filter.value)
+        };
+      }
     }
-    findQuery.find(findFilter);      countQuery.find(findFilter);
+    if (!isDateFilter) {
+      if (["header"].indexOf(filterName) > -1) {
+        filterValue = new RegExp(filter.value, 'i');
+      }
+    }
+    findFilter[filterName] = filterValue;   findQuery.find(findFilter);         countQuery.find(findFilter);
   });           findQuery.sort(queryParams.sortDirection + queryParams.sortField).skip(queryParams.itemsPerPage * (queryParams.page - 1)).limit(queryParams.itemsPerPage);   Promise.all([findQuery.exec(), countQuery.countDocuments().exec()]).then(function([first, second]) {
     const data = {
       items: first,
