@@ -7,15 +7,15 @@ import 'quill';
 import 'ng-quill';
 import { ngQuillConfigConstant, ngQuillConfig } from './config/ng-quill.config';
 import 'bootstrap';
-import 'angular-moment-picker';
+
+import 'angular-material';
 
 /** Import Angular Data Grid (with minor fixes) **/
 import './plugins/angular-data-grid/dataGrid';
 import './plugins/angular-data-grid/pagination';
 
 import 'angular-bootstrap-calendar';
-import calendarConfig from './config/calendar.config';
-//import 'angular-ui-bootstrap';
+import 'angular-ui-bootstrap';
 
 /** Import own Angular Services **/
 import './core/data-service/data-service.module';
@@ -23,6 +23,8 @@ import './core/response-service/response-service.module';
 
 /** Import Config **/
 import config from './config/app.config';
+import mdDateConfig from './config/md.date.config';
+import calendarConfig from './config/calendar.config';
 
 /** Import Components **/
 import AppNavbarComponent from '../app/components/app-navbar/app-navbar.component';
@@ -46,23 +48,24 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../style/app.css';
 import '../style/pagination.css';
 import '../style/quill.snow.css';
-import '../style/angular-moment-picker.min.css';
+import 'angular-material/angular-material.css';
 import 'angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css';
 
 /** Registering main module and it's components **/
 const APP = angular
   .module('app', [
+    'ngMaterial',
     'ui.router',
     'dataGrid',
     'pagination',
     'ngQuill',
-    'moment-picker',
     'mwl.calendar',
     'core.dataService',
     'core.responseService'
   ])
   .config(config)
   .config(calendarConfig)
+  .config(mdDateConfig)
 
   /** Ng Quill Configuration **/
 APP

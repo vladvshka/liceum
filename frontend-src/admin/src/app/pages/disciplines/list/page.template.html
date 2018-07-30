@@ -71,7 +71,7 @@
             <td ng-bind="item.code"></td>
             <td ng-bind="item.variantsCount"></td>
             <td ng-bind="item.active"></td>
-            <td ng-bind="item.created | date:'dd-MM-yy HH:mm:ss'"></td>
+            <td ng-bind="item.created | date:'dd/MMM/yyyy HH:mm:ss'"></td>
             <td><a ui-sref="disciplines-edit({itemId: item._id})" class="btn btn-sm btn-info">Редактировать</a></td>
           </tr>
         </tbody>
