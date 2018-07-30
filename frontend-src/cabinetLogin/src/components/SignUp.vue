@@ -87,7 +87,6 @@ export default {
 		},
 		onSuccess() {
 			this.$router.push("/email-sign-up-confirm");
-			console.log("Данные отправлены");
 		},
 		onError(err) {
 			console.log(err);

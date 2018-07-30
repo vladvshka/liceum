@@ -21,16 +21,16 @@ import api from "../services/apiService.js";
 export default {
 	data() {
 		return {
-			email: "",
 			snackbar: false,
 			disableButton: false
 		};
 	},
+	props: ["email"],
 	methods: {
 		sendEmailAgain() {
 			this.disableButton = true;
 			api
-				.sendEmailAgain()
+				.reSendEmail()
 				.then(this.onSuccess)
 				.catch(this.onError);
 		},
@@ -38,19 +38,19 @@ export default {
 			console.log(response);
 			this.disableButton = false;
 			this.snackbar = true;
+		},
+		onError(err) {
+			console.log(err);
 		}
 	},
-	created() {
-		// console.log(this.$cookie);
-	},
 	beforeRouteEnter(to, from, next) {
-		api.checkCookie().then(response => {
-			// console.log(response);
-			// console.log(response.data);
+		if (from.name == "ForgotPassword") {
+			next();
+		} else {
 			next(vm => {
-				vm.email = response.data;
+				vm.$router.push("/");
 			});
-		});
+		}
 	}
 };
 </script>

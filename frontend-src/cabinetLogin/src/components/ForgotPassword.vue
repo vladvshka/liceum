@@ -13,12 +13,13 @@
             <v-btn block flat color="primary" href="#/">
                 Уже есть аккаунт?
             </v-btn>
-            <v-btn block :disabled="isEmailInvalid" @click="emailConfirmStatus = !emailConfirmStatus" color="success">Сбросить пароль</v-btn>
+            <v-btn block :disabled="isEmailInvalid" @click="forgotPassword" color="success">Сбросить пароль</v-btn>
         </v-card-actions>
 </v-card>
 </template>
 
 <script>
+import api from "@/services/apiService";
 export default {
 	data() {
 		return {
@@ -34,6 +35,28 @@ export default {
 				}
 			}
 		};
+	},
+	methods: {
+		forgotPassword() {
+			this.emailConfirmStatus = true;
+			var email = this.emailConfirm;
+			var data = {
+				email
+			};
+			api
+				.forgotPassword(data)
+				.then(this.onSuccess)
+				.catch(this.onError);
+		},
+		onSuccess(response) {
+			this.$router.push({
+				name: "EmailForgotPasswordConfirm",
+				params: { email: response.data }
+			});
+		},
+		onError() {
+			console.log("error");
+		}
 	}
 };
 </script>
