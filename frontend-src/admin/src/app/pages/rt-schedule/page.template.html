@@ -1,0 +1,18 @@
+<div class="jumbotron">
+    <h1 class="display-4">Расписание РТ</h1>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <mwl-calendar
+                view="$ctrl.calendarView"
+                view-date="$ctrl.viewDate"
+                events="events"
+                view-title="'calendarTitle'"
+                on-event-click="eventClicked(calendarEvent)"
+                on-event-times-changed="calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
+                cell-is-open="true">
+            </mwl-calendar>
+        </div>
+    </div>
+</div>

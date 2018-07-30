@@ -11,7 +11,7 @@ include ../partials/addBooleanField.jade
       form(ng-submit='$ctrl.onSave()', name='editBlockForm')
         each field in fe.pages.add.fields
                 if (field.type === 'String')
-                    + addSelectField(field, true)
+                    + addStringField(field, true)
                 if (field.type === 'Number')
                     + addNumberField(field, true)
                 if (field.type === 'Boolean')

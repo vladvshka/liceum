@@ -1,4 +1,4 @@
-mixin addSelectField(field, editFlag)
+mixin addStringField(field, editFlag)
     - var item = editFlag ? 'editedItem' : 'item'
     .form-group
         label(for='#{field.name}') #{field.title}

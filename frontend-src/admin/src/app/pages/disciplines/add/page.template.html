@@ -1,0 +1,30 @@
+
+<div class="jumbotron">
+  <h1 class="display-4">Добавить предмет</h1>
+</div>
+<div class="container mb-4">
+  <response-service-message></response-service-message>
+  <div class="row">
+    <div class="col">
+      <form ng-submit="$ctrl.onAdd()" name="addNewBlockForm">
+        <div class="form-group">
+          <label for="name">Название</label>
+          <input id="name" type="text" ng-model="$ctrl.item.name" autocomplete="off" required="required" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label for="code">Код</label>
+          <input id="code" type="number" ng-model="$ctrl.item.code" autocomplete="off" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label for="variantsCount">Количесвто вариантов</label>
+          <input id="variantsCount" type="number" ng-model="$ctrl.item.variantsCount" autocomplete="off" class="form-control"/>
+        </div>
+        <div ng-init="$ctrl.item.active = true" class="form-group form-check">
+          <input id="active" type="checkbox" ng-model="$ctrl.item.active" class="form-check-input"/>
+          <label for="active" class="form-check-label">Активный</label>
+        </div>
+        <button type="submit" ng-disabled="addNewBlockForm.$invalid" class="btn btn-primary">Сохранить</button><a ui-sref="disciplines-list" class="btn btn-warning">Отмена</a>
+      </form>
+    </div>
+  </div>
+</div>
