@@ -9,18 +9,18 @@ function getRoot(req, res, next) {
 	let contentBlocks = null;
 
 	contentBlockModel.find({})
-        .then(function (docs) {
-		   contentBlocks = docs;
-		   
-		   res.render('index', {
+		.then(function (docs) {
+			contentBlocks = docs;
+
+			res.render('index', {
 				title: 'Lyceum',
 				contentBlocks: contentBlocks
 			});
-        })
-        .catch(function (err) {
-			console.error(err);			
+		})
+		.catch(function (err) {
+			console.error(err);
 			res.send('DB receiving entries error');
-        });	
+		});
 }
 
 module.exports = router;

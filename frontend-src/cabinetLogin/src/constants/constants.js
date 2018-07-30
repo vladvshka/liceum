@@ -6,7 +6,7 @@ const CONSTANTS = {
     SIGN_UP_URL: BASE_URL + "sign-up",
     RETRY_SEND_EMAIL_URL: BASE_URL + "email-confirm",
     CHECK_COOKIE: BASE_URL + "check-cookie",
-    FORGOT_PASSWORD_URL: BASE_URL
+    FORGOT_PASSWORD_URL: BASE_URL + "forgot-password"
 }
 
 export default CONSTANTS;

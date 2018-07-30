@@ -33,7 +33,7 @@ export default {
 	methods: {
 		signInUser() {
 			var sendObj = {
-				login: this.login,
+				email: this.login,
 				password: this.password
 			};
 			api

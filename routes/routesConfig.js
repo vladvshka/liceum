@@ -8,10 +8,9 @@ const loginApiRouter = require('./loginApi/login');
 const loginRouter = require('./login');
 
 const adminApiRouter = [];
+const adminApiRouterPath = path.join(__dirname, "adminApi");
 
-var adminApiRouterPath = path.join(__dirname, "adminApi");
-
-fs.readdirSync(adminApiRouterPath).forEach(function(file) {
+fs.readdirSync(adminApiRouterPath).forEach(function (file) {
     let router = require("./adminApi/" + file);
     adminApiRouter.push(router);
 });

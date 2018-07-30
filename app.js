@@ -6,10 +6,8 @@ const logger = require('morgan');
 const cors = require('cors');
 
 const routesConfig = require('./routes/routesConfig.js');
-const openConnection = require('./controllers/dbConnection');
-
+const config = require("./config");
 const app = express();
-const connection = openConnection();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,7 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({
 	extended: false
 }));
-app.use(cookieParser());
+app.use(cookieParser(config.cookieSecret));
 app.use(express.static('public'));
 //for development only
 app.use(cors());
