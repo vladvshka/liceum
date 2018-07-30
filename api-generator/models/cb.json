@@ -1,0 +1,127 @@
+{
+    "name": "cb",
+    "schema": {
+        "body": {
+            "type": "#String#",
+            "required": true
+        },
+        "header": {
+            "type": "#String#",
+            "required": true
+        },
+        "menuHeader": {
+            "type": "#String#",
+            "required": true
+        },
+        "visible": {
+            "type": "#Boolean#",
+            "required": true
+        },
+        "order": {
+            "type": "#Number#"
+        },
+        "updated": {
+            "type": "#Date#"
+        },
+        "created": {
+            "type": "#Date#",
+            "default": "#Date.now#"
+        }
+    },
+    "fe": {
+        "names": {
+            "list": "Блоки контента",
+            "edit": "Редактирование блока",
+            "add": "Добавить блок контента",
+            "addBtn": "Добавить блок"
+        },
+        "pages": {
+            "list": {
+                "fields": [
+                    {
+                        "name": "header",
+                        "title": "Заголовок",
+                        "type": "String"
+                    },
+                    {
+                        "name": "menuHeader",
+                        "title": "Заголовок в меню",
+                        "type": "String"
+                    },
+                    {
+                        "name": "body",
+                        "title": "Текст",
+                        "type": "HTML"
+                    },
+                    {
+                        "name": "visible",
+                        "title": "Видимость",
+                        "type": "Boolean"
+                    },
+                    {
+                        "name": "order",
+                        "title": "Порядок",
+                        "type": "Number"
+                    }
+                ],
+                "filters": [
+                    {
+                        "name": "header",
+                        "title": "Поиск по заголовку",
+                        "placeholder": "Начните набирать текст...",
+                        "type": "text"
+                    },
+                    {
+                        "name": "visible",
+                        "title": "Видимость",
+                        "type": "select",
+                        "options": [
+                            {
+                                "name": "Видимые",
+                                "value": true
+                            },
+                            {
+                                "name": "Невидимые",
+                                "value": false
+                            }
+                        ]
+                    }
+                ]
+            },
+            "add": {
+                "fields": [
+                    {
+                        "name": "header",
+                        "title": "Заголовок",
+                        "type": "String",
+                        "required": true
+                    },
+                    {
+                        "name": "menuHeader",
+                        "title": "Заголовок в меню",
+                        "type": "String",
+                        "required": true
+                    },
+                    {
+                        "name": "body",
+                        "title": "Текст",
+                        "type": "HTML",
+                        "required": true
+                    },
+                    {
+                        "name": "order",
+                        "title": "Порядок",
+                        "type": "Number",
+                        "required": false
+                    },
+                    {
+                        "name": "visible",
+                        "title": "Видимость",
+                        "type": "Boolean",
+                        "required": true
+                    }
+                ]
+            }
+        }
+    }
+}

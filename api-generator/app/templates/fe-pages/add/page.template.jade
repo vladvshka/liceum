@@ -1,6 +1,9 @@
 include ../partials/addStringField.jade
+include ../partials/addHTMLField.jade
 include ../partials/addNumberField.jade
 include ../partials/addBooleanField.jade
+include ../partials/addDateField.jade
+include ../partials/addColorField.jade
 
 .jumbotron
   h1.display-4 #{fe.names.add}
@@ -12,10 +15,16 @@ include ../partials/addBooleanField.jade
         each field in fe.pages.add.fields
                 if (field.type === 'String')
                     + addStringField(field, false)
+                if (field.type === 'HTML')
+                    + addHTMLField(field, false)
                 if (field.type === 'Number')
                     + addNumberField(field, false)
                 if (field.type === 'Boolean')
                     + addBooleanField(field, false)
+                if (field.type === 'Date')
+                    + addDateField(field, false)
+                if (field.type === 'Color')
+                    + addColorField(field, false)
         
         button.btn.btn-primary(type='submit', ng-disabled='addNewBlockForm.$invalid') Сохранить
         a.btn.btn-warning(ui-sref='#{name}-list') Отмена

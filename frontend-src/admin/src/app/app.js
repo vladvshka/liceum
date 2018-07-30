@@ -7,6 +7,7 @@ import 'quill';
 import 'ng-quill';
 import { ngQuillConfigConstant, ngQuillConfig } from './config/ng-quill.config';
 import 'bootstrap';
+import 'angular-moment-picker';
 
 /** Import Angular Data Grid (with minor fixes) **/
 import './plugins/angular-data-grid/dataGrid';
@@ -35,6 +36,8 @@ import RtScheduleComponent from '../app/pages/rt-schedule/';
 
 /** API-generator import start **/
 import * as Disciplines from '../app/pages/disciplines/components';
+import * as Cb from '../app/pages/cb/components';
+import * as RtPeriods from '../app/pages/rt-periods/components';
 import * as ContentBlocks from '../app/pages/content-blocks/components';
 /** API-generator import end **/
 
@@ -43,6 +46,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../style/app.css';
 import '../style/pagination.css';
 import '../style/quill.snow.css';
+import '../style/angular-moment-picker.min.css';
 import 'angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css';
 
 /** Registering main module and it's components **/
@@ -52,6 +56,7 @@ const APP = angular
     'dataGrid',
     'pagination',
     'ngQuill',
+    'moment-picker',
     'mwl.calendar',
     'core.dataService',
     'core.responseService'
@@ -79,4 +84,6 @@ APP
 /** API-generator component register start **/
 Object.keys(ContentBlocks).map(name => APP.component(`contentBlocks${name}Page`, ContentBlocks[name]));
 Object.keys(Disciplines).map(name => APP.component(`disciplines${name}Page`, Disciplines[name]));
+Object.keys(Cb).map(name => APP.component(`cb${name}Page`, Cb[name]));
+Object.keys(RtPeriods).map(name => APP.component(`rtPeriods${name}Page`, RtPeriods[name]));
 /** API-generator component register end **/
