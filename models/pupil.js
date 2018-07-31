@@ -23,7 +23,14 @@ const pupilSchema = new Schema({
 	created: {
 		type: Date,
 		default: Date.now
-	}
+	},
+	fullName: {
+		type: String
+	},
+	schedule: [{
+		type: Schema.Types.ObjectId,
+		ref: 'pupilScheduleModel'
+	}]
 });
 
 pupilSchema.pre('save', function (next) {

@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-//const cabinetModel = require('./cabinets');
-const cabinetModel = 'link';
+const cabinetModel = require('./cabinets');
 const Schema = mongoose.Schema;
 
 const rtEventSchema = new Schema({
