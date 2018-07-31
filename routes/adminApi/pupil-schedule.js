@@ -40,3 +40,5 @@ function getItems(req, res, next) {
             res.status(500).send("DB internal error");
         });
 }
+
+module.exports = router;

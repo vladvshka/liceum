@@ -53,7 +53,8 @@ function editSettings(req, res, next) {
     //console.log(blockId);
     const update = req.body;
     const options = {
-        new: true
+        new: true,
+		runValidators: true
     };
 
     settingsModel.findOneAndUpdate({ _id: id }, update, options)

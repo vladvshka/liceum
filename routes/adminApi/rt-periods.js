@@ -89,7 +89,8 @@ function editItem(req, res, next) {
   const id = req.params.id;
   const update = req.body;
   const options = {
-    new: true
+    new: true,
+		runValidators: true
   };
   update.updated = Date.now();   model.findByIdAndUpdate(id, update, options).then(function(doc) {
     res.sendStatus(200);

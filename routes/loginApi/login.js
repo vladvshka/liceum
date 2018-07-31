@@ -203,12 +203,16 @@ function forgotPassword(req, res, next) {
         status: "forgottenPassword",
         confirmationUrl: newHash
     };
+    const options = {
+        runValidators: true
+    };
 
     pupilModel
         .findOneAndUpdate({
                 email: email
             },
-            update
+            update,
+            options
         )
         .then(function (doc) {
             if (doc) {
