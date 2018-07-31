@@ -10,7 +10,10 @@
                 <a class="nav-link" ui-sref="main" ui-sref-active="active">Домой</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" ui-sref="cb-list" ui-sref-active="active">Блоки Контента</a>
+                <!-- *** You have to manually use href's instead of ui-sref to make Angular Data Grid load necessary data right away *** -->
+                <!-- *** But it breaks router's ui-sref active class addition; example below *** -->
+                <!-- <a class="nav-link" href="#!/content-blocks/list?page=1&itemsPerPage=2" ui-sref-active="active">Content Blocks</a> -->
+                <a class="nav-link" ui-sref="content-blocks-list" ui-sref-active="active">Контент на главную</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" ui-sref="rt-periods-list" ui-sref-active="active">Периоды РТ</a>
@@ -20,12 +23,6 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" ui-sref="rt-schedule" ui-sref-active="active">Расписание РТ</a>
-            </li>
-            <li class="nav-item">
-                <!-- *** You have to manually use href's instead of ui-sref to make Angular Data Grid load necessary data right away *** -->
-                <!-- *** But it breaks router's ui-sref active class addition; example below *** -->
-                <!-- <a class="nav-link" href="#!/content-blocks/list?page=1&itemsPerPage=2" ui-sref-active="active">Content Blocks</a> -->
-                <a class="nav-link" ui-sref="content-blocks-list" ui-sref-active="active">Content Blocks</a>
             </li>
         </ul>
         <button class="btn btn-outline-primary ml-auto" type="button" ng-click="$ctrl.onLogOut()">Log Out</button>

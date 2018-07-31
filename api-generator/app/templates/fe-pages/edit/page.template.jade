@@ -6,7 +6,7 @@ include ../partials/addDateField.jade
 include ../partials/addColorField.jade
 
 .jumbotron
-  h1.display-4 #{fe.names.edit} - {{ $ctrl.item._id }}
+  h1.display-4 #{fe.names.edit} - {{ $ctrl.item.name }}
 .container.mb-4
   response-service-message
   .row
@@ -26,9 +26,10 @@ include ../partials/addColorField.jade
                 if (field.type === 'Color')
                     + addColorField(field, true)
 
-        .row.justify-content-between
-          .btn-group(role='group')
-            button.btn.btn-primary(type='submit', ng-disabled='$ctrl.isFormSubmissionDisabled()') Save
-            a.btn.btn-warning(ui-sref='#{name}-list') Cancel
-          
-          button.btn.btn-danger(type='button', ng-click='$ctrl.onDelete()') Delete
+        .row
+          .col
+            .btn-group(role='group')
+              button.btn.btn-primary(type='submit', ng-disabled='$ctrl.isFormSubmissionDisabled()') Save
+              a.btn.btn-warning(ui-sref='#{name}-list') Cancel
+          .col.text-right  
+            button.btn.btn-danger(type='button', ng-click='$ctrl.onDelete()') Delete

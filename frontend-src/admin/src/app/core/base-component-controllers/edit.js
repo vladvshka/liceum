@@ -39,7 +39,7 @@ export default function generateController(ITEM_API_NAME) {
                 // DB-related default fields which should not be sent back to the server
                 ['created', 'updated', '__v', '_id'].forEach(prop => delete vm.editedItem[prop]);
             }
-        };
+        }
     }
 }
 

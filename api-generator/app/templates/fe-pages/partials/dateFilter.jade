@@ -1,0 +1,31 @@
+.row
+    .col
+        nobr
+            | От&nbsp;
+            md-datepicker(
+                placeholder="Select a date...",
+                id="#{filter.name}From",
+                ng-model="dateFrom_#{filter.name}",
+                ng-blur="gridActions.filter()",
+                ng-focus="gridActions.filter()"
+                md-hide-icons="calendar"
+                filter-by="#{filter.name}",
+                filter-type="dateFrom",
+                md-open-on-focus
+                )
+        | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
+        nobr
+            | До&nbsp;
+            md-datepicker(
+                placeholder="Select a date...",
+                id="#{filter.name}To",
+                ng-model="dateTo_#{filter.name}",
+                ng-blur="gridActions.filter()",
+                ng-focus="gridActions.filter()",
+                md-hide-icons="calendar",
+                filter-by="#{filter.name}",
+                filter-type="dateTo",
+                md-open-on-focus
+                )    
+        .buttons-right(ng-show="dateTo_#{filter.name} || dateFrom_#{filter.name}")
+            a(href="", ng-click="dateTo_#{filter.name} = null; dateFrom_#{filter.name} = null; gridActions.refresh();") Очистить фильтр

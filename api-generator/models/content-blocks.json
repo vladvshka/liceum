@@ -1,5 +1,5 @@
 {
-    "name": "cb",
+    "name": "content-blocks",
     "schema": {
         "body": {
             "type": "#String#",

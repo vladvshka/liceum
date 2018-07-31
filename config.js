@@ -4,13 +4,17 @@ const config = {
     cookieSecret: "BSUlyceumCookie",
 
     createTransportOptions: {
+        //host: 'mxs.mail.ru',
+        service: 'Mail.Ru',
         auth: {
             user: 'georgiy.rubchinskij.99@mail.ru',
             pass: 'luxiorylife1'
         },
-        host: 'smtp.ethereal.email',
-        port: 587,
+        // port: 587,
         secure: false, // true for 465, false for other ports
+        tls: {
+            rejectUnauthorized: false
+        }
     },
 
     mailOptions: {

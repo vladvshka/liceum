@@ -11,19 +11,23 @@
           <label for="name">Название</label>
           <input id="name" type="text" ng-model="$ctrl.item.name" autocomplete="off" required="required" class="form-control"/>
         </div>
-        <div class="form-group">
-          <label for="code">Код</label>
-          <input id="code" type="number" ng-model="$ctrl.item.code" autocomplete="off" class="form-control"/>
+        <div class="form-group row">
+          <div class="col-2">
+            <label for="code">Код</label>
+            <input id="code" type="number" ng-model="$ctrl.item.code" autocomplete="off" class="form-control"/>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="variantsCount">Количесвто вариантов</label>
-          <input id="variantsCount" type="number" ng-model="$ctrl.item.variantsCount" autocomplete="off" class="form-control"/>
+        <div class="form-group row">
+          <div class="col-2">
+            <label for="variantsCount">Количесвто вариантов</label>
+            <input id="variantsCount" type="number" ng-model="$ctrl.item.variantsCount" autocomplete="off" class="form-control"/>
+          </div>
         </div>
         <div ng-init="$ctrl.item.active = true" class="form-group form-check">
           <input id="active" type="checkbox" ng-model="$ctrl.item.active" class="form-check-input"/>
           <label for="active" class="form-check-label">Активный</label>
         </div>
-        <button type="submit" ng-disabled="addNewBlockForm.$invalid" class="btn btn-primary">Сохранить</button><a ui-sref="disciplines-list" class="btn btn-warning">Отмена</a>
+        <button type="submit" ng-disabled="addNewBlockForm.$invalid" class="btn btn-primary">Сохранить</button>&nbsp;<a ui-sref="disciplines-list" class="btn btn-warning">Отмена</a>
       </form>
     </div>
   </div>

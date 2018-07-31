@@ -16,6 +16,8 @@
                         include ../partials/textFilter.jade
                     if (filter.type === 'select')    
                         include ../partials/selectFilter.jade
+                    if (filter.type === 'date')    
+                        include ../partials/dateFilter.jade    
       .row
         .col
           .form-group
@@ -47,9 +49,11 @@
           tr(ng-repeat='item in filtered')
             each field in fe.pages.list.fields
                 if (field.type === 'Date')
-                    td(ng-bind="item.#{field.name} | date:'dd-MM-yy HH:mm:ss'")
+                    td(ng-bind="item.#{field.name} | date:'dd/MMM/yyyy HH:mm:ss'")
                 else if (field.type === 'HTML')
                     td(ng-bind-html="$ctrl.parseBody(item.#{field.name})")
+                else if (field.type === 'Color')
+                    td(ng-bind="item.#{field.name}", ng-style="{'background': '{{ item.#{field.name} }}'}")    
                 else
                     td(ng-bind='item.#{field.name}')
             td
