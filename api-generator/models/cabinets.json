@@ -1,0 +1,66 @@
+{
+    "name": "cabinets",
+    "schema": {
+        "name": {
+            "type": "#String#",
+            "required": true
+        },
+        "capacity": {
+            "type": "#Number#",
+            "required": true
+        },
+        "updated": {
+            "type": "#Date#"
+        },
+        "created": {
+            "type": "#Date#",
+            "default": "#Date.now#"
+        }
+    },
+    "fe": {
+        "names": {
+            "list": "Кабинеты",
+            "edit": "Редактировать данные о кабинете",
+            "add": "Добавить кабинет",
+            "addBtn": "Добавить кабинет"
+        },
+        "pages": {
+            "list": {
+                "fields": [
+                    {
+                        "name": "name",
+                        "title": "Название",
+                        "type": "String"
+                    },
+                    {
+                        "name": "capacity",
+                        "title": "Вместимость",
+                        "type": "Number"
+                    }
+                ],
+                "filters": [
+                    {
+                        "name": "name",
+                        "title": "Поиск по названию",
+                        "placeholder": "Начните набирать текст...",
+                        "type": "text"
+                    }
+                ]
+            },
+            "add": {
+                "fields": [
+                    {
+                        "name": "name",
+                        "title": "Название",
+                        "type": "String"
+                    },
+                    {
+                        "name": "capacity",
+                        "title": "Вместимость",
+                        "type": "Number"
+                    }
+                ]
+            }
+        }
+    }
+}

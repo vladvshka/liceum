@@ -39,6 +39,7 @@ import RtScheduleComponent from '../app/pages/rt-schedule/';
 /** API-generator import start **/
 import * as Disciplines from '../app/pages/disciplines/components';
 import * as ContentBlocks from '../app/pages/content-blocks/components';
+import * as Cabinets from '../app/pages/cabinets/components';
 import * as RtPeriods from '../app/pages/rt-periods/components';
 /** API-generator import end **/
 
@@ -87,4 +88,5 @@ APP
 Object.keys(Disciplines).map(name => APP.component(`disciplines${name}Page`, Disciplines[name]));
 Object.keys(RtPeriods).map(name => APP.component(`rtPeriods${name}Page`, RtPeriods[name]));
 Object.keys(ContentBlocks).map(name => APP.component(`contentBlocks${name}Page`, ContentBlocks[name]));
+Object.keys(Cabinets).map(name => APP.component(`cabinets${name}Page`, Cabinets[name]));
 /** API-generator component register end **/
