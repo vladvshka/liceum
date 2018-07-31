@@ -20,6 +20,13 @@
             "default": "#Date.now#"
         }
     },
+    "onUpdate": [
+        "var startTime = new Date(update.startTime);",
+        "var endTime = new Date(update.endTime);",
+        "startTime = startTime.getHours() + ':' + (startTime.getMinutes()<10?'0':'') + startTime.getMinutes();",
+        "endTime = endTime.getHours() + ':' + (endTime.getMinutes()<10?'0':'') + endTime.getMinutes();",
+        "update.name = startTime + '-' + endTime;"
+    ],
     "fe": {
         "names": {
             "list": "Время проведения",
