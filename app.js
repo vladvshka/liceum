@@ -6,9 +6,9 @@ const logger = require('morgan');
 const cors = require('cors');
 
 const routesConfig = require('./routes/routesConfig.js');
-const openConnection = require('./controllers/dbConnection');
+const openConnection = require('./controllers/dbConnection'); 
 const config = require("./config");
-const connection = openConnection();
+const connection = openConnection(); 
 const app = express();
 
 // view engine setup
@@ -39,6 +39,7 @@ app.use(function (err, req, res, next) {
 	res.locals.error = req.app.get('env') === 'development' ? err : {};
 
 	// render the error page
+	console.log('err', err);
 	res.status(err.status || 500).send('Something broke!');
 	//res.redirect('/');
 });

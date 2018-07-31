@@ -1,6 +1,6 @@
 
 <div class="jumbotron">
-  <h1 class="display-4">Этап РТ - {{ $ctrl.item._id }}</h1>
+  <h1 class="display-4">Этап РТ - {{ $ctrl.item.name }}</h1>
 </div>
 <div class="container mb-4">
   <response-service-message></response-service-message>
@@ -12,15 +12,15 @@
           <input id="name" type="text" ng-model="$ctrl.editedItem.name" autocomplete="off" required="required" class="form-control"/>
         </div>
         <div class="form-group row">
-          <div class="col-4">
+          <div class="col">
             <label for="startDate">Дата начала</label>
-            <input placeholder="Select a date..." id="startDate" ng-model="$ctrl.startDateMoment" moment-picker="$ctrl.editedItem.startDate" ng-model-options="{ updateOn: 'blur' }" autocomplete="off" required="required" class="form-control"/>
+            <md-datepicker placeholder="Select a date..." id="startDate" ng-model="$ctrl.editedItem.startDate" md-open-on-focus="md-open-on-focus" autocomplete="off" required="required">     </md-datepicker>
           </div>
         </div>
         <div class="form-group row">
-          <div class="col-4">
+          <div class="col">
             <label for="endDate">Дата окончания</label>
-            <input placeholder="Select a date..." id="endDate" ng-model="$ctrl.endDateMoment" moment-picker="$ctrl.editedItem.endDate" ng-model-options="{ updateOn: 'blur' }" autocomplete="off" required="required" class="form-control"/>
+            <md-datepicker placeholder="Select a date..." id="endDate" ng-model="$ctrl.editedItem.endDate" md-open-on-focus="md-open-on-focus" autocomplete="off" required="required">     </md-datepicker>
           </div>
         </div>
         <div class="form-group row">       
@@ -29,11 +29,15 @@
             <input id="color" type="color" ng-model="$ctrl.editedItem.color" autocomplete="off" class="form-control"/>
           </div>
         </div>
-        <div class="row justify-content-between">
-          <div role="group" class="btn-group">
-            <button type="submit" ng-disabled="$ctrl.isFormSubmissionDisabled()" class="btn btn-primary">Save</button><a ui-sref="rt-periods-list" class="btn btn-warning">Cancel</a>
+        <div class="row">
+          <div class="col">
+            <div role="group" class="btn-group">
+              <button type="submit" ng-disabled="$ctrl.isFormSubmissionDisabled()" class="btn btn-primary">Save</button><a ui-sref="rt-periods-list" class="btn btn-warning">Cancel</a>
+            </div>
           </div>
-          <button type="button" ng-click="$ctrl.onDelete()" class="btn btn-danger">Delete</button>
+          <div class="col text-right"> 
+            <button type="button" ng-click="$ctrl.onDelete()" class="btn btn-danger">Delete</button>
+          </div>
         </div>
       </form>
     </div>

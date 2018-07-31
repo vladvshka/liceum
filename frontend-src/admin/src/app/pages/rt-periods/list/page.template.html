@@ -16,6 +16,38 @@
             <input id="nameFilter" type="text" placeholder="Начните набирать текст..." ng-change="gridActions.filter()" ng-model="name" filter-by="name" filter-type="text" class="form-control"/>
           </div>
         </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="startDateFilter">Дата начала:</label>
+            <div class="row">
+              <div class="col">
+                <nobr>От&nbsp;
+                  <md-datepicker placeholder="Select a date..." id="startDateFrom" ng-model="dateFrom_startDate" ng-blur="gridActions.filter()" ng-focus="gridActions.filter()" md-hide-icons="calendar" filter-by="startDate" filter-type="dateFrom" md-open-on-focus="md-open-on-focus"></md-datepicker>
+                </nobr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
+                <nobr>До&nbsp;
+                  <md-datepicker placeholder="Select a date..." id="startDateTo" ng-model="dateTo_startDate" ng-blur="gridActions.filter()" ng-focus="gridActions.filter()" md-hide-icons="calendar" filter-by="startDate" filter-type="dateTo" md-open-on-focus="md-open-on-focus">   </md-datepicker>
+                </nobr>
+                <div ng-show="dateTo_startDate || dateFrom_startDate" class="buttons-right"><a href="" ng-click="dateTo_startDate = null; dateFrom_startDate = null; gridActions.refresh();">Очистить фильтр</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="endDateFilter">Дата окончания:</label>
+            <div class="row">
+              <div class="col">
+                <nobr>От&nbsp;
+                  <md-datepicker placeholder="Select a date..." id="endDateFrom" ng-model="dateFrom_endDate" ng-blur="gridActions.filter()" ng-focus="gridActions.filter()" md-hide-icons="calendar" filter-by="endDate" filter-type="dateFrom" md-open-on-focus="md-open-on-focus"></md-datepicker>
+                </nobr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
+                <nobr>До&nbsp;
+                  <md-datepicker placeholder="Select a date..." id="endDateTo" ng-model="dateTo_endDate" ng-blur="gridActions.filter()" ng-focus="gridActions.filter()" md-hide-icons="calendar" filter-by="endDate" filter-type="dateTo" md-open-on-focus="md-open-on-focus">   </md-datepicker>
+                </nobr>
+                <div ng-show="dateTo_endDate || dateFrom_endDate" class="buttons-right"><a href="" ng-click="dateTo_endDate = null; dateFrom_endDate = null; gridActions.refresh();">Очистить фильтр</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="row">
         <div class="col">
@@ -57,9 +89,9 @@
         <tbody>
           <tr ng-repeat="item in filtered">
             <td ng-bind="item.name"></td>
-            <td ng-bind="item.startDate | date:'dd-MM-yy HH:mm:ss'"></td>
-            <td ng-bind="item.endDate | date:'dd-MM-yy HH:mm:ss'"></td>
-            <td ng-bind="item.color"></td>
+            <td ng-bind="item.startDate | date:'dd/MMM/yyyy HH:mm:ss'"></td>
+            <td ng-bind="item.endDate | date:'dd/MMM/yyyy HH:mm:ss'"></td>
+            <td ng-bind="item.color" ng-style="{'background': '{{ item.color }}'}">   </td>
             <td><a ui-sref="rt-periods-edit({itemId: item._id})" class="btn btn-sm btn-info">Редактировать</a></td>
           </tr>
         </tbody>

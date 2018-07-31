@@ -2,6 +2,7 @@ const express = require("express");
 const loginApiRouter = express.Router();
 const path = require("path");
 const makeHash = require('object-hash');
+const nodemailer = require("nodemailer");
 
 const pupilModel = require("../../models/pupil");
 const transporter = require("../../controllers/emailTransporter");
@@ -108,7 +109,8 @@ function sendEmail(email, confirmationUrl, password) {
 
     // if (!password) {
     //     mailOptions.subject = config.mailOptions.subjectConfirmEmail;
-    //     mailOptions.text = `Для подтверждения почты перейдите по ссылке: ${url}`;       
+    //     mailOptions.text = `Для подтверждения почты перейдите по ссылке: `;
+    //     mailOptions.html = `<a>${url}</a>`;
     // } else {
     //     mailOptions.subject = config.mailOptions.subjectForgottenPwd;
     //     mailOptions.text = `Ваш пароль: ${password}`;
@@ -127,18 +129,16 @@ function sendEmail(email, confirmationUrl, password) {
 
 function makeCookie(email, id) {
     const options = {
-        maxAge: 1000 * 60 * 360 // would expire after 6 h
-        //signed: true
+        maxAge: 1000 * 60 * 360,
+        signed: true
     };
 
     return ["pupil", id, options];
 }
 
 function repeatEmail(req, res, next) {
-    console.log("repeat email");
-
-    if (req.cookies.pupil) {
-        const id = req.cookies.pupil;
+    if (req.signedCookies.pupil) {
+        const id = req.signedCookies.pupil;
 
         pupilModel
             .findById({
@@ -167,10 +167,11 @@ function repeatEmail(req, res, next) {
 };
 
 function checkCookie(req, res, next) {
-    console.log("checking email");
+    console.log(req.signedCookies);
+    console.log(req.cookies);
 
-    if (req.cookies.pupil) {
-        const id = req.cookies.pupil;
+    if (req.signedCookies.pupil) {
+        const id = req.signedCookies.pupil;
         console.log(id);
 
         pupilModel
@@ -195,7 +196,6 @@ function forgotPassword(req, res, next) {
     console.log("forgot pwd");
 
     const email = req.body.email;
-    console.log(email);
     const newHash = makeHash({
         email: email
     });

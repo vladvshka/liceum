@@ -1,52 +1,54 @@
 
 <div class="jumbotron">
-    <h1 class="display-4">Edit Content Block</h1>
+  <h1 class="display-4">Редактирование блока - {{ $ctrl.item.name }}</h1>
 </div>
-
 <div class="container mb-4">
-    <response-service-message></response-service-message>
-    <div class="row">
-        <div class="col">
-            <form ng-submit="$ctrl.onSave()" name="editBlockForm">
-                <div class="form-group">
-                    <label for="header">Header</label>
-                    <input type="text" class="form-control" id="header" ng-model="$ctrl.editedItem.header" autocomplete="off" required>
-                </div>
-                <div class="form-group">
-                    <label for="menu-header">Menu Header</label>
-                    <input type="text" class="form-control" id="menu-header" ng-model="$ctrl.editedItem.menuHeader" autocomplete="off" required>
-                </div>
-                <div class="form-group">
-                    <label for="menu-header">Body</label>
-                    <div class="container-fluid p-0">
-                        <div class="row">
-                            <div class="col-7">
-                                <ng-quill-editor ng-model="$ctrl.editedItem.body" required></ng-quill-editor>
-                            </div>
-                            <div class="col-5">
-                                <pre>{{$ctrl.editedItem.body}}</pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="menu-header">Order</label>
-                    <input type="number" class="form-control" id="menu-header" ng-model="$ctrl.editedItem.order" autocomplete="off">
-                </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="visibility" ng-model="$ctrl.editedItem.visible">
-                    <label class="form-check-label" for="visibility">Visible</label>
-                </div>
-                <div class="container">
-                    <div class="row justify-content-between">
-                        <div class="btn-group" role="group">
-                            <button type="submit" class="btn btn-primary" ng-disabled="$ctrl.isFormSubmissionDisabled()">Save</button>
-                            <a ui-sref="content-blocks-list" class="btn btn-warning">Cancel</a>
-                        </div>
-                        <button type="button" class="btn btn-danger" ng-click="$ctrl.onDelete()">Delete</button>
-                    </div>
-                </div>
-            </form>
+  <response-service-message></response-service-message>
+  <div class="row">
+    <div class="col">
+      <form ng-submit="$ctrl.onSave()" name="editBlockForm">
+        <div class="form-group">
+          <label for="header">Заголовок</label>
+          <input id="header" type="text" ng-model="$ctrl.editedItem.header" autocomplete="off" required="required" class="form-control"/>
         </div>
+        <div class="form-group">
+          <label for="menuHeader">Заголовок в меню</label>
+          <input id="menuHeader" type="text" ng-model="$ctrl.editedItem.menuHeader" autocomplete="off" required="required" class="form-control"/>
+        </div>
+        <div class="form-group row">
+          <div class="col-12">
+            <label for="body">Текст</label>
+            <div class="row">
+              <div class="col-7">
+                <ng-quill-editor ng-model="$ctrl.editedItem.body" required="required"></ng-quill-editor>
+              </div>
+              <div class="col-5">
+                <pre>{{ $ctrl.editedItem.body }}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-2">
+            <label for="order">Порядок</label>
+            <input id="order" type="number" ng-model="$ctrl.editedItem.order" autocomplete="off" class="form-control"/>
+          </div>
+        </div>
+        <div ng-init="$ctrl.editedItem.visible = true" class="form-group form-check">
+          <input id="visible" type="checkbox" ng-model="$ctrl.editedItem.visible" class="form-check-input"/>
+          <label for="visible" class="form-check-label">Активный</label>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div role="group" class="btn-group">
+              <button type="submit" ng-disabled="$ctrl.isFormSubmissionDisabled()" class="btn btn-primary">Save</button><a ui-sref="content-blocks-list" class="btn btn-warning">Cancel</a>
+            </div>
+          </div>
+          <div class="col text-right"> 
+            <button type="button" ng-click="$ctrl.onDelete()" class="btn btn-danger">Delete</button>
+          </div>
+        </div>
+      </form>
     </div>
+  </div>
 </div>

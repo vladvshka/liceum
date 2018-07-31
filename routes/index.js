@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const contentBlockModel = require('../models/contentBlock');
+const contentBlockModel = require('../models/content-blocks');
 
 router.get('/', getRoot);
 

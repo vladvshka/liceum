@@ -52,7 +52,7 @@
                     {
                         "name": "color",
                         "title": "Цвет",
-                        "type": "String"
+                        "type": "Color"
                     }
                 ],
                 "filters": [
@@ -61,6 +61,16 @@
                         "title": "Поиск по названию",
                         "placeholder": "Начните набирать текст...",
                         "type": "text"
+                    },
+                    {
+                        "name": "startDate",
+                        "title": "Дата начала",
+                        "type": "date"
+                    },
+                    {
+                        "name": "endDate",
+                        "title": "Дата окончания",
+                        "type": "date"
                     }
                 ]
             },
