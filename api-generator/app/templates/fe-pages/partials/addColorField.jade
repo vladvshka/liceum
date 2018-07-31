@@ -1,11 +1,11 @@
 mixin addColorField(field, editFlag)
     - var item = editFlag ? 'editedItem' : 'item'
-    .form-group.row        
+    .form-group.row(ng-init= editFlag ? '' : "$ctrl.#{item}.#{field.name}='#ffffff'")  
         .col-2
             label(for='#{field.name}') #{field.title}
             input.form-control(
                 id="#{field.name}", 
-                type='color', 
+                type='color',
                 ng-model='$ctrl.#{item}.#{field.name}', 
                 autocomplete='off', 
                 required=field.required

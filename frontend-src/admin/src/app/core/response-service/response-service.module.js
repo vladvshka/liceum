@@ -27,7 +27,7 @@ function responseService($state) {
     * operations are successful
     */
     function onSuccess(response, redirectTo) {
-        const body = `Your request with ${response.config.method} method to URL ${response.config.url} was successful! :)`;
+        const body = `Ваш запрос с методом ${response.config.method} по URL ${response.config.url} отработал успешно! :)`;
         MSG = {
             type: 'success',
             body
@@ -37,7 +37,7 @@ function responseService($state) {
     }
 
     function onError(response) {
-        const body = `Something went wrong for your request with ${response.config.method} method to URL ${response.config.url} :(`;
+        const body = `Что-то пошло не так для запроса с методом ${response.config.method} по URL ${response.config.url} :(`;
 
         $state.reload();
 
