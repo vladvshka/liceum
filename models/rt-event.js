@@ -33,7 +33,6 @@ const rtEventSchema = new Schema({
 
 rtEventSchema.pre('save', beforeSave);
 
-//do we need it any time besides pre save?
 function beforeSave(next) {
     //sum capacity
     const self = this;

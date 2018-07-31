@@ -133,12 +133,21 @@ function editItem(req, res, next) {
 	const id = req.params.id;
 	const update = req.body;
 	const options = {
-		new: true
+		new: true,
+		runValidators: true
 	};
 
 	update.updated = Date.now();
 
-	model.findAndUpdateById(id, update, res);
+	model
+		.findByIdAndUpdate(id, update, options)
+		.then(function (doc) {
+			res.sendStatus(200);
+		})
+		.catch(function (err) {
+			console.error(err);
+			res.status(500).send("DB updating error");
+		});
 }
 
 function deleteItem(req, res, next) {
