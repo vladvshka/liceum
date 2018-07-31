@@ -50,6 +50,8 @@
             each field in fe.pages.list.fields
                 if (field.type === 'Date')
                     td(ng-bind="item.#{field.name} | date:'dd/MMM/yyyy HH:mm:ss'")
+                else if (field.type === 'Time')
+                    td(ng-bind="item.#{field.name} | date:'HH:mm'")
                 else if (field.type === 'HTML')
                     td(ng-bind-html="$ctrl.parseBody(item.#{field.name})")
                 else if (field.type === 'Color')

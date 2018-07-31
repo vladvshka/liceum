@@ -1,0 +1,35 @@
+
+<div class="jumbotron">
+  <h1 class="display-4">Редактировать время в графике - {{ $ctrl.item.name }}</h1>
+</div>
+<div class="container mb-4">
+  <response-service-message></response-service-message>
+  <div class="row">
+    <div class="col">
+      <form ng-submit="$ctrl.onSave()" name="editBlockForm">
+        <div ng-if="$ctrl.editedItem.startTime" class="form-group row">
+          <div ng-init="$ctrl.editedItem.startTime = $ctrl.newDate($ctrl.editedItem.startTime)" class="col">
+            <label for="startTime">Время начала</label>
+            <md-time-picker ng-model="$ctrl.editedItem.startTime" mandatory="true" no-meridiem="" no-auto-switch=""></md-time-picker>
+          </div>
+        </div>
+        <div ng-if="$ctrl.editedItem.endTime" class="form-group row">
+          <div ng-init="$ctrl.editedItem.endTime = $ctrl.newDate($ctrl.editedItem.endTime)" class="col">
+            <label for="endTime">Время окончания</label>
+            <md-time-picker ng-model="$ctrl.editedItem.endTime" mandatory="true" no-meridiem="" no-auto-switch=""></md-time-picker>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div role="group" class="btn-group">
+              <button type="submit" ng-disabled="$ctrl.isFormSubmissionDisabled()" class="btn btn-primary">Save</button><a ui-sref="times-list" class="btn btn-warning">Cancel</a>
+            </div>
+          </div>
+          <div class="col text-right"> 
+            <button type="button" ng-click="$ctrl.onDelete()" class="btn btn-danger">Delete</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

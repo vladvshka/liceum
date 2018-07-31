@@ -11,6 +11,7 @@ export default function generateController(ITEM_API_NAME) {
         vm.onSave = onSave;
         vm.onDelete = onDelete;
         vm.isFormSubmissionDisabled = isFormSubmissionDisabled;
+        vm.newDate = date => new Date(date);
 
         function onSave() {
             dataService.editItem(vm.ITEM_API_NAME, vm.item._id, vm.editedItem);
