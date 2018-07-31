@@ -1,0 +1,76 @@
+{
+    "name": "times",
+    "schema": {
+        "name": {
+            "type": "#String#"
+        },
+        "startTime": {
+            "type": "#Date#",
+            "required": true
+        },
+        "endTime": {
+            "type": "#Date#",
+            "required": true
+        },
+        "updated": {
+            "type": "#Date#"
+        },
+        "created": {
+            "type": "#Date#",
+            "default": "#Date.now#"
+        }
+    },
+    "fe": {
+        "names": {
+            "list": "Время проведения",
+            "edit": "Редактировать время в графике",
+            "add": "Добавить время в график",
+            "addBtn": "Добавить время"
+        },
+        "pages": {
+            "list": {
+                "fields": [
+                    {
+                        "name": "name",
+                        "title": "Название",
+                        "type": "String"
+                    },
+                    {
+                        "name": "startTime",
+                        "title": "Время начала",
+                        "type": "Time"
+                    },
+                    {
+                        "name": "endTime",
+                        "title": "Время окончания",
+                        "type": "Time"
+                    }
+                ],
+                "filters": [
+                    {
+                        "name": "name",
+                        "title": "Поиск по названию",
+                        "placeholder": "Начните набирать текст...",
+                        "type": "text"
+                    }
+                ]
+            },
+            "add": {
+                "fields": [
+                    {
+                        "name": "startTime",
+                        "title": "Время начала",
+                        "type": "Time",
+                        "required": true
+                    },
+                    {
+                        "name": "endTime",
+                        "title": "Время окончания",
+                        "type": "Time",
+                        "required": true
+                    }
+                ]
+            }
+        }
+    }
+}

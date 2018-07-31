@@ -1,0 +1,26 @@
+
+<div class="jumbotron">
+  <h1 class="display-4">Добавить время в график</h1>
+</div>
+<div class="container mb-4">
+  <response-service-message></response-service-message>
+  <div class="row">
+    <div class="col">
+      <form ng-submit="$ctrl.onAdd()" name="addNewBlockForm">
+        <div ng-if="true" class="form-group row">
+          <div ng-init="" class="col">
+            <label for="startTime">Время начала</label>
+            <md-time-picker ng-model="$ctrl.item.startTime" mandatory="true" no-meridiem="" no-auto-switch=""></md-time-picker>
+          </div>
+        </div>
+        <div ng-if="true" class="form-group row">
+          <div ng-init="" class="col">
+            <label for="endTime">Время окончания</label>
+            <md-time-picker ng-model="$ctrl.item.endTime" mandatory="true" no-meridiem="" no-auto-switch=""></md-time-picker>
+          </div>
+        </div>
+        <button type="submit" ng-disabled="addNewBlockForm.$invalid" class="btn btn-primary">Сохранить</button>&nbsp;<a ui-sref="times-list" class="btn btn-warning">Отмена</a>
+      </form>
+    </div>
+  </div>
+</div>

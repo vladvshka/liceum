@@ -7,8 +7,9 @@ import 'quill';
 import 'ng-quill';
 import { ngQuillConfigConstant, ngQuillConfig } from './config/ng-quill.config';
 import 'bootstrap';
-
 import 'angular-material';
+import 'angular-messages';
+import ngTimePicker from 'angular-material-time-picker';
 
 /** Import Angular Data Grid (with minor fixes) **/
 import './plugins/angular-data-grid/dataGrid';
@@ -40,6 +41,7 @@ import RtScheduleComponent from '../app/pages/rt-schedule/';
 import * as Disciplines from '../app/pages/disciplines/components';
 import * as ContentBlocks from '../app/pages/content-blocks/components';
 import * as Cabinets from '../app/pages/cabinets/components';
+import * as Times from '../app/pages/times/components';
 import * as RtPeriods from '../app/pages/rt-periods/components';
 /** API-generator import end **/
 
@@ -49,6 +51,7 @@ import '../style/app.css';
 import '../style/pagination.css';
 import '../style/quill.snow.css';
 import 'angular-material/angular-material.css';
+import 'angular-material-time-picker/dist/md-time-picker.css';
 import 'angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css';
 
 /** Registering main module and it's components **/
@@ -61,7 +64,9 @@ const APP = angular
     'ngQuill',
     'mwl.calendar',
     'core.dataService',
-    'core.responseService'
+    'core.responseService',
+    'ngMessages',
+    'md.time.picker'
   ])
   .config(config)
   .config(calendarConfig)
@@ -89,4 +94,5 @@ Object.keys(Disciplines).map(name => APP.component(`disciplines${name}Page`, Dis
 Object.keys(RtPeriods).map(name => APP.component(`rtPeriods${name}Page`, RtPeriods[name]));
 Object.keys(ContentBlocks).map(name => APP.component(`contentBlocks${name}Page`, ContentBlocks[name]));
 Object.keys(Cabinets).map(name => APP.component(`cabinets${name}Page`, Cabinets[name]));
+Object.keys(Times).map(name => APP.component(`times${name}Page`, Times[name]));
 /** API-generator component register end **/
