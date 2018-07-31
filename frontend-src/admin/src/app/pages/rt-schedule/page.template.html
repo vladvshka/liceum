@@ -4,36 +4,124 @@
 <div class="container-fluid">
     <div class="row mb-4 text-center">
         <div class="col">
-            <h3>{{$ctrl.viewDate | date: 'MMMM, yyyy' }}</h3>
+            <p>{{ msg || "Click on a date/button to get started"}}</p>
+            <pre>$scope.selectedDate = {{ selectedDate | json }}</pre>
         </div>
     </div>
+    
     <div class="row justify-content-center mb-4">
-        <div class="col d-flex justify-content-center">
-            <div class="btn-group" role="group">
-                <button class="btn btn-primary" mwl-date-modifier date="$ctrl.viewDate" decrement="$ctrl.calendarView">
-                    Предыдущий месяц
-                </button>
-                <button class="btn btn-default" mwl-date-modifier date="$ctrl.viewDate" set-to-today>
-                    Текущий месяц
-                </button>
-                <button class="btn btn-primary" mwl-date-modifier date="$ctrl.viewDate" increment="$ctrl.calendarView">
-                    Следующий месяц
-                </button>
+        <div class="col-12">
+            <div style="height: 800px;">
+                <calendar-md id="calendar-demo"
+                        flex layout layout-fill
+                        calendar-direction="direction"
+                        on-prev-month="prevMonth"
+                        on-next-month="nextMonth"
+                        on-day-click="dayClick"
+                        title-format="'MMMM y'"
+                        ng-model='selectedDate'
+                        day-format="dayFormat"
+                        day-label-format="'EEE'"
+                        day-label-tooltip-format="'EEEE'"
+                        day-tooltip-format="'fullDate'"
+                        week-starts-on="weekStartsOn"
+                        start-Date-of-month="1"
+                        no-of-days="30"
+                        tooltips="true"
+                        day-content="setDayContent"
+                        disable-future-selection="disableFutureDates"></calendar-md>
             </div>
         </div>
-    </div>
-    <div class="row justify-content-center mb-4">
-        <div class="col-11">
-            <mwl-calendar
-                view="$ctrl.calendarView"
-                view-date="$ctrl.viewDate"
-                events="$ctrl.events"
-                on-event-click="eventClicked(calendarEvent)"
-                on-event-times-changed="calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
-                on-view-change-click="false"
-                cell-is-open="false"
-                cell-modifier="$ctrl.cellModifier(calendarCell)">
-            </mwl-calendar>
+
+        <div class="col-12">
+             <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--12-col mdl-cell--6-col-desktop left-col">
+                            <section>
+                                <h5 class="mdl-typeography--headline">With All Options</h5>
+                                <p>
+                                    While I'm working on the documentation, feel free to check
+                                    out the example of it in action here.
+                                </p>
+                                <p>
+                                    If you're brave, you  might be able to poke around the
+                                    example and figure things out! Better yet, why not help
+                                    contribute to the documentation?
+                                </p>
+                            </section>
+                            <section>
+                                <h5 class="mdl-typeography--headline">First Day Of Week</h5>
+                                <p>
+                                    You can easily change the first day of the week.
+                                </p>
+                                <md-input-container>
+                                    <label>First day of week</label>
+                                    <md-select ng-model="weekStartsOn" ng-change="">
+                                        <md-option value="0">Sunday</md-option>
+                                        <md-option value="1">Monday</md-option>
+                                        <md-option value="2">Tuesday</md-option>
+                                        <md-option value="3">Wednesday</md-option>
+                                        <md-option value="4">Thursday</md-option>
+                                        <md-option value="5">Friday</md-option>
+                                        <md-option value="6">Saturday</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </section>
+                            <section>
+                                <h5>Updating calendar data using the MaterialCalendarData service</h5>
+                                <p>
+                                    To support scenarios where you wish to update the content of a
+                                    given day without re-loading the containing scope a MaterialCalendarData
+                                    service has been added. Just inject MaterialCalendarData and use the
+                                    <code>setDayContent(date,content)</code> function
+                                </p>
+                                <p>
+                                    <md-button ng-click="setContentViaService()">Make today a happy day</md-button>
+                                </p>
+                            </section>
+                        </div>
+                        <div class="mdl-cell mdl-cell--12-col mdl-cell--6-col-desktop right-col">
+                            <section>
+                                <h5 class="mdl-typeography--headline">Calendar Layout</h5>
+                                <p>You can also change the calendar layout dynamically.</p>
+                                <md-button ng-click="setDirection('vertical')">Agenda</md-button>
+                                <md-button ng-click="setDirection('horizontal')">Calendar</md-button>
+                            </section>
+
+                            <section>
+                                <h5 class="mdl-typeography--headline">Selecting Dates</h5>
+                                <p>
+                                    You can select multiple dates. Just make sure your ng-model
+                                    value is initialized as an array. This demo also demonstrates
+                                    that if the ngModel is changed from outside the directive,
+                                    the directive will detect that change. That means you can
+                                    select dates programatically.
+                                </p>
+                                <p>
+                                    <md-button ng-click="selectedDate = [];">Multiple dates</md-button>
+                                    <md-button ng-click="selectedDate = false;">Single date</md-button>
+                                </p>
+                            </section>
+
+                            <section>
+                                <h5 class="mdl-typeography--headline">Tooltips</h5>
+                                <p>
+                                    Since 0.2.9 tooltips are off by default, but can easily be enabled.
+                                    See the example below.
+                                </p>
+                            </section>
+
+                            <section>
+                                <h5 class="mdl-typeography--headline">Disable future selection</h5>
+                                <p>
+                                    If you don&apos;t want users selecting dates in the future then
+                                    set the disable-future-selection attribute on the directive to true
+
+
+                                    <md-button ng-click="disableFutureDates = !disableFutureDates;">Toggle future selection</md-button>
+                                </p>
+                            </section>
+                        </div>
+                    </div>
         </div>
     </div>
 </div>

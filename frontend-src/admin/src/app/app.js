@@ -1,5 +1,6 @@
 /** Import Angular Components **/
 import angular from 'angular';
+import 'angular-sanitize';
 import 'angular-ui-router';
 
 /** Import Side Libs **/
@@ -7,16 +8,18 @@ import 'quill';
 import 'ng-quill';
 import { ngQuillConfigConstant, ngQuillConfig } from './config/ng-quill.config';
 import 'bootstrap';
+import 'angular-moment';
 import 'angular-material';
 import 'angular-messages';
 import 'angular-material-time-picker';
+import 'angular-material-calendar/angular-material-calendar';
 
 /** Import Angular Data Grid (with minor fixes) **/
 import './plugins/angular-data-grid/dataGrid';
 import './plugins/angular-data-grid/pagination';
 
-import 'angular-bootstrap-calendar';
-import 'angular-ui-bootstrap';
+//import 'angular-bootstrap-calendar';
+//import 'angular-ui-bootstrap';
 
 /** Import own Angular Services **/
 import './core/data-service/data-service.module';
@@ -52,19 +55,23 @@ import '../style/pagination.css';
 import '../style/quill.snow.css';
 import 'angular-material/angular-material.css';
 import 'angular-material-time-picker/dist/md-time-picker.css';
-import 'angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css';
+import 'angular-material-calendar/dist/angular-material-calendar.css';
+//import 'angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css';
 
 /** Registering main module and it's components **/
 const APP = angular
   .module('app', [
     'ngMaterial',
+    'angularMoment',
     'ui.router',
     'dataGrid',
     'pagination',
     'ngQuill',
-    'mwl.calendar',
+   // 'mwl.calendar',
     'ngMessages',
     'md.time.picker',
+    'ngSanitize',
+    'materialCalendar',
     'core.dataService',
     'core.responseService',
   ])
@@ -77,9 +84,6 @@ APP
   .constant('NG_QUILL_CONFIG', ngQuillConfigConstant)
   .config(ngQuillConfig)
 
-/** Calendar Configuration **/
-APP
-  .config(calendarConfig);
 
 /** Register own Angular Components **/
 APP
