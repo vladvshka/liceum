@@ -1,0 +1,11 @@
+mixin addTimeField(field, editFlag)
+    - var item = editFlag ? 'editedItem' : 'item'
+    .form-group.row(ng-if= editFlag ? '$ctrl.#{item}.#{field.name}' : 'true')
+        .col(ng-init= editFlag ? '$ctrl.#{item}.#{field.name} = $ctrl.newDate($ctrl.#{item}.#{field.name})' : '')
+            label(for='#{field.name}') #{field.title}
+            md-time-picker(
+                ng-model="$ctrl.#{item}.#{field.name}"
+                mandatory="#{field.required || false}"
+                no-meridiem=''
+                no-auto-switch=''
+                )

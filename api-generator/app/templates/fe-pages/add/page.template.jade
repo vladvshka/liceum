@@ -3,6 +3,7 @@ include ../partials/addHTMLField.jade
 include ../partials/addNumberField.jade
 include ../partials/addBooleanField.jade
 include ../partials/addDateField.jade
+include ../partials/addTimeField.jade
 include ../partials/addColorField.jade
 
 .jumbotron
@@ -23,6 +24,8 @@ include ../partials/addColorField.jade
                     + addBooleanField(field, false)
                 if (field.type === 'Date')
                     + addDateField(field, false)
+                if (field.type === 'Time')
+                    + addTimeField(field, false)
                 if (field.type === 'Color')
                     + addColorField(field, false)
         
