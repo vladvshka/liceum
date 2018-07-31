@@ -9,7 +9,7 @@ import { ngQuillConfigConstant, ngQuillConfig } from './config/ng-quill.config';
 import 'bootstrap';
 import 'angular-material';
 import 'angular-messages';
-import ngTimePicker from 'angular-material-time-picker';
+import 'angular-material-time-picker';
 
 /** Import Angular Data Grid (with minor fixes) **/
 import './plugins/angular-data-grid/dataGrid';
@@ -63,31 +63,35 @@ const APP = angular
     'pagination',
     'ngQuill',
     'mwl.calendar',
+    'ngMessages',
+    'md.time.picker',
     'core.dataService',
     'core.responseService',
-    'ngMessages',
-    'md.time.picker'
   ])
   .config(config)
   .config(calendarConfig)
   .config(mdDateConfig)
 
-  /** Ng Quill Configuration **/
+/** Ng Quill Configuration **/
 APP
   .constant('NG_QUILL_CONFIG', ngQuillConfigConstant)
   .config(ngQuillConfig)
 
+/** Calendar Configuration **/
+APP
+  .config(calendarConfig);
+
+/** Register own Angular Components **/
 APP
   .component('responseServiceMessage', ResponseServiceMessageComponent)
   .component('appNavbar', AppNavbarComponent)
-  .component('loginForm', LoginFormComponent)
+  .component('loginForm', LoginFormComponent);
 
 /** Register page comonents **/
 APP
   .component('loginPage', LoginPageComponent)
   .component('mainPage', MainPageComponent)
   .component('rtSchedule', RtScheduleComponent);
-
 
 /** API-generator component register start **/
 Object.keys(Disciplines).map(name => APP.component(`disciplines${name}Page`, Disciplines[name]));
