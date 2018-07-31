@@ -2,6 +2,7 @@
     display: block;
 }
 
+
 pre {
     white-space: pre-wrap;
 }
@@ -10,7 +11,6 @@ input[type='color'] {
     height: 50px;
 }
 
-/* Data Grid-related icons */
 .sortable {
     cursor: pointer;
 }
@@ -29,9 +29,4 @@ input[type='color'] {
 .sortable.sort-descent:after {
     content: "\1F821";
     vertical-align: top;
-}
-
-/* Disabling week tooltip on Angular Bootstrap Calendar */
-.cal-week-box-cell {
-    display: none;
 }

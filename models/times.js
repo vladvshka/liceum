@@ -21,10 +21,23 @@ const schema = new Schema({
   }
 });
 schema.pre('save', beforeSave);
+/* schema.pre('update', beforeUpdate); */
+
 const model = mongoose.model('times', schema);
-async function beforeSave() {
+
+function beforeSave() {
   console.log('***before save fired***');
-  console.log(this);
-  this.updated = await Date.now();
+  /* console.log(this.startTime.getTime());
+  console.log(this.endTime.getTime()); */
+  this.updated = Date.now();
 }
+/* 
+function beforeUpdate(next) {
+  console.log('***before update fired***');
+  console.log(this.startTime.getTime());
+  console.log(this.endTime.getTime());
+  this.updated = Date.now();
+  next();
+} */
+
 module.exports = model;
