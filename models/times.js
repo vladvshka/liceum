@@ -13,31 +13,39 @@ const schema = new Schema({
     "required": true
   },
   "updated": {
-    "type": Date
+    "type": Date,
+		"default": Date.now
   },
   "created": {
     "type": Date,
     "default": Date.now
   }
 });
-schema.pre('save', beforeSave);
-/* schema.pre('update', beforeUpdate); */
+
+schema.pre('update', updateDate);
+
+function updateDate() {
+	console.log('updating');
+	
+	this.update({}, {
+		$set: {
+			updated: new Date()
+		}
+	});
+}
+
+schema.statics.findAndUpdateById = function (id, update, res) {
+	this.update({
+			_id: id
+		}, update)
+		.then(function (doc) {
+			res.sendStatus(200);
+		})
+		.catch(function (err) {
+			console.error(err);
+			res.status(500).send("DB updating error");
+		});
+}
 
 const model = mongoose.model('times', schema);
-
-function beforeSave() {
-  console.log('***before save fired***');
-  /* console.log(this.startTime.getTime());
-  console.log(this.endTime.getTime()); */
-  this.updated = Date.now();
-}
-/* 
-function beforeUpdate(next) {
-  console.log('***before update fired***');
-  console.log(this.startTime.getTime());
-  console.log(this.endTime.getTime());
-  this.updated = Date.now();
-  next();
-} */
-
 module.exports = model;

@@ -9,18 +9,17 @@ loginRouter.get("/confirm-email/:confirmationUrl", confirmEmail);
 
 function signIn(req, res, next) {
     console.log("sign-in");
+
     res.sendFile(path.join(__dirname, "../public/cabinetLogin/index.html"));
 }
 
 function confirmEmail(req, res, next) {
     console.log("confirm email");
+
     const confirmationUrl = req.params.confirmationUrl;
     const update = {
         status: "verified",
         confirmationUrl: ''
-    };
-    const options = {
-        runValidators: true
     };
 
     pupilModel
