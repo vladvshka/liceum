@@ -1,11 +1,11 @@
 
 <div class="jumbotron">
-  <h1 class="display-4">Предметы</h1>
+  <h1 class="display-4">Кабинеты</h1>
 </div>
 <div class="container-fluid">
   <response-service-message></response-service-message>
   <div class="row mb-4">
-    <div class="col"><a ui-sref="disciplines-add" class="btn btn-info">Добавить предмет</a></div>
+    <div class="col"><a ui-sref="cabinets-add" class="btn btn-info">Добавить кабинет</a></div>
   </div>
   <div class="row">
     <div grid-data="" grid-options="$ctrl.gridOptions" grid-actions="gridActions" server-pagination="true" class="col">
@@ -14,16 +14,6 @@
           <div class="form-group">
             <label for="nameFilter">Поиск по названию:</label>
             <input id="nameFilter" type="text" placeholder="Начните набирать текст..." ng-change="gridActions.filter()" ng-model="name" filter-by="name" filter-type="text" class="form-control"/>
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-group">
-            <label for="activeFilter">Активный:</label>
-            <select id="activeFilter" name="activeSelect" ng-change="gridActions.filter()" ng-model="active" filter-by="active" filter-type="select" class="form-control">
-              <option value="">Все</option>
-              <option value="true">Активные</option>
-              <option value="false">Не активные</option>
-            </select>
           </div>
         </div>
       </div>
@@ -58,21 +48,15 @@
         <thead>
           <tr>
             <th sortable="name" class="sortable">Название</th>
-            <th sortable="code" class="sortable">Код</th>
-            <th sortable="variantsCount" class="sortable">Код</th>
-            <th sortable="active" class="sortable">Активный</th>
-            <th sortable="created" class="sortable">Создан</th>
+            <th sortable="capacity" class="sortable">Вместимость</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="item in filtered">
             <td ng-bind="item.name"></td>
-            <td ng-bind="item.code"></td>
-            <td ng-bind="item.variantsCount"></td>
-            <td ng-bind="item.active"></td>
-            <td ng-bind="item.created | date:'dd/MMM/yyyy HH:mm:ss'"></td>
-            <td><a ui-sref="disciplines-edit({itemId: item._id})" class="btn btn-sm btn-info">Редактировать</a></td>
+            <td ng-bind="item.capacity"></td>
+            <td><a ui-sref="cabinets-edit({itemId: item._id})" class="btn btn-sm btn-info">Редактировать</a></td>
           </tr>
         </tbody>
       </table>

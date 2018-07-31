@@ -1,0 +1,33 @@
+
+<div class="jumbotron">
+  <h1 class="display-4">Редактировать данные о кабинете - {{ $ctrl.item.name }}</h1>
+</div>
+<div class="container mb-4">
+  <response-service-message></response-service-message>
+  <div class="row">
+    <div class="col">
+      <form ng-submit="$ctrl.onSave()" name="editBlockForm">
+        <div class="form-group">
+          <label for="name">Название</label>
+          <input id="name" type="text" ng-model="$ctrl.editedItem.name" autocomplete="off" class="form-control"/>
+        </div>
+        <div class="form-group row">
+          <div class="col-2">
+            <label for="capacity">Вместимость</label>
+            <input id="capacity" type="number" ng-model="$ctrl.editedItem.capacity" autocomplete="off" class="form-control"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div role="group" class="btn-group">
+              <button type="submit" ng-disabled="$ctrl.isFormSubmissionDisabled()" class="btn btn-primary">Save</button><a ui-sref="cabinets-list" class="btn btn-warning">Cancel</a>
+            </div>
+          </div>
+          <div class="col text-right"> 
+            <button type="button" ng-click="$ctrl.onDelete()" class="btn btn-danger">Delete</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
