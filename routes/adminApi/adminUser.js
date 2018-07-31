@@ -53,7 +53,8 @@ function editAdminUser(req, res, next) {
     //console.log(blockId);
     const update = req.body;
     const options = {
-        new: true
+        new: true,
+        runValidators: true
     };
 
     adminUserModel.findOneAndUpdate({ _id: id }, update, options)

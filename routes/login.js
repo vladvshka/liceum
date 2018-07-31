@@ -19,12 +19,16 @@ function confirmEmail(req, res, next) {
         status: "verified",
         confirmationUrl: ''
     };
+    const options = {
+        runValidators: true
+    };
 
     pupilModel
         .findOneAndUpdate({
                 confirmationUrl: confirmationUrl
             },
-            update
+            update,
+            options
         )
         .then(function (doc) {
             res.redirect("/login/api/#/email-verified");
