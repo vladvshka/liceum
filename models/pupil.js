@@ -33,7 +33,10 @@ const pupilSchema = new Schema({
 	}]
 });
 
-pupilSchema.pre('save', function (next) {
+pupilSchema.pre('save', cryptPassword);
+pupilSchema.post('update', cryptPassword);
+
+function cryptPassword(next) {
 	const pupil = this;
 	const password = pupil.password;
 	pupil.confirmationUrl = makeHash({
@@ -50,8 +53,28 @@ pupilSchema.pre('save', function (next) {
 			next();
 		}
 	});
-});
+}
 
+pupilSchema.statics.setNewPassword = function(email, update, res) {
+	this.update({
+			email: email
+		},
+		update
+	)
+	.then(function (doc) {
+		if (doc) {
+			res.status(200).json(email);
+		} else {
+			res.status(404).send("User not found in Db");
+		}
+	})
+	.catch(function (err) {
+		console.error(err);
+		res.status(500).send("DB finding pupil error");
+	});
+}
+
+//methods defined on schema are called from concrete doc
 pupilSchema.methods.comparePasswords = function (candidatePassword, cb) {
 	bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
 		if (err) {
@@ -65,37 +88,3 @@ pupilSchema.methods.comparePasswords = function (candidatePassword, cb) {
 const pupilModel = mongoose.model('Pupil', pupilSchema);
 
 module.exports = pupilModel;
-
-/*
-function define(mongoose, fn) {
-    const pupilSchema = new Schema({
-		email: {
-            type: String,
-            required: true
-        },
-        password: {
-            type: String,
-            required: true
-        },
-        salt: {
-            type: String,
-            required: true
-        },
-        created: {
-            type: Date,
-            default: Date.now
-        },
-        status: String,
-        resetPasswordToken: String,
-        resetPasswordExpires: Date,
-        confirmMailToken: String,
-        examStatus: String
-	});
-
-    mongoose.model('Pupil', pupilSchema);
-	fn();
-}
-
-exports.define = define;
-
-*/

@@ -2,37 +2,16 @@
     <h1 class="display-4">Расписание РТ</h1>
 </div>
 <div class="container-fluid">
-    <div class="row mb-4 text-center">
-        <div class="col">
-            <h3>{{$ctrl.viewDate | date: 'MMMM, yyyy' }}</h3>
-        </div>
-    </div>
-    <div class="row justify-content-center mb-4">
-        <div class="col d-flex justify-content-center">
-            <div class="btn-group" role="group">
-                <button class="btn btn-primary" mwl-date-modifier date="$ctrl.viewDate" decrement="$ctrl.calendarView">
-                    Предыдущий месяц
-                </button>
-                <button class="btn btn-default" mwl-date-modifier date="$ctrl.viewDate" set-to-today>
-                    Текущий месяц
-                </button>
-                <button class="btn btn-primary" mwl-date-modifier date="$ctrl.viewDate" increment="$ctrl.calendarView">
-                    Следующий месяц
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="row justify-content-center mb-4">
-        <div class="col-11">
+    <div class="row justify-content-center">
+        <div class="col-sm-10">
             <mwl-calendar
                 view="$ctrl.calendarView"
                 view-date="$ctrl.viewDate"
-                events="$ctrl.events"
+                events="events"
+                view-title="'calendarTitle'"
                 on-event-click="eventClicked(calendarEvent)"
                 on-event-times-changed="calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
-                on-view-change-click="false"
-                cell-is-open="false"
-                cell-modifier="$ctrl.cellModifier(calendarCell)">
+                cell-is-open="true">
             </mwl-calendar>
         </div>
     </div>

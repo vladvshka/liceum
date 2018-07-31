@@ -8,7 +8,8 @@ router.get('/', getRoot);
 function getRoot(req, res, next) {
 	let contentBlocks = null;
 
-	contentBlockModel.find({})
+	contentBlockModel.
+		find({})
 		.then(function (docs) {
 			contentBlocks = docs;
 

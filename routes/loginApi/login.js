@@ -16,8 +16,7 @@ loginApiRouter.get("/check-cookie", checkCookie);
 
 function signIn(req, res) {
     const pupil = req.body;
-    const pwd = pupil.password
-    console.log(pupil);
+    const pwd = pupil.password;
 
     pupilModel
         .findOne({
@@ -25,6 +24,7 @@ function signIn(req, res) {
         })
         .then(function (doc) {
             if (doc) {
+                //methods defined on schema are called from concrete doc
                 doc.comparePasswords(pwd, function (err, isMatch) {
                     if (err) {
                         res.status(500).send("Pupil not found in Db");
@@ -196,36 +196,17 @@ function forgotPassword(req, res, next) {
     console.log("forgot pwd");
 
     const email = req.body.email;
-    const newHash = makeHash({
+    const newPassword = makeHash({
         email: email
     });
     const update = {
-        status: "forgottenPassword",
-        confirmationUrl: newHash
-    };
-    const options = {
-        runValidators: true
+        password: newPassword
     };
 
-    pupilModel
-        .findOneAndUpdate({
-                email: email
-            },
-            update,
-            options
-        )
-        .then(function (doc) {
-            if (doc) {
-                //send email with decrypted password
-                res.status(200).json(email);
-            } else {
-                res.status(404).send("User not found in Db");
-            }
-        })
-        .catch(function (err) {
-            console.error(err);
-            res.status(500).send("DB finding pupil error");
-        });
+    pupilModel.setNewPassword(email, update, res);
+
+    //send email with newPassword
+    sendEmail(email, null, newPassword); 
 }
 
 module.exports = loginApiRouter;
