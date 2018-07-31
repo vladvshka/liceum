@@ -88,8 +88,15 @@ function postItem(req, res, next) {
 function editItem(req, res, next) {
   const id = req.params.id;
   const update = req.body;
-  
-  model.findAndUpdateById(id, update, res);
+  const options = {
+    new: true,
+		runValidators: true
+  };
+  update.updated = Date.now();   model.findByIdAndUpdate(id, update, options).then(function(doc) {
+    res.sendStatus(200);
+  }).catch(function(err) {
+    console.error(err);    res.status(500).send("DB updating error");
+  });
 }
 function deleteItem(req, res, next) {
   const id = req.params.id;
