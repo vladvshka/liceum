@@ -97,7 +97,7 @@ function addNewPupil(pupil, res) {
 function sendEmail(email, confirmationUrl, password) {
     console.log("email: ", email);
     console.log("url: ", confirmationUrl);
-    //how to decrypt password?
+
     // const url = `${config.domain}/${confirmationUrl}`;
 
     // // setup email data with unicode symbols
