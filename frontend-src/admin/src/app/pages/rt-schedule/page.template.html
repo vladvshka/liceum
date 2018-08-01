@@ -10,7 +10,7 @@
     </div>
     
     <div class="row justify-content-center mb-4">
-        <div class="col-12">
+        <div class="col-8">
             <div style="height: 800px;">
                 <calendar-md id="calendar-demo"
                         flex layout layout-fill
@@ -29,6 +29,60 @@
                         day-content="$ctrl.calendar.setDayContent"
                         disable-future-selection="$ctrl.calendar.disableFutureDates">
                     </calendar-md>
+            </div>
+        </div>
+        <div class="col-4">
+            
+            <div ng-if="!$ctrl.calendar.selectedDate">
+                Дата не выбрана
+            </div>
+            <div ng-if="$ctrl.calendar.selectedDate">
+                <md-button class="md-raised md-primary" ng-click="$ctrl.showAddForm(true)">Добавить РТ</md-button>
+                <md-button class="md-raised md-secondary" ng-click="$ctrl.showAddForm(flase)">Отмена</md-button>
+                <pre> {{ $ctrl.calendar.selectedDate }}</pre>
+                 <pre> {{  }} </pre>
+
+                 <md-card ng-if="$ctrl.isAddFormVisible">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Add form</span>
+                        </md-card-title-text>
+                    </md-card-title>   
+                    <md-card-content>
+                        <div layout="row">
+                            <md-input-container>
+                                <label>Время</label>
+                                <md-select ng-model="$ctrl.selectedTime">
+                                    <md-option><em>None</em></md-option>
+                                    <md-option ng-repeat="time in $ctrl.times.items track by time._id" 
+                                                ng-value="time._id">
+                                        {{time.name}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+
+                            <ul>
+                                <li  ng-repeat="cabinet in $ctrl.cabinets.items track by cabinet._id">
+                                    <md-checkbox ng-checked="$ctrl.exists(cabinet, $ctrl.selectedCabinets)" ng-click="$ctrl.toggle(cabinet, $ctrl.selectedCabinets)">
+                                        {{ cabinet.name }} ({{cabinet.capacity}})
+                                    </md-checkbox>
+                                </li>
+                            </ul>
+
+                            <ul>
+                                <li  ng-repeat="discipline in $ctrl.disciplines.items track by discipline._id">
+                                    <md-checkbox ng-checked="$ctrl.exists(discipline, $ctrl.selectedDisciplines)" ng-click="$ctrl.toggle(discipline, $ctrl.selectedDisciplines)">
+                                        {{ discipline.name }}
+                                    </md-checkbox>
+                                </li>
+                            </ul>
+                        </div>    
+                    </md-card-content>    
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-raised md-primary" ng-click="$ctrl.saveEvent()">Сохранить</md-button>
+                        <md-button class="md-raised md-secondary" ng-click="$ctrl.showAddForm(flase)">Отмена</md-button>
+                    </md-card-actions>    
+                 </md-card>
             </div>
         </div>
 

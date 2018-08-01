@@ -2,13 +2,25 @@ import template from './page.template.html';
 
 export default {
     template,
-    controller: ('RtScheduleController', controller)
+    controller: ('RtScheduleController', controller),
+    bindings: { 
+        cabinets: "<",
+        disciplines: "<",
+        times: "<" 
+    } 
 };
 
-controller.$inject = ['$scope', '$q', '$timeout', '$filter', 'MaterialCalendarData', 'dataService'];
+controller.$inject = ['MaterialCalendarData', 'dataService'];
 
-function controller($scope, $q, $timeout, $filter, MaterialCalendarData, dataService) {
+function controller(MaterialCalendarData, dataService) {
     const vm = this;
+
+    vm.days = {};
+    vm.isAddFormVisible = false;
+
+    vm.selectedCabinets = [];
+    vm.selectedDisciplines = [];
+    vm.selectedTime;
 
     // Calendar-related variables stored in this object
     vm.calendar = {        
@@ -29,13 +41,88 @@ function controller($scope, $q, $timeout, $filter, MaterialCalendarData, dataSer
         onNextMonthClick: onNextMonthClick,
         setDirection: setDirection,
         setContentViaService: setContentViaService,
-        setDayContent: setDayContent
+       // setDayContent: //setDayContent
     };
 
+    vm.showAddForm = showAddForm;
+
+    vm.exists = exists;
+    vm.toggle = toggle;
+    vm.saveEvent = saveEvent;
+
+    getEvents();
+
+    function showAddForm(isVisible) {
+        vm.isAddFormVisible = isVisible;
+    }
+
+    function getEvents () {
+        return dataService
+            .getItems('rt-events')
+            .then(onEventsSuccess);
+    }
+
+    function onEventsSuccess(data) {
+        console.log('all events get request');
+        data.items.forEach(generateEvent);
+        putEventsOnCalendar();
+    }
+
+    function putEventsOnCalendar() {
+        angular.forEach(vm.days, (day, key) => {
+            const date = new Date(key)
+            const dayContent = [];
+
+            day.forEach(event => {
+                let eventLine = event.timeId.name + ' ';
+
+                event.disciplines.map(d => {
+                    eventLine += d.name
+                })
+                dayContent.push(eventLine)
+            })
+
+            MaterialCalendarData.setDayContent(date, dayContent.join('<br>'))
+            
+        });
+    }
+
+    function generateEvent(item)  {
+        console.log('genItem', item)
+        const date = new Date(item.date);
+        const key = [date.getFullYear(), numFmt(date.getMonth() + 1), numFmt(date.getDate())].join("-");
+
+        if (!vm.days[key]) {
+            vm.days[key] = [];
+        }
+        
+        vm.days[key].push(item);
+        console.log(key, vm.days)
+    }
+
+    function saveEvent() {
+        console.log(vm.calendar.selectedDate, vm.selectedCabinets, vm.selectedTime, vm.selectedDisciplines)
+        dataService.addItem('rt-events', {
+            timeId: vm.selectedTime,
+            disciplines: vm.selectedDisciplines,
+            cabinets: vm.selectedCabinets,
+            capacity: 23,
+            date: vm.calendar.selectedDate,
+        }).then(function(){
+            console.log('success', arguments)
+        }).catch(function(){
+            console.log('error', arguments)
+        })
+    }
+
     // Calendar-related function definitions
-    function onDayClick(date) {
-        vm.calendar.msg = "You clicked " + $filter("date")(date, "MMM d, y h:mm:ss a Z");
-        MaterialCalendarData.setDayContent(date, '<span> ' + date + ' </span><h1></h1>')
+    function onDayClick(dateString) {
+        const date = new Date(dateString);
+        const key = [date.getFullYear(), numFmt(date.getMonth() + 1), numFmt(date.getDate())].join("-");
+        vm.selectedDay = vm.days[key];
+
+        //vm.calendar.msg = "You clicked " + $filter("date")(date, "MMM d, y h:mm:ss a Z");
+        //MaterialCalendarData.setDayContent(date, '<span> ' + date + ' </span><h1></h1>')
     };
 
     function onPrevMonthClick(data) {
@@ -69,6 +156,31 @@ function controller($scope, $q, $timeout, $filter, MaterialCalendarData, dataSer
         // return '<i>setDayContent working</i>';
     }
     
+    function numFmt(num) {
+        num = num.toString();
+        if (num.length < 2) {
+            num = "0" + num;
+        }
+        return num;
+    };
+
+
+
+    function toggle(item, list) {
+        var idx = list.indexOf(item);
+        if (idx > -1) {
+          list.splice(idx, 1);
+        }
+        else {
+          list.push(item._id);
+        }
+      }
+    
+    function exists(item, list) {
+        return list.indexOf(item._id) > -1;
+      }
+
+
     /**** START OF RIDICULOUS ASYNC EXAMPLE ****/
 
     /* const loadContentAsync = true;
@@ -89,13 +201,7 @@ function controller($scope, $q, $timeout, $filter, MaterialCalendarData, dataSer
         return data;
     };
 
-    let numFmt = function (num) {
-        num = num.toString();
-        if (num.length < 2) {
-            num = "0" + num;
-        }
-        return num;
-    }; */
+     */
 
     /**** END OF RIDICULOUS ASYNC EXAMPLE ****/
 }

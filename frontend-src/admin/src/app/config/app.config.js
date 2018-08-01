@@ -18,7 +18,12 @@ export default function config($stateProvider, $urlRouterProvider) {
     const rtSchedulrPageState = {
         name: 'rt-schedule',
         url: '/rt-schedule',
-        component: 'rtSchedule'
+        component: 'rtSchedule',
+        resolve: {
+            disciplines: getItemsGetter('disciplines'),
+            times: getItemsGetter('times'),
+            cabinets: getItemsGetter('cabinets')
+        }
     }
 
     $stateProvider.state(mainPageState);
@@ -58,6 +63,14 @@ export default function config($stateProvider, $urlRouterProvider) {
         function getItem(dataService, $transition$) {
             const itemId = $transition$.params().itemId;
             return dataService.getItemById(itemName, itemId);
+        }
+    }
+
+    function getItemsGetter(itemName) {
+        return getItems;
+
+        function getItems(dataService) {
+            return dataService.getItems(itemName);
         }
     }
 
