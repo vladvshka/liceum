@@ -20,7 +20,8 @@ const schema = new Schema({
     default: 2
   },
   updated: {
-    type: Date
+    type: Date,
+    default: Date.now
   },
   created: {
     type: Date,
@@ -76,8 +77,8 @@ function filteredSearch(queryParams, filterFields) {
   }
 }
 const model = mongoose.model("disciplines", schema);
-async function beforeSave() {
+function beforeSave(next) {
   let update = this;
-  this.updated = await Date.now();
+  next();
 }
 module.exports = model;

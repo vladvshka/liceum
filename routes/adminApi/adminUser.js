@@ -50,21 +50,9 @@ function postAdminUser(req, res, next) {
 
 function editAdminUser(req, res, next) {
     const id = req.params.id;
-    //console.log(blockId);
     const update = req.body;
-    const options = {
-        new: true,
-        runValidators: true
-    };
 
-    adminUserModel.findOneAndUpdate({ _id: id }, update, options)
-        .then(function (doc) {
-            res.status(200);
-        })
-        .catch(function (err) {
-            console.error(err);
-            res.status(500).send('DB updating error');
-        });
+    adminUserModel.findAndUpdateById(id, update, res);
 }
 
 function deleteAdminUser(req, res, next) {

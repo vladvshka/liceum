@@ -12,7 +12,6 @@ schema.statics.findByReqAndUpdate = findByReqAndUpdate;
 function findByReqAndUpdate (req) {
   const id = req.params.id;
   const update = req.body;
-  const options = { new: true, runValidators: true };
 
   update.updated = Date.now();
 
@@ -20,7 +19,7 @@ function findByReqAndUpdate (req) {
 
   <%onUpdate%>
 
-  return this.findByIdAndUpdate(id, update, options);
+  return this.findByIdAndUpdate(id, update);
 }
 
 function filteredSearch(queryParams, filterFields) {
@@ -66,10 +65,10 @@ function filteredSearch(queryParams, filterFields) {
 
 const model = mongoose.model('<%name%>', schema);
 
-async function beforeSave() {
+function beforeSave(next) {
 	let update = this;
-	this.updated = await Date.now();
-	 <%onUpdate%>
+	<%onUpdate%>
+  next();
 }
 
 module.exports = model;
