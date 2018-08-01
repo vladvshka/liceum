@@ -16,36 +16,7 @@ loginApiRouter.get("/check-cookie", checkCookie);
 
 function signIn(req, res) {
     const pupil = req.body;
-    const pwd = pupil.password
-    console.log(pupil);
-
-    pupilModel
-        .findOne({
-            email: pupil.email
-        })
-        .then(function (doc) {
-            if (doc) {
-                doc.comparePasswords(pwd, function (err, isMatch) {
-                    if (err) {
-                        res.status(500).send("Pupil not found in Db");
-                    }
-
-                    if (isMatch) {
-                        //res.sendFile(path.join(__dirname, '../../public/cabinet/index.html'));
-                        res.sendStatus(200);
-                    } else {
-                        res.sendStatus(401);
-                    }
-
-                });
-            } else {
-                res.status(404).send("User not found in Db");
-            }
-        })
-        .catch(function (err) {
-            console.error(err);
-            res.status(500).send("DB checking pupil error");
-        });
+    pupilModel.comparePasswords(pupil, res);
 }
 
 function signUp(req, res, next) {
@@ -58,8 +29,7 @@ function signUp(req, res, next) {
         })
         .then(function (doc) {
             if (doc) {
-                //status?
-                res.status(500).send("User with such email already exists");
+                res.status(409).send("User with such email already exists");
             } else {
                 addNewPupil(pupil, res);
             }
@@ -146,7 +116,6 @@ function repeatEmail(req, res, next) {
             })
             .then(function (doc) {
                 if (doc) {
-                    //if confirmationUrl is not null and status===virgin?
                     if (doc.status === "virgin" && doc.confirmationUrl) {
                         sendEmail(doc.email, doc.confirmationUrl);
                         res.sendStatus(200);
@@ -196,36 +165,17 @@ function forgotPassword(req, res, next) {
     console.log("forgot pwd");
 
     const email = req.body.email;
-    const newHash = makeHash({
+    const newPassword = makeHash({
         email: email
     });
     const update = {
-        status: "forgottenPassword",
-        confirmationUrl: newHash
-    };
-    const options = {
-        runValidators: true
+        password: newPassword
     };
 
-    pupilModel
-        .findOneAndUpdate({
-                email: email
-            },
-            update,
-            options
-        )
-        .then(function (doc) {
-            if (doc) {
-                //send email with decrypted password
-                res.status(200).json(email);
-            } else {
-                res.status(404).send("User not found in Db");
-            }
-        })
-        .catch(function (err) {
-            console.error(err);
-            res.status(500).send("DB finding pupil error");
-        });
+    pupilModel.setNewPassword(email, update, res);
+
+    //send email with newPassword
+    sendEmail(email, null, newPassword); 
 }
 
 module.exports = loginApiRouter;

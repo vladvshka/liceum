@@ -50,21 +50,9 @@ function postSettings(req, res, next) {
 
 function editSettings(req, res, next) {
     const id = req.params.id;
-    //console.log(blockId);
     const update = req.body;
-    const options = {
-        new: true,
-		runValidators: true
-    };
 
-    settingsModel.findOneAndUpdate({ _id: id }, update, options)
-        .then(function (doc) {
-            res.status(200);
-        })
-        .catch(function (err) {
-            console.error(err);
-            res.status(500).send('DB updating error');
-        });
+    settingsModel.findAndUpdateById(id, update, res);
 }
 
 function deleteSettings(req, res, next) {

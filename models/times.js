@@ -13,7 +13,8 @@ const schema = new Schema({
     required: true
   },
   updated: {
-    type: Date
+    type: Date,
+    default: Date.now
   },
   created: {
     type: Date,
@@ -23,10 +24,14 @@ const schema = new Schema({
 schema.pre("save", beforeSave);
 schema.statics.filteredSearch = filteredSearch;
 schema.statics.findByReqAndUpdate = findByReqAndUpdate;
+
 function findByReqAndUpdate(req) {
   const id = req.params.id;
   const update = req.body;
-  const options = { new: true, runValidators: true };
+  const options = {
+    new: true,
+    runValidators: true
+  };
   update.updated = Date.now();
   console.log("updete");
   var startTime = new Date(update.startTime);
@@ -44,6 +49,7 @@ function findByReqAndUpdate(req) {
   update.name = startTime + "-" + endTime;
   return this.findByIdAndUpdate(id, update, options);
 }
+
 function filteredSearch(queryParams, filterFields) {
   const findQuery = this.find();
   const countQuery = this.find();
@@ -53,6 +59,7 @@ function filteredSearch(queryParams, filterFields) {
     .skip(queryParams.itemsPerPage * (queryParams.page - 1))
     .limit(queryParams.itemsPerPage);
   return Promise.all([findQuery.exec(), countQuery.countDocuments().exec()]);
+
   function addFilterToQuery(filter) {
     const findFilter = {};
     let filterName = filter.name;
@@ -65,10 +72,14 @@ function filteredSearch(queryParams, filterFields) {
       dateFilterType = filterName.split("_")[0];
       filterName = filterName.split("_")[1];
       if (dateFilterType === "dateFrom") {
-        filterValue = { $gte: new Date(filter.value) };
+        filterValue = {
+          $gte: new Date(filter.value)
+        };
       }
       if (dateFilterType === "dateTo") {
-        filterValue = { $lt: new Date(filter.value) };
+        filterValue = {
+          $lt: new Date(filter.value)
+        };
       }
     }
     if (!isDateFilter) {
@@ -82,9 +93,8 @@ function filteredSearch(queryParams, filterFields) {
   }
 }
 const model = mongoose.model("times", schema);
-async function beforeSave() {
+function beforeSave(next) {
   let update = this;
-  this.updated = await Date.now();
   var startTime = new Date(update.startTime);
   var endTime = new Date(update.endTime);
   startTime =
@@ -98,5 +108,6 @@ async function beforeSave() {
     (endTime.getMinutes() < 10 ? "0" : "") +
     endTime.getMinutes();
   update.name = startTime + "-" + endTime;
+  next();
 }
 module.exports = model;
