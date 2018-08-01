@@ -50,13 +50,13 @@ import * as RtPeriods from '../app/pages/rt-periods/components';
 
 /**  Import CSS **/
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../style/app.css';
-import '../style/pagination.css';
-import '../style/quill.snow.css';
 import 'angular-material/angular-material.css';
 import 'angular-material-time-picker/dist/md-time-picker.css';
 import 'angular-material-calendar/dist/angular-material-calendar.css';
 //import 'angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css';
+import '../style/quill.snow.css';
+import '../style/pagination.css';
+import '../style/app.css';
 
 /** Registering main module and it's components **/
 const APP = angular
