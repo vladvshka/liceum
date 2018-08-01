@@ -1,11 +1,11 @@
-const esformatter = require('esformatter');
+const prettier = require("prettier");
 const path = require('path'); 
 const fs = require('fs-extra');
 
 const viewsFolder = path.join(__dirname, '../templates/');
 
 const re = /<%(.+?)%>/g, 
-	  reExp = /(^( )?(var|if|for|else|switch|case|break|{|}|;))(.*)?/g; 
+      reExp = /(^( )?(var|if|for|else|switch|case|break|{|}|;))(.*)?/g;      
 
 var JSTemplateEngine = function(filename, options) {
     let template = fs.readFileSync(viewsFolder + filename, 'utf8');
@@ -30,7 +30,7 @@ var JSTemplateEngine = function(filename, options) {
         console.error("'" + err.message + "'", " in \n\nCode:\n", code, "\n"); 
     }
 
-    return esformatter.format(result, {});
+    return prettier.format(result, {});
     
     function add(line, jsFlag) {
         if (jsFlag) {

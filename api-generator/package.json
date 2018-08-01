@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "commander": "^2.16.0",
-    "esformatter": "^0.10.0",
+    "prettier": "1.14.0",
     "fs-extra": "^7.0.0",
     "inquirer": "^6.0.0",
     "jade": "^1.11.0"

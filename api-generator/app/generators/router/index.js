@@ -3,17 +3,9 @@ var render = require('../../templateEngine/');
 
 function genRouter(Model, path) {
     let fileContent;
-    const textFilters = [];
-    
-    Model.fe.pages.list.filters.forEach(filter => {
-        if (filter.type === 'text') {
-            textFilters.push(filter.name);
-        }
-    });
 
     fileContent = render('model.router.tmpl', {
-        name: Model.name,
-        textFilters: '["' + textFilters.join('", "') + '"]'
+        name: Model.name
     });
     
     fs.writeFile(path + Model.name + '.js', fileContent, 'utf8', (err) => {
