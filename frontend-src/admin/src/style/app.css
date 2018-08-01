@@ -31,7 +31,8 @@ input[type='color'] {
     vertical-align: top;
 }
 
-/* Disabling week tooltip on Angular Bootstrap Calendar */
-.cal-week-box-cell {
-    display: none;
+calendar-md .md-toolbar-tools h2 {
+    overflow-x: visible;
+    text-overflow: unset;
+    white-space: unset;
 }
