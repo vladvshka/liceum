@@ -168,7 +168,7 @@ function controller(MaterialCalendarData, dataService) {
     }
 
     function editEvent() {
-        console.log(`i will edit an event with ... ${vm.currentEvent.id}`);
+        console.log(`i will edit an event with id ${vm.currentEvent.id}`);
         dataService
             .editItem('rt-events', vm.currentEvent.id, {
                 timeId: vm.currentEvent.selectedTime,
@@ -193,11 +193,12 @@ function controller(MaterialCalendarData, dataService) {
         console.log(`i will delete an event with id ${id}`);
         dataService
             .deleteItem('rt-events', id)
-            .then(data => {
-                console.log(data);
+            .then(function () {
+                console.log('success', arguments)
+                getEvents();
+                resetCurrentEvent();
             })
     }
-
     
     // Calendar-related function definitions
     function onDayClick(dateString) {
