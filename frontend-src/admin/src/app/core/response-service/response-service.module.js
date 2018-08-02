@@ -8,16 +8,16 @@ let MSG = {
     body: null
 };
 
-responseService.$inject = ['$state'];
+responseService.$inject = ['$state', '$rootScope'];
 
-function responseService($state) {
-    const methods = {
+function responseService($state, $rootScope) {
+    const service = {
         onSuccess,
         onError,
         checkMSG
     };
 
-    return methods;
+    return service;
 
     ////////////
 
@@ -39,12 +39,12 @@ function responseService($state) {
     function onError(response) {
         const body = `Что-то пошло не так для запроса с методом ${response.config.method} по URL ${response.config.url} :(`;
 
-        $state.reload();
-
         MSG = {
             type: 'error',
             body
         }
+
+        $rootScope.$broadcast("ResponseError");
     }
 
     function checkMSG() {

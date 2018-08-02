@@ -5,19 +5,21 @@ export default {
     controller: ('ResponseServiceMessage', ResponseServiceMessage)
 };
 
-ResponseServiceMessage.$inject = ['responseService'];
+ResponseServiceMessage.$inject = ['$scope', 'responseService'];
 
-function ResponseServiceMessage(responseService) {
+function ResponseServiceMessage($scope, responseService) {
     const vm = this;
     vm.alertMessage = {};
     vm.alertNgClassMap = {
         'success': 'alert-success',
         'error': 'alert-danger'
     };
+    
+    $scope.$on('ResponseError', checkMessage);
+    
+    checkMessage();
 
-    main();
-
-    function main() {
+    function checkMessage() {
         vm.alertMessage = responseService.checkMSG();
     }
 }
