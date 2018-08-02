@@ -49,11 +49,14 @@ function controller(MaterialCalendarData, dataService) {
     };
 
     vm.showAddForm = showAddForm;
+    vm.showEditForm = showEditForm;
     vm.cancelSubmission = cancelSubmission;
 
     vm.exists = exists;
     vm.toggle = toggle;
-    vm.submitEvent = submitEvent;
+    vm.addEvent = addEvent;
+    vm.editEvent = editEvent;
+    vm.deleteEvent = deleteEvent;
 
     getEvents();
 
@@ -65,12 +68,29 @@ function controller(MaterialCalendarData, dataService) {
         }
     }
     function cancelSubmission() {
-        resetCurrentEvent;
+        resetCurrentEvent();
         vm.showAddForm(false);
+        vm.showEditForm(false);
     }
 
     function showAddForm(isVisible) {
         vm.isAddFormVisible = isVisible;
+    }
+    
+    function showEditForm(isVisible, event) {
+        vm.isEditFormVisible = isVisible;
+
+        if (event) {
+            console.log(event);
+        
+            vm.currentEvent = {
+                selectedCabinets: event.cabinets.map(c => c._id),
+                selectedDisciplines: event.disciplines.map(d => d._id),
+                selectedTime: event.timeId._id,
+                id: event._id
+            }
+            console.log(vm.currentEvent);
+        }
     }
 
     function getEvents() {
@@ -120,39 +140,71 @@ function controller(MaterialCalendarData, dataService) {
         console.log(vm.dayToEventsMap); */
     }
 
-    function submitEvent() {
-        /* console.log('**submit event fired, console below**');
+    function addEvent() {
+        console.log('**submit event fired, console below**');
         console.log(vm.calendar.selectedDate);
         console.log(vm.currentEvent.selectedTime);
         console.log(vm.currentEvent.selectedDisciplines);
         console.log(vm.currentEvent.selectedCabinets);
-        console.log('**whoohoo???**'); */
+        console.log('**whoohoo???**');
 
         dataService
             .addItem('rt-events', {
                 timeId: vm.currentEvent.selectedTime,
                 disciplines: vm.currentEvent.selectedDisciplines,
                 cabinets: vm.currentEvent.selectedCabinets,
-                capacity: 23,
                 date: vm.calendar.selectedDate,
+                capacity: 23,
             })
             .then(function () {
                 console.log('success', arguments)
                 vm.showAddForm(false);
                 getEvents();
+                resetCurrentEvent();
             })
             .catch(function () {
                 console.log('error', arguments)
             });
-
-        resetCurrentEvent();
     }
 
+    function editEvent() {
+        console.log(`i will edit an event with ... ${vm.currentEvent.id}`);
+        dataService
+            .editItem('rt-events', vm.currentEvent.id, {
+                timeId: vm.currentEvent.selectedTime,
+                disciplines: vm.currentEvent.selectedDisciplines,
+                cabinets: vm.currentEvent.selectedCabinets,
+                date: vm.calendar.selectedDate,
+                capacity: 23
+            })
+            .then(function () {
+                console.log('success', arguments)
+                vm.showEditForm(false);
+                getEvents();
+                resetCurrentEvent();
+            })
+            .catch(function () {
+                console.log('error', arguments)
+            });
+            
+    }
+
+    function deleteEvent(id) {
+        console.log(`i will delete an event with id ${id}`);
+        dataService
+            .deleteItem('rt-events', id)
+            .then(data => {
+                console.log(data);
+            })
+    }
+
+    
     // Calendar-related function definitions
     function onDayClick(dateString) {
         const date = new Date(dateString);
         const key = [date.getFullYear(), numFmt(date.getMonth() + 1), numFmt(date.getDate())].join("-");
         vm.selectedDayEvents = vm.dayToEventsMap[key] || [];
+
         console.log(vm.dayToEventsMap);
         console.log(vm.selectedDayEvents);
     };

@@ -2,12 +2,12 @@
     <h1 class="display-4">Расписание РТ</h1>
 </div>
 <div class="container-fluid">
+    <response-service-message></response-service-message>
     <div class="row mb-2">
         <div class="col-6 justify-content-center">
             <h5 class="mdl-typeography--headline">Calendar Layout</h5>
             <md-button ng-click="$ctrl.calendar.setDirection('vertical')">Agenda</md-button>
             <md-button ng-click="$ctrl.calendar.setDirection('horizontal')">Calendar</md-button>
-    <response-service-message></response-service-message>
         </div>
     </div>
 
@@ -48,15 +48,23 @@
                             В этот день не запланировано никаких событий
                         </div>
                         <div class="col-12" ng-if="!$ctrl.isAddFormVisible && !$ctrl.isEditFormVisible">
-                            <div ng-repeat="event in $ctrl.selectedDayEvents" class="card">
+                            <div ng-repeat="event in $ctrl.selectedDayEvents track by event._id" class="card">
                                 <div class="card-body">
-                                        <span>{{event.timeId.name}}</span>
-                                        <div ng-repeat="discipline in event.disciplines">
-                                            {{discipline.name}}
+                                        <div><strong>Время:</strong> {{event.timeId.name}}</div>
+                                        <div>
+                                            <strong>Предметы:</strong>
+                                            <div ng-repeat="discipline in event.disciplines">
+                                                {{discipline.name}}
+                                            </div>
                                         </div>
-                                        <div ng-repeat="cabinet in event.cabinets">
-                                            {{cabinet.name}}
+                                        <div>
+                                            <strong>Кабинеты:</strong>
+                                            <div ng-repeat="cabinet in event.cabinets">
+                                                {{cabinet.name}}
+                                            </div>
                                         </div>
+                                        <button class="btn btn-primary" ng-click="$ctrl.showEditForm(true, event)">Редактировать</button>
+                                        <button class="btn btn-danger" ng-click="$ctrl.deleteEvent(event._id)">Удалить</button>
                                 </div>
                             </div>
                         </div>
@@ -100,8 +108,8 @@
                         </div>    
                     </md-card-content>    
                     <md-card-actions layout="row" layout-align="end center">
-                        <md-button class="md-raised md-primary" ng-click="$ctrl.submitEvent()">Сохранить</md-button>
-                        <md-button class="md-raised md-secondary" ng-click="$ctrl.cancelSubmission(false)">Отмена</md-button>
+                        <md-button class="md-raised md-primary" ng-click="$ctrl.addEvent()">Сохранить</md-button>
+                        <md-button class="md-raised md-secondary" ng-click="$ctrl.cancelSubmission()">Отмена</md-button>
                     </md-card-actions>    
                  </md-card>
 
@@ -146,7 +154,7 @@
                         </div>    
                     </md-card-content>    
                     <md-card-actions layout="row" layout-align="end center">
-                        <md-button class="md-raised md-primary" ng-click="$ctrl.submitEvent()">Сохранить</md-button>
+                        <md-button class="md-raised md-primary" ng-click="$ctrl.editEvent()">Сохранить</md-button>
                         <md-button class="md-raised md-secondary" ng-click="$ctrl.cancelSubmission()">Отмена</md-button>
                     </md-card-actions>    
                  </md-card>
