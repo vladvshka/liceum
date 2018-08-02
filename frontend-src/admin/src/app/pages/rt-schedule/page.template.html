@@ -2,57 +2,77 @@
     <h1 class="display-4">Расписание РТ</h1>
 </div>
 <div class="container-fluid">
-    <div class="row mb-4 text-center">
-        <div class="col">
-            <p>{{ $ctrl.calendar.msg || "Click on a date/button to get started"}}</p>
-            <pre>$ctrl.calendar.selectedDate = {{ $ctrl.calendar.selectedDate | json }}</pre>
+    <div class="row mb-2">
+        <div class="col-6 justify-content-center">
+            <h5 class="mdl-typeography--headline">Calendar Layout</h5>
+            <md-button ng-click="$ctrl.calendar.setDirection('vertical')">Agenda</md-button>
+            <md-button ng-click="$ctrl.calendar.setDirection('horizontal')">Calendar</md-button>
         </div>
     </div>
-    
+
     <div class="row justify-content-center mb-4">
-        <div class="col-8">
+        <div class="col-6">
             <div style="height: 800px;">
                 <calendar-md id="calendar-demo"
-                        flex layout layout-fill
-                        calendar-direction="$ctrl.calendar.direction"
-                        on-prev-month="$ctrl.calendar.onPrevMonthClick"
-                        on-next-month="$ctrl.calendar.onNextMonthClick"
-                        on-day-click="$ctrl.calendar.onDayClick"
-                        title-format="$ctrl.calendar.titleFormat"
-                        ng-model='$ctrl.calendar.selectedDate'
-                        day-format="$ctrl.calendar.dayFormat"
-                        day-label-format="$ctrl.calendar.dayLabelFormat"
-                        day-label-tooltip-format="$ctrl.calendar.dayLabelTooltipFormat"
-                        week-starts-on="$ctrl.calendar.weekStartsOn"
-                        tooltips="$ctrl.calendar.tooltipsEnabled"
-                        day-tooltip-format="$ctrl.calendar.dayTooltipFormat"
-                        day-content="$ctrl.calendar.setDayContent"
-                        disable-future-selection="$ctrl.calendar.disableFutureDates">
-                    </calendar-md>
+                    flex layout layout-fill
+                    calendar-direction="$ctrl.calendar.direction"
+                    on-prev-month="$ctrl.calendar.onPrevMonthClick"
+                    on-next-month="$ctrl.calendar.onNextMonthClick"
+                    on-day-click="$ctrl.calendar.onDayClick"
+                    title-format="$ctrl.calendar.titleFormat"
+                    ng-model='$ctrl.calendar.selectedDate'
+                    day-format="$ctrl.calendar.dayFormat"
+                    day-label-format="$ctrl.calendar.dayLabelFormat"
+                    day-label-tooltip-format="$ctrl.calendar.dayLabelTooltipFormat"
+                    week-starts-on="$ctrl.calendar.weekStartsOn"
+                    tooltips="$ctrl.calendar.tooltipsEnabled"
+                    day-tooltip-format="$ctrl.calendar.dayTooltipFormat"
+                    day-content="$ctrl.calendar.setDayContent"
+                    disable-future-selection="$ctrl.calendar.disableFutureDates">
+                </calendar-md>
             </div>
         </div>
-        <div class="col-4">
-            
+        <div class="col-6">
             <div ng-if="!$ctrl.calendar.selectedDate">
                 Дата не выбрана
             </div>
             <div ng-if="$ctrl.calendar.selectedDate">
                 <md-button class="md-raised md-primary" ng-click="$ctrl.showAddForm(true)">Добавить РТ</md-button>
-                <md-button class="md-raised md-secondary" ng-click="$ctrl.showAddForm(flase)">Отмена</md-button>
+                <md-button class="md-raised md-secondary" ng-click="$ctrl.cancelSubmission(false)">Отмена</md-button>
                 <pre> {{ $ctrl.calendar.selectedDate }}</pre>
-                 <pre> {{  }} </pre>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12" ng-if="$ctrl.selectedDayEvents.length === 0">
+                            В этот день не запланировано никаких событий
+                        </div>
+                        <div class="col-12" ng-if="!$ctrl.isAddFormVisible && !$ctrl.isEditFormVisible">
+                            <div ng-repeat="event in $ctrl.selectedDayEvents" class="card">
+                                <div class="card-body">
+                                        <span>{{event.timeId.name}}</span>
+                                        <div ng-repeat="discipline in event.disciplines">
+                                            {{discipline.name}}
+                                        </div>
+                                        <div ng-repeat="cabinet in event.cabinets">
+                                            {{cabinet.name}}
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                  <md-card ng-if="$ctrl.isAddFormVisible">
                     <md-card-title>
                         <md-card-title-text>
-                            <span class="md-headline">Add form</span>
+                            <span class="md-headline">Добавить событие</span>
                         </md-card-title-text>
                     </md-card-title>   
                     <md-card-content>
                         <div layout="row">
                             <md-input-container>
                                 <label>Время</label>
-                                <md-select ng-model="$ctrl.selectedTime">
+                                <md-select ng-model="$ctrl.currentEvent.selectedTime">
                                     <md-option><em>None</em></md-option>
                                     <md-option ng-repeat="time in $ctrl.times.items track by time._id" 
                                                 ng-value="time._id">
@@ -63,7 +83,7 @@
 
                             <ul>
                                 <li  ng-repeat="cabinet in $ctrl.cabinets.items track by cabinet._id">
-                                    <md-checkbox ng-checked="$ctrl.exists(cabinet, $ctrl.selectedCabinets)" ng-click="$ctrl.toggle(cabinet, $ctrl.selectedCabinets)">
+                                    <md-checkbox ng-checked="$ctrl.exists(cabinet, $ctrl.currentEvent.selectedCabinets)" ng-click="$ctrl.toggle(cabinet, $ctrl.currentEvent.selectedCabinets)">
                                         {{ cabinet.name }} ({{cabinet.capacity}})
                                     </md-checkbox>
                                 </li>
@@ -71,7 +91,7 @@
 
                             <ul>
                                 <li  ng-repeat="discipline in $ctrl.disciplines.items track by discipline._id">
-                                    <md-checkbox ng-checked="$ctrl.exists(discipline, $ctrl.selectedDisciplines)" ng-click="$ctrl.toggle(discipline, $ctrl.selectedDisciplines)">
+                                    <md-checkbox ng-checked="$ctrl.exists(discipline, $ctrl.currentEvent.selectedDisciplines)" ng-click="$ctrl.toggle(discipline, $ctrl.currentEvent.selectedDisciplines)">
                                         {{ discipline.name }}
                                     </md-checkbox>
                                 </li>
@@ -79,10 +99,58 @@
                         </div>    
                     </md-card-content>    
                     <md-card-actions layout="row" layout-align="end center">
-                        <md-button class="md-raised md-primary" ng-click="$ctrl.saveEvent()">Сохранить</md-button>
-                        <md-button class="md-raised md-secondary" ng-click="$ctrl.showAddForm(flase)">Отмена</md-button>
+                        <md-button class="md-raised md-primary" ng-click="$ctrl.submitEvent()">Сохранить</md-button>
+                        <md-button class="md-raised md-secondary" ng-click="$ctrl.cancelSubmission(false)">Отмена</md-button>
                     </md-card-actions>    
                  </md-card>
+
+                 <md-card ng-if="$ctrl.isEditFormVisible">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Редактировать событие</span>
+                        </md-card-title-text>
+                    </md-card-title>   
+                    <md-card-content>
+                        <div layout="row">
+                            <md-input-container>
+                                <label>Время</label>
+                                <md-select ng-model="$ctrl.currentEvent.selectedTime">
+                                    <md-option><em>None</em></md-option>
+                                    <md-option ng-repeat="time in $ctrl.times.items track by time._id" 
+                                                ng-value="time._id">
+                                        {{time.name}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+
+                            <ul>
+                                <li  ng-repeat="cabinet in $ctrl.cabinets.items track by cabinet._id">
+                                    <md-checkbox
+                                        ng-checked="$ctrl.exists(cabinet, $ctrl.currentEvent.selectedCabinets)"
+                                        ng-click="$ctrl.toggle(cabinet, $ctrl.currentEvent.selectedCabinets)">
+                                        {{ cabinet.name }} ({{cabinet.capacity}})
+                                    </md-checkbox>
+                                </li>
+                            </ul>
+
+                            <ul>
+                                <li  ng-repeat="discipline in $ctrl.disciplines.items track by discipline._id">
+                                    <md-checkbox
+                                        ng-checked="$ctrl.exists(discipline, $ctrl.currentEvent.selectedDisciplines)"
+                                        ng-click="$ctrl.toggle(discipline, $ctrl.currentEvent.selectedDisciplines)">
+                                        {{ discipline.name }}
+                                    </md-checkbox>
+                                </li>
+                            </ul>
+                        </div>    
+                    </md-card-content>    
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-raised md-primary" ng-click="$ctrl.submitEvent()">Сохранить</md-button>
+                        <md-button class="md-raised md-secondary" ng-click="$ctrl.cancelSubmission()">Отмена</md-button>
+                    </md-card-actions>    
+                 </md-card>
+
+
             </div>
         </div>
 
@@ -104,14 +172,7 @@
                 </div>
 
                 <div class="mdl-cell mdl-cell--12-col mdl-cell--6-col-desktop right-col">
-                    <section>
-                        <h5 class="mdl-typeography--headline">Calendar Layout</h5>
-                        <p>You can also change the calendar layout dynamically.</p>
-                        <md-button ng-click="$ctrl.calendar.setDirection('vertical')">Agenda</md-button>
-                        <md-button ng-click="$ctrl.calendar.setDirection('horizontal')">Calendar</md-button>
-                    </section>
-
-                    <section>
+                   <!--  <section>
                         <h5 class="mdl-typeography--headline">Selecting Dates</h5>
                         <p>
                             You can select multiple dates. Just make sure your ng-model
@@ -124,7 +185,7 @@
                             <md-button ng-click="$ctrl.calendar.selectedDate = [];">Multiple dates</md-button>
                             <md-button ng-click="$ctrl.calendar.selectedDate = false;">Single date</md-button>
                         </p>
-                    </section>
+                    </section> -->
 
                     <section>
                         <h5 class="mdl-typeography--headline">Disable future selection</h5>

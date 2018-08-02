@@ -66,6 +66,7 @@ function filteredSearch(queryParams, filterFields) {
       .sort(queryParams.sortDirection + queryParams.sortField)
       .skip(queryParams.itemsPerPage * (queryParams.page - 1))
       .limit(queryParams.itemsPerPage)
+      .populate('cabinets')
       .populate('disciplines')
       .populate('timeId')
     return Promise.all([findQuery.exec(), countQuery.countDocuments().exec()]);
