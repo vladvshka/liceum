@@ -33,7 +33,7 @@ const schema = new Schema({
 
 schema.pre('save', beforeSave);
 schema.statics.filteredSearch = filteredSearch;
-
+schema.statics.findByReqAndUpdate = findByReqAndUpdate;
 //do we need it any time besides pre save?
 function beforeSave(next) {
     //sum capacity
@@ -98,6 +98,14 @@ function filteredSearch(queryParams, filterFields) {
       countQuery.find(findFilter);
     }
   }
+function findByReqAndUpdate(req) {
+    const id = req.params.id;
+    const update = req.body;
+    const options = { new: true, runValidators: true };
+    update.updated = Date.now();
+    console.log("updete");
+    return this.findByIdAndUpdate(id, update, options);
+}  
 
 const model = mongoose.model('rt-events', schema);
 

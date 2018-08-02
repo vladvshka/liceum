@@ -10,7 +10,7 @@ const model = require("../../models/" + DATA_NAME);
 router.get(`/${DATA_NAME}`, getItems);
 router.get(`/${DATA_NAME}/:id`, getItem);
 router.post(`/${DATA_NAME}`, postItem);
-//router.put(`/${DATA_NAME}/:id`, editItem);
+router.put(`/${DATA_NAME}/:id`, editItem);
 router.delete(`/${DATA_NAME}/:id`, deleteItem);
 
 function postItem(req, res, next) {
@@ -80,6 +80,18 @@ function deleteItem(req, res, next) {
     .catch(function(err) {
       console.error(err);
       res.status(500).send("DB deleting error");
+    });
+}
+
+function editItem(req, res, next) {
+  model
+    .findByReqAndUpdate(req)
+    .then(function(doc) {
+      res.sendStatus(200);
+    })
+    .catch(function(err) {
+      console.error(err);
+      res.status(500).send("DB updating error");
     });
 }
 
