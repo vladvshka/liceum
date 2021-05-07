@@ -19,7 +19,7 @@
     "pug": "2.0.0-beta11"
   },
   "devDependencies": {
-    "grunt": "^1.0.3",
+    "grunt": "^1.3.0",
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-exec": "^3.0.0",
